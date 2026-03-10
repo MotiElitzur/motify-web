@@ -3,187 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy for Motify</title>
+    <title>Motify — Meet People Near You</title>
     <style>
         :root {
-            --primary-color: #6a1b9a; /* A modern purple */
-            --text-color: #333;
-            --background-color: #f8f9fa;
-            --container-background: #ffffff;
-            --border-color: #e9ecef;
-            --highlight-bg: #f3e5f5;
-            --highlight-border: #ab47bc;
+            --primary: #6a1b9a;
+            --primary-light: #ab47bc;
+            --primary-dark: #4a148c;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --border: #2a2a2a;
+            --accent-bg: rgba(106, 27, 154, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.7;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 30px 40px;
-            background-color: var(--container-background);
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 13, 13, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 16px 0;
         }
 
-        h1 {
-            color: var(--text-color);
-            font-size: 2.2em;
+        nav .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4em;
             font-weight: 700;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 10px;
-        }
-
-        .last-updated {
-            font-size: 0.9em;
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            color: var(--primary-color);
-            font-size: 1.5em;
-            font-weight: 600;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        h3 {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-
-        p, li {
-            font-size: 1em;
-            color: #555;
-        }
-
-        a {
-            color: var(--primary-color);
+            color: var(--text);
             text-decoration: none;
-            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        a:hover {
+        .logo img {
+            height: 32px;
+            width: 32px;
+            border-radius: 8px;
+        }
+
+        .logo span {
+            color: var(--primary-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background:
+                radial-gradient(circle, rgba(0, 200, 200, 0.5) 0px, transparent 3px),
+                radial-gradient(circle, transparent 18%, rgba(0, 200, 200, 0.12) 18.5%, rgba(0, 200, 200, 0.12) 19%, transparent 19.5%),
+                radial-gradient(circle, transparent 38%, rgba(0, 200, 200, 0.10) 38.5%, rgba(0, 200, 200, 0.10) 39%, transparent 39.5%),
+                radial-gradient(circle, transparent 62%, rgba(0, 200, 200, 0.08) 62.5%, rgba(0, 200, 200, 0.08) 63%, transparent 63.5%),
+                radial-gradient(circle, rgba(0, 180, 180, 0.12) 0%, rgba(0, 120, 120, 0.04) 40%, transparent 70%);
+            pointer-events: none;
+            animation: radar-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes radar-pulse {
+            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+        }
+
+        .hero {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 160px 24px 100px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.2em;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary-light), #e040fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto 40px;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .store-badge {
+            height: 52px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .store-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sections */
+        section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.05em;
+            max-width: 540px;
+            margin: 0 auto 50px;
+        }
+
+        /* How it Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .step {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--accent-bg);
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 1.2em;
+            border-radius: 50%;
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.92em;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+
+        .feature-icon {
+            font-size: 1.6em;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: var(--text-muted);
+            font-size: 0.92em;
+        }
+
+        /* Support / FAQ */
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item h3 {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p, .faq-item ol {
+            color: var(--text-muted);
+            font-size: 0.95em;
+        }
+
+        .faq-item ol {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .faq-item li {
+            margin-bottom: 4px;
+        }
+
+        /* Contact */
+        .contact-box {
+            background: var(--accent-bg);
+            border: 1px solid rgba(171, 71, 188, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            margin: 40px auto 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .contact-box p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-bottom: 4px;
+        }
+
+        .contact-box a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-box a:hover {
             text-decoration: underline;
         }
 
-        ul, ol {
-            padding-left: 25px;
+        /* Footer */
+        footer {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
-        li {
-            margin-bottom: 10px;
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85em;
         }
-        
-        strong {
-            color: var(--text-color);
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* Privacy Policy */
+        .privacy-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .privacy-content h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .privacy-content h4 {
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .privacy-content p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+
+        .privacy-content ul, .privacy-content ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .privacy-content li {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .privacy-content strong {
+            color: var(--text);
             font-weight: 600;
         }
 
-        .highlight-box {
-            background-color: var(--highlight-bg);
-            border-left: 4px solid var(--highlight-border);
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-        
-        .highlight-box p, .highlight-box li {
-            margin: 0;
-            font-size: 0.95em;
-        }
-        
-        .highlight-box strong {
-            color: var(--highlight-border);
+        .privacy-content a {
+            color: var(--primary-light);
+            text-decoration: none;
         }
 
-        .data-section {
-            background-color: #f9f9f9;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .data-section h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-        }
-        
-        code {
-            background-color: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
+        .privacy-content a:hover {
+            text-decoration: underline;
         }
 
+        .privacy-highlight {
+            background: var(--accent-bg);
+            border: 1px solid rgba(171, 71, 188, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .privacy-highlight p {
+            margin-bottom: 8px;
+        }
+
+        .privacy-highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        .privacy-updated {
+            color: var(--text-muted);
+            font-size: 0.85em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
+            .hero h1 {
+                font-size: 2.2em;
             }
-            h1 {
-                font-size: 1.8em;
+
+            .hero p {
+                font-size: 1.05em;
             }
-            h2 {
-                font-size: 1.3em;
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Privacy Policy for Motify</h1>
-        <p class="last-updated">Last Updated: October 26, 2023</p>
-
-        <p>Welcome to Motify! Your privacy is critically important to us. This Privacy Policy explains how Motify ("we," "us," or "our") collects, uses, shares, and protects your information when you use our mobile application, Motify (the "App").</p>
-        <p>By using our App, you agree to the collection and use of information in accordance with this policy.</p>
-        
-        <div class="highlight-box">
-            <p><strong>A Clear Note on Proximity Data</strong></p>
-            <p>Our service connects you with nearby users by using your device's Bluetooth signal. We want to be clear:</p>
-            <ul>
-                <li><strong>We do not use or request GPS location data.</strong> Our functionality is based on short-range Bluetooth proximity only.</li>
-                <li>To be compliant with app store policies, we declare the collection of "Approximate Location." This is because using Bluetooth to detect nearby devices is categorized as a form of approximate location by platform operators. Our use is strictly for discovering other users in your immediate vicinity, not for tracking your physical location history.</li>
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
+            <ul class="nav-links">
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#privacy">Privacy</a></li>
             </ul>
         </div>
-        
-        <section>
-            <h2>1. Information We Collect</h2>
-            
-            <h3>a) Information You Provide to Us</h3>
+    </nav>
+
+    <div class="hero-wrapper">
+        <div class="hero">
+            <h1>Meet people <span>near you</span></h1>
+            <p>Motify uses Bluetooth to find singles around you in real life. No endless swiping through strangers you'll never meet.</p>
+            <div class="badge-row">
+                <a href="#">
+                    <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                <a href="#">
+                    <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section id="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to start meeting people you actually cross paths with.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Keep Motify Running</h3>
+                <p>Go about your day. Motify works quietly in the background using Bluetooth Low Energy.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Discover Nearby People</h3>
+                <p>When another Motify user is near you, you'll both appear on each other's radar.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Match and Chat</h3>
+                <p>Like someone? If they like you back, it's a match. Start a conversation while you're still nearby.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2 class="section-title">Why Motify</h2>
+        <p class="section-subtitle">Built for real connections, not infinite scrolling.</p>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📍</div>
+                <h3>Real Proximity, Not GPS</h3>
+                <p>We use Bluetooth, not location tracking. You see people who are actually near you, and your exact location is never shared or stored.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👤</div>
+                <h3>Incognito Mode</h3>
+                <p>Browse profiles without being visible. You're in control of who can see you.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p>Encrypted Bluetooth identifiers. No location history. No data sold to advertisers. Your privacy is built into the architecture.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💬</div>
+                <h3>Chat with Purpose</h3>
+                <p>Matched with someone? Start chatting and make plans. You already know you're in the same area.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="support">
+        <h2 class="section-title">Support</h2>
+        <p class="section-subtitle">Find answers to common questions or get in touch.</p>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3>How does Motify work?</h3>
+                <p>Motify uses Bluetooth Low Energy (BLE) to detect other Motify users near you. When you're in proximity, you'll both appear on each other's radar. If you both like each other, it's a match and you can start chatting.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Does Motify track my location?</h3>
+                <p>No. Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically nearby. We never know or store where you are.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Why does Motify need Bluetooth permission?</h3>
+                <p>Bluetooth is the core technology that powers Motify. It's how we detect nearby users. Without Bluetooth permission, the app cannot function.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I delete my account?</h3>
+                <p>You can delete your account directly in the app:</p>
+                <ol>
+                    <li>Go to your <strong>Profile</strong> screen</li>
+                    <li>Tap <strong>Delete Account</strong></li>
+                    <li>Confirm the deletion</li>
+                </ol>
+                <p>All your personal data will be permanently removed from our servers.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I report a user?</h3>
+                <p>Open the user's profile and tap the Report button. All reports are reviewed promptly and appropriate action will be taken.</p>
+            </div>
+            <div class="faq-item">
+                <h3>The app isn't finding anyone nearby</h3>
+                <p>Make sure Bluetooth is turned on and that Motify has Bluetooth permission in your device settings. The app needs to be running (even in the background) to detect nearby users.</p>
+            </div>
+            <div class="faq-item">
+                <h3>I'm not receiving notifications</h3>
+                <p>Check that notifications are enabled for Motify in your device settings. On Android, also make sure battery optimization isn't restricting the app.</p>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <h3>Still need help?</h3>
+            <p>Reach out to us directly.</p>
+            <p><a href="mailto:motify2026@gmail.com">motify2026@gmail.com</a></p>
+            <p>We aim to respond within 48 hours.</p>
+        </div>
+    </section>
+
+    <section id="privacy">
+        <h2 class="section-title">Privacy Policy</h2>
+        <p class="privacy-updated">Last Updated: March 10, 2026</p>
+
+        <div class="privacy-content">
+            <p>Welcome to Motify! Your privacy is critically important to us. This Privacy Policy explains how Motify ("we," "us," or "our") collects, uses, shares, and protects your information when you use our mobile application, Motify (the "App").</p>
+            <p>By using our App, you agree to the collection and use of information in accordance with this policy.</p>
+
+            <div class="privacy-highlight">
+                <p><strong>A Clear Note on Proximity Data</strong></p>
+                <p>Our service connects you with nearby users by using your device's Bluetooth signal. We want to be clear:</p>
+                <ul>
+                    <li><strong>We do not use or request GPS location data.</strong> Our functionality is based on short-range Bluetooth proximity only.</li>
+                    <li>To be compliant with app store policies, we declare the collection of "Approximate Location." This is because using Bluetooth to detect nearby devices is categorized as a form of approximate location by platform operators. Our use is strictly for discovering other users in your immediate vicinity, not for tracking your physical location history.</li>
+                </ul>
+            </div>
+
+            <h3>1. Information We Collect</h3>
+
+            <h4>a) Information You Provide to Us</h4>
             <ul>
-                <li><strong>Account Information:</strong> To create and secure your account, we collect essential information such as your phone number for verification.</li>
-                <li><strong>Profile Content:</strong> You may voluntarily add information to build your public profile. This includes details like your name, a descriptive biography, photos, and any other information you choose to share.</li>
+                <li><strong>Account Information:</strong> To create and secure your account, we collect your phone number for verification.</li>
+                <li><strong>Profile Content:</strong> You may voluntarily add information to build your profile, including your name, biography, photos, and any other information you choose to share.</li>
             </ul>
 
-            <h3>b) Information We Collect Automatically</h3>
+            <h4>b) Information We Collect Automatically</h4>
             <ul>
-                <li><strong>Proximity & Connection Data:</strong> As described above, we use Bluetooth signals to detect nearby users. When a connection is made, we store an encrypted record of this interaction, linking the user identifiers, the time, and the status of the connection.</li>
-                <li><strong>Usage Information:</strong> We log activity on our services, including usage dates and times, features you’ve used, and how you interact with other users.</li>
-                <li><strong>Device Information:</strong> We collect information from and about the device(s) you use to access our App, including: hardware and software information such as device model, OS version, unique device identifiers, and Bluetooth settings.</li>
-                <li><strong>Diagnostic & Log Data:</strong> We automatically collect log files and crash reports, which include technical data that helps us diagnose and fix issues with the App.</li>
+                <li><strong>Proximity & Connection Data:</strong> We use Bluetooth signals to detect nearby users. When a connection is made, we store an encrypted record linking the user identifiers, time, and connection status.</li>
+                <li><strong>Usage Information:</strong> We log activity on our services, including usage dates and times, features used, and how you interact with other users.</li>
+                <li><strong>Device Information:</strong> We collect device model, OS version, unique device identifiers, and Bluetooth settings.</li>
+                <li><strong>Diagnostic & Log Data:</strong> We automatically collect log files and crash reports to help diagnose and fix issues.</li>
             </ul>
-        </section>
 
-        <section>
-            <h2>2. How We Use Your Information</h2>
-            <p>We process your data to provide and improve our services. This includes using your information to:</p>
+            <h3>2. How We Use Your Information</h3>
             <ul>
                 <li>Create and manage your account and profile.</li>
                 <li>Enable the core proximity-based discovery and connection features.</li>
@@ -191,81 +633,63 @@
                 <li>Ensure the security of our platform and prevent fraudulent activity.</li>
                 <li>Perform diagnostics, fix bugs, and improve the App's functionality.</li>
             </ul>
-        </section>
 
-        <section>
-            <h2>3. How We Share Your Information</h2>
+            <h3>3. How We Share Your Information</h3>
             <ul>
-                <li><strong>With Other Users:</strong> You share information with other users when you voluntarily disclose information on the service (your public profile).</li>
-                <li><strong>With Our Service Providers and Partners:</strong> We rely on third-party companies to facilitate our service ("Service Providers"). These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose. These services include data hosting, user authentication, cloud storage for photos, and analytics.</li>
-                <li><strong>For Corporate Transactions:</strong> We may transfer your information if we are involved in a merger, sale, acquisition, or other restructuring.</li>
-                <li><strong>When Required by Law:</strong> We may disclose your information if reasonably necessary to comply with a legal process, assist in the prevention of crime, or protect the safety of any person.</li>
+                <li><strong>With Other Users:</strong> Your public profile is visible to other users when you are nearby.</li>
+                <li><strong>With Our Service Providers:</strong> We use third-party vendors (primarily Google Firebase) to help operate, secure, and analyze our App. These providers are bound by confidentiality obligations.</li>
+                <li><strong>For Corporate Transactions:</strong> We may transfer your information in connection with a merger, sale, acquisition, or restructuring.</li>
+                <li><strong>When Required by Law:</strong> We may disclose your information to comply with legal process, assist in crime prevention, or protect the safety of any person.</li>
             </ul>
-        </section>
 
-        <section>
-            <h2>4. Your Rights and Choices</h2>
-            <p>We want you to be in control of your information. You have the following rights:</p>
+            <h3>4. Data Retention and Deletion</h3>
+            <p>We keep your personal information only as long as needed for legitimate business purposes. When you delete your account, we begin removing your data from our servers immediately. Residual data may remain in secure backups for a limited time before being permanently erased.</p>
+
+            <h3>5. Your Rights and Choices</h3>
             <ul>
                 <li><strong>Access / Portability:</strong> You can request a copy of the information we hold about you.</li>
-                <li><strong>Correction / Rectification:</strong> If you believe any information we hold about you is inaccurate, you can update it through your profile settings.</li>
-                <li><strong>Deletion / Erasure:</strong> You can delete your account at any time directly through the App. See Section 9 for detailed instructions.</li>
-                <li><strong>Permissions:</strong> You can manage app permissions (Bluetooth, Notifications) in your device's system settings. Revoking permissions may cause the App's core features to stop working.</li>
+                <li><strong>Correction:</strong> Update your information through your profile settings.</li>
+                <li><strong>Deletion:</strong> Delete your account at any time directly through the App.</li>
+                <li><strong>Permissions:</strong> Manage app permissions (Bluetooth, Notifications) in your device settings.</li>
             </ul>
-        </section>
 
-        <section>
-            <h2>5. Security of Your Information</h2>
-            <p>We work hard to protect you from unauthorized access to or alteration, disclosure, or destruction of your personal information. We use technical and administrative security measures, including encrypting data in transit and at rest. The identifier broadcasted via Bluetooth is also encrypted to protect your identity.</p>
-        </section>
+            <h3>6. Security</h3>
+            <p>We use technical and administrative security measures, including encrypting data in transit and at rest. The identifier broadcasted via Bluetooth is encrypted to protect your identity.</p>
 
-        <section>
-            <h2>6. International Data Transfers</h2>
-            <p>Your information is collected, transferred, stored, and processed in various countries where our third-party service providers maintain facilities. These countries may have data protection laws that are different from the laws of your country.</p>
-        </section>
+            <h3>7. International Data Transfers</h3>
+            <p>Your information may be transferred to and processed in countries where our service providers maintain facilities. These countries may have different data protection laws than your own.</p>
 
-        <section>
-            <h2>7. Children's Privacy</h2>
-            <p>Our services are restricted to users who are 18 years of age or older. We do not permit users under the age of 18 on our platform. If you suspect a user is under 18, please use the reporting mechanism in the App.</p>
-        </section>
-        
-        <section>
-            <h2 id="child-safety">8. Child Safety Standards & Reporting</h2>
-            <p>Motify is committed to creating a safe environment and has a zero-tolerance policy towards Child Sexual Abuse Material (CSAM) and any form of child exploitation. Our platform is strictly for users aged 18 and over.</p>
-            <h3>Our Commitment & Practices:</h3>
-            <ul>
-                <li><strong>Strict Age Gate:</strong> Our services are explicitly restricted to users who are 18 years of age or older. We take measures during the registration process to enforce this policy.</li>
-                <li><strong>Prohibition of CSAE:</strong> Our terms of service strictly prohibit the creation, sharing, or distribution of any content that exploits or endangers children.</li>
-                <li><strong>In-App Reporting Tools:</strong> We provide clear and easy-to-use in-app tools for users to report other users or content that they suspect may be in violation of our policies, including any child safety concerns. Every user profile has a "Report" option for this purpose.</li>
-                <li><strong>Review and Action:</strong> All user reports related to child safety are treated with the highest priority. We will review such reports promptly and take appropriate action, which may include removing content, permanently banning the user account, and reporting the incident to the appropriate law enforcement authorities.</li>
-            </ul>
-            <h3>Reporting to Authorities:</h3>
-            <p>In accordance with applicable laws and regulations, Motify is committed to reporting any discovered instances of CSAM to the relevant national and international authorities, such as the National Center for Missing & Exploited Children (NCMEC) in the United States and other relevant law enforcement agencies globally.</p>
-        </section>
+            <h3>8. Children's Privacy</h3>
+            <p>Our services are restricted to users who are 18 years of age or older. We do not permit users under the age of 18 on our platform.</p>
 
-        <section>
-            <h2>9. Changes to This Privacy Policy</h2>
-            <p>We may update this Privacy Policy from time to time. When we do, we will change the "Last Updated" date at the top of the policy. We encourage you to review this policy periodically.</p>
-        </section>
-        
-        <section>
-            <h2 id="data-deletion">10. Account & Data Deletion Instructions</h2>
-            <p>You have the right to delete your Motify account and its associated data at any time. This page provides clear instructions on how to do so.</p>
-            <h3>How to Delete Your Account</h3>
+            <h3>9. Child Safety Standards</h3>
+            <p>Motify has a zero-tolerance policy towards Child Sexual Abuse Material (CSAM) and any form of child exploitation. We enforce a strict age gate during registration, prohibit CSAE content in our terms of service, provide in-app reporting tools, and will report any discovered instances to relevant authorities including NCMEC.</p>
+
+            <h3>10. Account & Data Deletion</h3>
+            <p>You can delete your account directly in the app:</p>
             <ol>
-                <li>Open the Motify app on your device.</li>
-                <li>Navigate to the <strong>Profile</strong> screen by tapping the profile icon in the bottom navigation bar.</li>
-                <li>Tap the <strong>"Delete Account"</strong> button.</li>
-                <li>A confirmation prompt will appear. Confirm that you wish to permanently delete your account.</li>
+                <li>Open the Motify app.</li>
+                <li>Navigate to the <strong>Profile</strong> screen.</li>
+                <li>Tap <strong>Delete Account</strong>.</li>
+                <li>Confirm that you wish to permanently delete your account.</li>
             </ol>
-            <p>Once confirmed, we will begin the process of permanently deleting your account and associated personal data from our live systems. Residual data may remain in secure backups for a limited time for disaster recovery before being permanently erased.</p>
-        </section>
 
-        <section>
-            <h2>11. Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, or if you have trouble with the in-app deletion process, please contact us at: <a href="mailto:motify2026@gmail.com">motify2026@gmail.com</a></p>
-        </section>
-    </div>
+            <h3>11. Changes to This Privacy Policy</h3>
+            <p>We may update this Privacy Policy from time to time. When we do, we will change the "Last Updated" date at the top. We encourage you to review this policy periodically.</p>
+
+            <h3>12. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:motify2026@gmail.com">motify2026@gmail.com</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Motify. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a href="#privacy">Privacy Policy</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="mailto:motify2026@gmail.com">Contact</a></li>
+        </ul>
+    </footer>
 
 </body>
 </html>
