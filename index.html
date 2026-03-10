@@ -96,7 +96,8 @@
         /* Hero */
         .hero-wrapper {
             position: relative;
-            overflow: visible;
+            overflow: hidden;
+            padding-bottom: 40px;
         }
 
         .hero-wrapper::before {
@@ -105,15 +106,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 1400px;
-            height: 1400px;
+            width: 700px;
+            height: 700px;
             background:
                 radial-gradient(circle, rgba(0, 240, 255, 0.5) 0px, transparent 3px),
-                radial-gradient(circle, transparent 18%, rgba(0, 240, 255, 0.12) 18.5%, rgba(0, 240, 255, 0.12) 19%, transparent 19.5%),
-                radial-gradient(circle, transparent 32%, rgba(0, 240, 255, 0.10) 32.5%, rgba(0, 240, 255, 0.10) 33%, transparent 33.5%),
-                radial-gradient(circle, transparent 46%, rgba(0, 240, 255, 0.08) 46.5%, rgba(0, 240, 255, 0.08) 47%, transparent 47.5%),
-                radial-gradient(circle, transparent 62%, rgba(0, 240, 255, 0.06) 62.5%, rgba(0, 240, 255, 0.06) 63%, transparent 63.5%),
-                radial-gradient(circle, rgba(0, 240, 255, 0.10) 0%, rgba(0, 79, 82, 0.05) 40%, transparent 70%);
+                radial-gradient(circle, transparent 20%, rgba(0, 240, 255, 0.14) 20.5%, rgba(0, 240, 255, 0.14) 21%, transparent 21.5%),
+                radial-gradient(circle, transparent 40%, rgba(0, 240, 255, 0.11) 40.5%, rgba(0, 240, 255, 0.11) 41%, transparent 41.5%),
+                radial-gradient(circle, transparent 60%, rgba(0, 240, 255, 0.08) 60.5%, rgba(0, 240, 255, 0.08) 61%, transparent 61.5%),
+                radial-gradient(circle, transparent 80%, rgba(0, 240, 255, 0.05) 80.5%, rgba(0, 240, 255, 0.05) 81%, transparent 81.5%),
+                radial-gradient(circle, rgba(0, 240, 255, 0.10) 0%, rgba(0, 79, 82, 0.04) 40%, transparent 70%);
             pointer-events: none;
             animation: radar-pulse 4s ease-in-out infinite;
         }
