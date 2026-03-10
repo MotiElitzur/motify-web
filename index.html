@@ -94,12 +94,18 @@
         }
 
         /* Radar background — fixed behind entire page */
-        body::before {
-            content: '';
+        .radar-bg {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radar-bg::before {
+            content: '';
             width: 90vmin;
             height: 90vmin;
             background:
@@ -109,14 +115,12 @@
                 radial-gradient(circle, transparent 60%, rgba(0, 240, 255, 0.08) 60.5%, rgba(0, 240, 255, 0.08) 61%, transparent 61.5%),
                 radial-gradient(circle, transparent 80%, rgba(0, 240, 255, 0.05) 80.5%, rgba(0, 240, 255, 0.05) 81%, transparent 81.5%),
                 radial-gradient(circle, rgba(0, 240, 255, 0.10) 0%, rgba(0, 79, 82, 0.04) 40%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
             animation: radar-pulse 4s ease-in-out infinite;
         }
 
         @keyframes radar-pulse {
-            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
         }
 
         /* Hero */
@@ -398,6 +402,8 @@
     </style>
 </head>
 <body>
+
+    <div class="radar-bg" aria-hidden="true"></div>
 
     <nav>
         <div class="nav-inner">
