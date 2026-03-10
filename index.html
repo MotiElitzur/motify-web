@@ -6,15 +6,17 @@
     <title>Motify — Meet People Near You</title>
     <style>
         :root {
-            --primary: #6a1b9a;
-            --primary-light: #ab47bc;
-            --primary-dark: #4a148c;
+            --primary: #FF4D6D;
+            --primary-light: #FF4D6D;
+            --primary-dark: #990F26;
+            --secondary: #00F0FF;
+            --secondary-dark: #004F52;
             --text: #f5f5f5;
             --text-muted: #b0b0b0;
-            --bg: #0d0d0d;
-            --card-bg: #1a1a1a;
-            --border: #2a2a2a;
-            --accent-bg: rgba(106, 27, 154, 0.15);
+            --bg: #0F1115;
+            --card-bg: #1E2129;
+            --border: #2a2f3a;
+            --accent-bg: rgba(255, 77, 109, 0.12);
         }
 
         * {
@@ -36,7 +38,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(13, 13, 13, 0.9);
+            background: rgba(15, 17, 21, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -94,7 +96,7 @@
         /* Hero */
         .hero-wrapper {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .hero-wrapper::before {
@@ -103,14 +105,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
+            width: 1400px;
+            height: 1400px;
             background:
-                radial-gradient(circle, rgba(0, 200, 200, 0.5) 0px, transparent 3px),
-                radial-gradient(circle, transparent 18%, rgba(0, 200, 200, 0.12) 18.5%, rgba(0, 200, 200, 0.12) 19%, transparent 19.5%),
-                radial-gradient(circle, transparent 38%, rgba(0, 200, 200, 0.10) 38.5%, rgba(0, 200, 200, 0.10) 39%, transparent 39.5%),
-                radial-gradient(circle, transparent 62%, rgba(0, 200, 200, 0.08) 62.5%, rgba(0, 200, 200, 0.08) 63%, transparent 63.5%),
-                radial-gradient(circle, rgba(0, 180, 180, 0.12) 0%, rgba(0, 120, 120, 0.04) 40%, transparent 70%);
+                radial-gradient(circle, rgba(0, 240, 255, 0.5) 0px, transparent 3px),
+                radial-gradient(circle, transparent 18%, rgba(0, 240, 255, 0.12) 18.5%, rgba(0, 240, 255, 0.12) 19%, transparent 19.5%),
+                radial-gradient(circle, transparent 32%, rgba(0, 240, 255, 0.10) 32.5%, rgba(0, 240, 255, 0.10) 33%, transparent 33.5%),
+                radial-gradient(circle, transparent 46%, rgba(0, 240, 255, 0.08) 46.5%, rgba(0, 240, 255, 0.08) 47%, transparent 47.5%),
+                radial-gradient(circle, transparent 62%, rgba(0, 240, 255, 0.06) 62.5%, rgba(0, 240, 255, 0.06) 63%, transparent 63.5%),
+                radial-gradient(circle, rgba(0, 240, 255, 0.10) 0%, rgba(0, 79, 82, 0.05) 40%, transparent 70%);
             pointer-events: none;
             animation: radar-pulse 4s ease-in-out infinite;
         }
@@ -138,7 +141,7 @@
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, var(--primary-light), #e040fb);
+            background: linear-gradient(135deg, var(--primary), #FF6B8A);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -299,7 +302,7 @@
         /* Contact */
         .contact-box {
             background: var(--accent-bg);
-            border: 1px solid rgba(171, 71, 188, 0.3);
+            border: 1px solid rgba(255, 77, 109, 0.3);
             border-radius: 16px;
             padding: 32px;
             text-align: center;
