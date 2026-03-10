@@ -58,6 +58,15 @@
             font-weight: 700;
             color: var(--text);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 32px;
+            width: 32px;
+            border-radius: 8px;
         }
 
         .logo span {
@@ -83,11 +92,41 @@
         }
 
         /* Hero */
+        .hero-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background:
+                radial-gradient(circle, rgba(0, 200, 200, 0.5) 0px, transparent 3px),
+                radial-gradient(circle, transparent 18%, rgba(0, 200, 200, 0.12) 18.5%, rgba(0, 200, 200, 0.12) 19%, transparent 19.5%),
+                radial-gradient(circle, transparent 38%, rgba(0, 200, 200, 0.10) 38.5%, rgba(0, 200, 200, 0.10) 39%, transparent 39.5%),
+                radial-gradient(circle, transparent 62%, rgba(0, 200, 200, 0.08) 62.5%, rgba(0, 200, 200, 0.08) 63%, transparent 63.5%),
+                radial-gradient(circle, rgba(0, 180, 180, 0.12) 0%, rgba(0, 120, 120, 0.04) 40%, transparent 70%);
+            pointer-events: none;
+            animation: radar-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes radar-pulse {
+            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+        }
+
         .hero {
+            position: relative;
             max-width: 1000px;
             margin: 0 auto;
             padding: 160px 24px 100px;
             text-align: center;
+            z-index: 1;
         }
 
         .hero h1 {
@@ -430,7 +469,7 @@
 
     <nav>
         <div class="nav-inner">
-            <a href="#" class="logo">Moti<span>fy</span></a>
+            <a href="#" class="logo"><img src="ic_motify_240.png" alt="Motify">Moti<span>fy</span></a>
             <ul class="nav-links">
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#features">Features</a></li>
@@ -440,16 +479,18 @@
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>Meet people <span>near you</span></h1>
-        <p>Motify uses Bluetooth to find singles around you in real life. No endless swiping through strangers you'll never meet.</p>
-        <div class="badge-row">
-            <a href="#">
-                <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-            </a>
-            <a href="#">
-                <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
-            </a>
+    <div class="hero-wrapper">
+        <div class="hero">
+            <h1>Meet people <span>near you</span></h1>
+            <p>Motify uses Bluetooth to find singles around you in real life. No endless swiping through strangers you'll never meet.</p>
+            <div class="badge-row">
+                <a href="#">
+                    <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                <a href="#">
+                    <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                </a>
+            </div>
         </div>
     </div>
 
