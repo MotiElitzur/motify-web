@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motify — Meet People Near You</title>
+    <meta name="description" content="Motify uses Bluetooth to find singles around you in real life. No endless swiping — meet people you actually cross paths with.">
+    <meta name="theme-color" content="#0F1115">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motify.uk/">
+    <meta property="og:title" content="Motify — Meet People Near You">
+    <meta property="og:description" content="Motify uses Bluetooth to find singles around you in real life. No endless swiping — meet people you actually cross paths with.">
+    <meta property="og:site_name" content="Motify">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Motify — Meet People Near You">
+    <meta name="twitter:description" content="Motify uses Bluetooth to find singles around you in real life. No endless swiping — meet people you actually cross paths with.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="ic_motify.svg">
+    <link rel="canonical" href="https://motify.uk/">
+
     <style>
         :root {
             --primary: #FF4D6D;
@@ -23,6 +42,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -102,6 +125,22 @@
             color: var(--text);
         }
 
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
         /* Hero */
         .hero-wrapper {
             position: relative;
@@ -155,6 +194,17 @@
             transform: scale(1.05);
         }
 
+        .coming-soon-label {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.85em;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
         /* Sections */
         section {
             position: relative;
@@ -193,6 +243,12 @@
             border-radius: 16px;
             padding: 32px 24px;
             text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 77, 109, 0.3);
         }
 
         .step-number {
@@ -232,11 +288,28 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 28px 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 77, 109, 0.3);
         }
 
         .feature-icon {
-            font-size: 1.6em;
-            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--accent-bg);
+            border-radius: 10px;
+            margin-bottom: 14px;
+        }
+
+        .feature-icon svg {
+            width: 22px;
+            height: 22px;
         }
 
         .feature h3 {
@@ -248,6 +321,33 @@
         .feature p {
             color: var(--text-muted);
             font-size: 0.92em;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 60px 24px 80px;
+        }
+
+        .cta-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255, 77, 109, 0.15), rgba(0, 240, 255, 0.08));
+            border: 1px solid rgba(255, 77, 109, 0.25);
+            border-radius: 20px;
+            padding: 48px 32px;
+        }
+
+        .cta-card h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta-card p {
+            color: var(--text-muted);
+            font-size: 1.05em;
+            margin-bottom: 28px;
         }
 
         /* Footer */
@@ -309,6 +409,34 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 17, 21, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+                padding: 16px 24px;
+                gap: 16px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1em;
+                padding: 8px 0;
+            }
         }
     </style>
 </head>
@@ -317,6 +445,9 @@
     <nav>
         <div class="nav-inner">
             <a href="#" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
+            <button class="hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+                <svg viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
             <ul class="nav-links">
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#features">Features</a></li>
@@ -338,6 +469,7 @@
                     <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
                 </a>
             </div>
+            <span class="coming-soon-label">Coming soon</span>
         </div>
     </div>
 
@@ -368,24 +500,47 @@
         <p class="section-subtitle">Built for real connections, not infinite scrolling.</p>
         <div class="features">
             <div class="feature">
-                <div class="feature-icon">📍</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
                 <h3>Real Proximity, Not GPS</h3>
                 <p>We use Bluetooth, not location tracking. You see people who are actually near you, and your exact location is never shared or stored.</p>
             </div>
             <div class="feature">
-                <div class="feature-icon">👤</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
                 <h3>Incognito Mode</h3>
                 <p>Browse profiles without being visible. You're in control of who can see you.</p>
             </div>
             <div class="feature">
-                <div class="feature-icon">🔒</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
                 <h3>Privacy First</h3>
                 <p>Encrypted Bluetooth identifiers. No location history. No data sold to advertisers. Your privacy is built into the architecture.</p>
             </div>
             <div class="feature">
-                <div class="feature-icon">💬</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
                 <h3>Chat with Purpose</h3>
                 <p>Matched with someone? Start chatting and make plans. You already know you're in the same area.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-card">
+            <h2>Ready to meet someone real?</h2>
+            <p>Stop swiping through people hundreds of miles away. Start meeting people you actually cross paths with.</p>
+            <div class="badge-row">
+                <a href="#">
+                    <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                <a href="#">
+                    <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                </a>
             </div>
         </div>
     </section>
@@ -394,6 +549,7 @@
         <p>&copy; 2026 Motify. All rights reserved.</p>
         <ul class="footer-links">
             <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
             <li><a href="support.html">Support</a></li>
             <li><a href="mailto:motify2026@gmail.com">Contact</a></li>
         </ul>
