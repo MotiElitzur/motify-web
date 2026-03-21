@@ -536,6 +536,19 @@
             border-radius: 12px;
         }
 
+        .composite-preview-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .composite-preview-container canvas {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
         .preview-url {
             font-size: 0.8em;
             color: var(--text-muted);
@@ -899,6 +912,9 @@
             <div class="qr-preview-card">
                 <div class="card-title">Live Preview</div>
                 <div class="qr-container" id="qrPreview"></div>
+                <div class="composite-preview-container" id="compositePreviewContainer" style="display: none;">
+                    <canvas id="compositePreviewCanvas" style="width: 100%; border-radius: 12px;"></canvas>
+                </div>
                 <div class="preview-url" id="previewUrl">Enter a URL to generate QR code</div>
             </div>
         </div>
@@ -938,6 +954,8 @@
         var logoPreview = document.getElementById('logoPreview');
         var removeLogo = document.getElementById('removeLogo');
         var qrPreviewContainer = document.getElementById('qrPreview');
+        var compositePreviewContainer = document.getElementById('compositePreviewContainer');
+        var compositePreviewCanvas = document.getElementById('compositePreviewCanvas');
         var previewUrl = document.getElementById('previewUrl');
         var exportExtraFields = document.getElementById('exportExtraFields');
 
@@ -1029,15 +1047,114 @@
                 previewUrl.textContent = 'Enter a URL to generate QR code';
             }
 
-            var options = getQrOptions(240);
+            var style = getExportStyle();
 
-            if (previewQr) {
-                previewQr.update(options);
+            if (style === 'qr-only') {
+                // Show QR-only preview
+                qrPreviewContainer.style.display = 'flex';
+                compositePreviewContainer.style.display = 'none';
+
+                var options = getQrOptions(240);
+                if (previewQr) {
+                    previewQr.update(options);
+                } else {
+                    previewQr = new QRCodeStyling(options);
+                    qrPreviewContainer.innerHTML = '';
+                    previewQr.append(qrPreviewContainer);
+                }
             } else {
-                previewQr = new QRCodeStyling(options);
-                qrPreviewContainer.innerHTML = '';
-                previewQr.append(qrPreviewContainer);
+                // Show composite preview (card/poster)
+                qrPreviewContainer.style.display = 'none';
+                compositePreviewContainer.style.display = 'flex';
+                renderPreviewComposite(style);
             }
+        }
+
+        // Render a scaled-down composite onto the preview canvas
+        function renderPreviewComposite(style) {
+            var url = getCurrentUrl() || 'https://motify.uk';
+            var title = titleInput.value.trim() || '';
+            var subtitle = subtitleInput.value.trim() || '';
+
+            var isCard = style === 'card';
+            var scale = isCard ? 0.4 : 0.27;
+            var W = isCard ? 800 : 1200;
+            var pad = isCard ? 60 : 100;
+            var qrSize = isCard ? 500 : 700;
+            var logoSize = isCard ? 48 : 72;
+            var titleSize = isCard ? 32 : 48;
+            var subtitleSize = isCard ? 20 : 28;
+            var urlSize = isCard ? 14 : 18;
+            var gap = isCard ? 20 : 28;
+
+            // Calculate height
+            var y = pad;
+            y += logoSize + gap;
+            y += qrSize + gap;
+            if (title) y += titleSize + 8;
+            if (subtitle) y += subtitleSize + 8;
+            y += gap + urlSize;
+            y += pad;
+            var H = y;
+
+            // Generate QR into temp container
+            var options = getQrOptions(qrSize);
+            options.data = url;
+            var tempQr = new QRCodeStyling(options);
+            var tempContainer = document.createElement('div');
+            tempQr.append(tempContainer);
+
+            setTimeout(function() {
+                var qrCanvas = tempContainer.querySelector('canvas');
+
+                compositePreviewCanvas.width = W;
+                compositePreviewCanvas.height = H;
+                var ctx = compositePreviewCanvas.getContext('2d');
+
+                // White background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, W, H);
+
+                var cx = W / 2;
+                var drawY = pad;
+
+                // Motify logo
+                if (motifyLogoImg) {
+                    ctx.drawImage(motifyLogoImg, cx - logoSize / 2, drawY, logoSize, logoSize);
+                }
+                drawY += logoSize + gap;
+
+                // QR code
+                if (qrCanvas) {
+                    ctx.drawImage(qrCanvas, cx - qrSize / 2, drawY, qrSize, qrSize);
+                }
+                drawY += qrSize + gap;
+
+                // Title
+                if (title) {
+                    ctx.fillStyle = '#1a1a1a';
+                    ctx.font = '700 ' + titleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(title, cx, drawY + titleSize * 0.8, W - pad * 2);
+                    drawY += titleSize + 8;
+                }
+
+                // Subtitle
+                if (subtitle) {
+                    ctx.fillStyle = '#555555';
+                    ctx.font = '400 ' + subtitleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(subtitle, cx, drawY + subtitleSize * 0.8, W - pad * 2);
+                    drawY += subtitleSize + 8;
+                }
+
+                // URL
+                drawY += gap;
+                ctx.fillStyle = '#999999';
+                ctx.font = '400 ' + urlSize + 'px "SF Mono", "Fira Code", Menlo, monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(url, cx, drawY + urlSize * 0.8, W - pad * 2);
+            }, 400);
         }
 
         function debouncedUpdatePreview() {
@@ -1053,6 +1170,7 @@
 
         titleInput.addEventListener('input', function() {
             document.getElementById('titleCount').textContent = this.value.length;
+            debouncedUpdatePreview();
         });
 
         dotColorInput.addEventListener('input', function() {
@@ -1069,15 +1187,17 @@
             radio.addEventListener('change', debouncedUpdatePreview);
         });
 
-        // Export style toggle — show/hide subtitle field
+        // Export style toggle — show/hide subtitle field + update preview
         document.querySelectorAll('input[name="exportStyle"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 exportExtraFields.style.display = getExportStyle() === 'qr-only' ? 'none' : 'block';
+                debouncedUpdatePreview();
             });
         });
 
         subtitleInput.addEventListener('input', function() {
             document.getElementById('subtitleCount').textContent = this.value.length;
+            debouncedUpdatePreview();
         });
 
         // Logo upload (max 5MB)
