@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motify — Get the App</title>
+    <meta name="description" content="Download Motify and start meeting people near you.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
+    <style>
+        :root {
+            --primary: #FF4D6D;
+            --primary-light: #FF4D6D;
+            --primary-dark: #990F26;
+            --secondary: #00F0FF;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --bg: #0F1115;
+            --card-bg: #1E2129;
+            --border: #2a2f3a;
+            --accent-bg: rgba(255, 77, 109, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .loading img {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+        }
+
+        /* Promo card (desktop) */
+        .promo-card {
+            display: none;
+            max-width: 480px;
+            width: 100%;
+            margin: 0 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .promo-card .logo {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .promo-card .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .promo-card .logo span {
+            color: var(--primary-light);
+        }
+
+        .promo-card h1 {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .promo-card .subtitle {
+            color: var(--text-muted);
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .promo-code-display {
+            display: inline-block;
+            background: var(--accent-bg);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 1.2em;
+            letter-spacing: 0.05em;
+            padding: 8px 24px;
+            border-radius: 10px;
+            margin: 16px 0 24px;
+        }
+
+        .promo-message {
+            color: var(--text-muted);
+            font-size: 0.92em;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .qr-container {
+            margin: 0 auto 28px;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .qr-container canvas {
+            display: block;
+        }
+
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .store-badge {
+            height: 48px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .store-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Error state */
+        .error-state {
+            display: none;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .error-state h2 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+        }
+
+        .error-state p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .error-state .back-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: opacity 0.2s;
+        }
+
+        .error-state .back-btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <!-- Loading state -->
+    <div class="loading" id="loading">
+        <img src="/ic_motify.svg" alt="Motify">
+        <div class="spinner"></div>
+        <p>Getting things ready...</p>
+    </div>
+
+    <!-- Desktop promo card -->
+    <div class="promo-card" id="promoCard">
+        <div class="logo">
+            <img src="/ic_motify.svg" alt="Motify">
+            Moti<span>fy</span>
+        </div>
+        <h1 id="promoTitle">You've been invited!</h1>
+        <p class="subtitle" id="promoSubtitle">Download Motify and start meeting people near you.</p>
+        <div class="promo-code-display" id="promoCodeDisplay" style="display: none;"></div>
+        <p class="promo-message" id="promoMessage"></p>
+        <div class="qr-container" id="qrContainer" style="display: none;">
+            <canvas id="qrCanvas"></canvas>
+        </div>
+        <div class="badge-row">
+            <a id="desktopApple" href="https://apps.apple.com/app/motify/id000000000">
+                <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+            </a>
+            <a id="desktopGoogle" href="https://play.google.com/store/apps/details?id=moti.motify">
+                <img class="store-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+            </a>
+        </div>
+    </div>
+
+    <!-- Error state -->
+    <div class="error-state" id="errorState">
+        <h2>Something went wrong</h2>
+        <p>We couldn't load this promotion. The link may be invalid or expired.</p>
+        <a href="/" class="back-btn">Go to Motify</a>
+    </div>
+
+    <!-- Firebase compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
+
+    <!-- QR code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <script>
+        (function() {
+            // Firebase config
+            var firebaseConfig = {
+                projectId: "app-motify",
+                apiKey: "AIzaSyBk3fJX3b7lKPJpYJI_WDHE9jS3UG-RN5g",
+                authDomain: "app-motify.firebaseapp.com"
+            };
+            firebase.initializeApp(firebaseConfig);
+            var functions = firebase.functions();
+
+            // Extract promo code from path or query param
+            var code = null;
+            var path = window.location.pathname;
+            // Try path: /go/CODE
+            if (path.indexOf('/go/') === 0 && path.length > 4) {
+                code = decodeURIComponent(path.substring(4).replace(/\/$/, ''));
+            }
+            // Fallback: ?code=CODE
+            if (!code) {
+                var params = new URLSearchParams(window.location.search);
+                code = params.get('code');
+            }
+
+            if (!code) {
+                showError();
+                return;
+            }
+
+            // Detect platform
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            var isAndroid = /Android/i.test(ua);
+            var isMobile = isIOS || isAndroid;
+
+            // Store URLs
+            var appStoreUrl = 'https://apps.apple.com/app/motify/id000000000';
+            var playStoreUrl = 'https://play.google.com/store/apps/details?id=moti.motify&referrer=promo%3D' + encodeURIComponent(code);
+
+            // Fire and forget: track click
+            try {
+                functions.httpsCallable('trackClick')({ code: code, platform: isIOS ? 'ios' : isAndroid ? 'android' : 'desktop' });
+            } catch (e) {
+                // Ignore tracking errors
+            }
+
+            // Fetch promo data and handle redirect
+            functions.httpsCallable('getPromotion')({ code: code })
+                .then(function(result) {
+                    var promo = result.data;
+
+                    if (isMobile) {
+                        // Redirect to appropriate store
+                        window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
+                    } else {
+                        // Desktop: show promo card
+                        showPromoCard(promo, code);
+                    }
+                })
+                .catch(function(error) {
+                    if (isMobile) {
+                        // Even on error, redirect mobile users to the store
+                        window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
+                    } else {
+                        showError();
+                    }
+                });
+
+            // Fallback: if still loading after 5s on mobile, redirect anyway
+            if (isMobile) {
+                setTimeout(function() {
+                    window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
+                }, 5000);
+            }
+
+            function showPromoCard(promo, code) {
+                document.getElementById('loading').style.display = 'none';
+                var card = document.getElementById('promoCard');
+                card.style.display = 'block';
+
+                // Populate promo details
+                if (promo && promo.title) {
+                    document.getElementById('promoTitle').textContent = promo.title;
+                }
+                if (promo && promo.subtitle) {
+                    document.getElementById('promoSubtitle').textContent = promo.subtitle;
+                }
+                if (promo && promo.message) {
+                    document.getElementById('promoMessage').textContent = promo.message;
+                }
+
+                // Show promo code
+                var codeDisplay = document.getElementById('promoCodeDisplay');
+                codeDisplay.textContent = code.toUpperCase();
+                codeDisplay.style.display = 'inline-block';
+
+                // Update Play Store link with referrer
+                document.getElementById('desktopGoogle').href = playStoreUrl;
+
+                // Generate QR code
+                var pageUrl = window.location.origin + '/go/' + encodeURIComponent(code);
+                var qrContainer = document.getElementById('qrContainer');
+                try {
+                    QRCode.toCanvas(document.getElementById('qrCanvas'), pageUrl, {
+                        width: 180,
+                        margin: 0,
+                        color: { dark: '#0F1115', light: '#ffffff' }
+                    }, function(error) {
+                        if (!error) {
+                            qrContainer.style.display = 'inline-block';
+                        }
+                    });
+                } catch (e) {
+                    // QR generation failed, skip it
+                }
+            }
+
+            function showError() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('errorState').style.display = 'block';
+            }
+        })();
+    </script>
+</body>
+</html>

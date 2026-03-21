@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motify — Promotion Analytics</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0F1115">
+    <link rel="icon" type="image/svg+xml" href="ic_motify.svg">
+
+    <style>
+        :root {
+            --primary: #FF4D6D;
+            --primary-light: #FF4D6D;
+            --secondary: #00F0FF;
+            --text: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --bg: #0F1115;
+            --card-bg: #1E2129;
+            --border: #2a2f3a;
+            --accent-bg: rgba(255, 77, 109, 0.12);
+            --success: #34D399;
+            --warning: #FBBF24;
+            --danger: #F87171;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 17, 21, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        nav .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img { height: 32px; width: 32px; border-radius: 8px; }
+        .logo span { color: var(--primary-light); }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        /* Password Gate */
+        .gate-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .gate-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .gate-card h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .gate-card p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-bottom: 24px;
+        }
+
+        .gate-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1em;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .gate-input:focus { border-color: var(--primary); }
+
+        .gate-error {
+            color: var(--danger);
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .gate-error.visible { display: block; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #FF6B8A);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-danger {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 6px 14px;
+            font-size: 0.8em;
+            border-radius: 8px;
+        }
+
+        .btn-danger:hover { background: rgba(248, 113, 113, 0.1); }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 24px 60px;
+        }
+
+        .dashboard.visible { display: block; }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .dashboard-header h1 span {
+            background: linear-gradient(135deg, var(--primary), #FF6B8A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .refresh-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .refresh-btn:hover { border-color: var(--primary); }
+
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 0.8em;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .summary-card .label {
+            color: var(--text-muted);
+            font-size: 0.8em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .summary-card .sub {
+            color: var(--text-muted);
+            font-size: 0.8em;
+            margin-top: 4px;
+        }
+
+        .value-primary { color: var(--primary); }
+        .value-secondary { color: var(--secondary); }
+        .value-success { color: var(--success); }
+        .value-warning { color: var(--warning); }
+
+        /* Table */
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-header h2 {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .table-count {
+            color: var(--text-muted);
+            font-size: 0.85em;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88em;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.82em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(42, 47, 58, 0.5);
+            white-space: nowrap;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+
+        tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+        .code-cell {
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--danger);
+        }
+
+        .status-expired {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--warning);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-state p { font-size: 1em; }
+
+        /* Loading */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-row {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Admin sign-in modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 380px;
+            width: 90%;
+        }
+
+        .modal-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .modal-card p {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .modal-card .gate-input { margin-bottom: 12px; }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .modal-actions .btn { flex: 1; }
+
+        .btn-secondary {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85em;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hamburger { display: block; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 17, 21, 0.95);
+                flex-direction: column;
+                padding: 16px 24px;
+                gap: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open { display: flex; }
+
+            .dashboard-header h1 { font-size: 1.5em; }
+
+            .gate-card { padding: 32px 24px; }
+
+            .footer-links { flex-wrap: wrap; gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
+            <button class="hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+                <svg viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="promote.html">Promote</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Password Gate -->
+    <div class="gate-container" id="gateContainer">
+        <div class="gate-card">
+            <h2>Analytics Dashboard</h2>
+            <p>Enter the access password to continue.</p>
+            <input type="password" class="gate-input" id="gatePassword" placeholder="Password" autocomplete="off">
+            <div class="gate-error" id="gateError">Incorrect password. Please try again.</div>
+            <button class="btn btn-primary" onclick="checkPassword()">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <div>
+                <h1>Promotion <span>Analytics</span></h1>
+                <div class="last-updated" id="lastUpdated"></div>
+            </div>
+            <div class="header-actions">
+                <button class="refresh-btn" onclick="loadPromotions()">Refresh</button>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Total Promotions</div>
+                <div class="value value-primary" id="totalPromos">-</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Total Scans</div>
+                <div class="value value-secondary" id="totalScans">-</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Total Installs</div>
+                <div class="value value-success" id="totalInstalls">-</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Avg Conversion</div>
+                <div class="value value-warning" id="avgConversion">-</div>
+                <div class="sub">scans to installs</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>All Promotions</h2>
+                <div class="table-count" id="tableCount"></div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Title</th>
+                            <th>Created</th>
+                            <th>Expires</th>
+                            <th>Clicks</th>
+                            <th>Installs</th>
+                            <th>Conv%</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="promoTableBody">
+                        <tr class="loading-row">
+                            <td colspan="9"><div class="loading-spinner"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Auth Modal -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-card">
+            <h3>Admin Sign In</h3>
+            <p>Sign in with an admin account to deactivate promotions.</p>
+            <input type="email" class="gate-input" id="adminEmail" placeholder="Email">
+            <input type="password" class="gate-input" id="adminPassword" placeholder="Password">
+            <div class="gate-error" id="adminError"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeAdminModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="adminSignIn()">Sign In</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Motify. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="promote.html">Promote</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="mailto:support@motify.uk">Contact</a></li>
+        </ul>
+    </footer>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-functions-compat.js"></script>
+
+    <script>
+        // Firebase
+        var firebaseConfig = {
+            projectId: "app-motify",
+            apiKey: "AIzaSyBk3fJX3b7lKPJpYJI_WDHE9jS3UG-RN5g",
+            authDomain: "app-motify.firebaseapp.com",
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        var auth = firebase.auth();
+        var functions = firebase.functions();
+
+        // Password hash (SHA-256 of the access password)
+        var PASSWORD_HASH = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"; // "password" — CHANGE THIS
+
+        var pendingDeactivateCode = null;
+
+        // Check session
+        if (sessionStorage.getItem("analytics_auth") === "true") {
+            showDashboard();
+        }
+
+        // Enter key on password field
+        document.getElementById("gatePassword").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") checkPassword();
+        });
+
+        async function sha256(message) {
+            var encoder = new TextEncoder();
+            var data = encoder.encode(message);
+            var hashBuffer = await crypto.subtle.digest("SHA-256", data);
+            var hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(function(b) { return b.toString(16).padStart(2, "0"); }).join("");
+        }
+
+        async function checkPassword() {
+            var input = document.getElementById("gatePassword").value;
+            var hash = await sha256(input);
+
+            if (hash === PASSWORD_HASH) {
+                sessionStorage.setItem("analytics_auth", "true");
+                showDashboard();
+            } else {
+                document.getElementById("gateError").classList.add("visible");
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById("gateContainer").style.display = "none";
+            document.getElementById("dashboard").classList.add("visible");
+            loadPromotions();
+        }
+
+        async function loadPromotions() {
+            var tableBody = document.getElementById("promoTableBody");
+            tableBody.innerHTML = '<tr class="loading-row"><td colspan="9"><div class="loading-spinner"></div></td></tr>';
+
+            try {
+                var snapshot = await db.collection("promotions").orderBy("createdAt", "desc").get();
+                var promotions = [];
+                snapshot.forEach(function(doc) {
+                    promotions.push(Object.assign({ id: doc.id }, doc.data()));
+                });
+
+                updateSummary(promotions);
+                renderTable(promotions);
+                document.getElementById("lastUpdated").textContent = "Last updated: " + new Date().toLocaleTimeString();
+
+            } catch (err) {
+                tableBody.innerHTML = '<tr><td colspan="9" class="empty-state"><p>Failed to load promotions: ' + escapeHtml(err.message) + '</p></td></tr>';
+            }
+        }
+
+        function updateSummary(promotions) {
+            var totalScans = 0;
+            var totalInstalls = 0;
+
+            promotions.forEach(function(p) {
+                totalScans += p.clickCount || 0;
+                totalInstalls += p.installCount || 0;
+            });
+
+            var avgConv = totalScans > 0 ? ((totalInstalls / totalScans) * 100).toFixed(1) : "0.0";
+
+            document.getElementById("totalPromos").textContent = promotions.length;
+            document.getElementById("totalScans").textContent = totalScans.toLocaleString();
+            document.getElementById("totalInstalls").textContent = totalInstalls.toLocaleString();
+            document.getElementById("avgConversion").textContent = avgConv + "%";
+            document.getElementById("tableCount").textContent = promotions.length + " promotion" + (promotions.length !== 1 ? "s" : "");
+        }
+
+        function renderTable(promotions) {
+            var tableBody = document.getElementById("promoTableBody");
+
+            if (promotions.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="9" class="empty-state"><p>No promotions yet. Create one on the <a href="promote.html" style="color:var(--primary)">Promote</a> page.</p></td></tr>';
+                return;
+            }
+
+            var html = "";
+            promotions.forEach(function(p) {
+                var clicks = p.clickCount || 0;
+                var installs = p.installCount || 0;
+                var conv = clicks > 0 ? ((installs / clicks) * 100).toFixed(1) : "0.0";
+                var created = p.createdAt ? formatDate(p.createdAt) : "-";
+                var expires = p.expiresAt ? formatDate(p.expiresAt) : "Never";
+                var status = getStatus(p);
+
+                html += "<tr>";
+                html += '<td class="code-cell">' + escapeHtml(p.promoCode || p.id) + "</td>";
+                html += "<td>" + escapeHtml(p.title || "-") + "</td>";
+                html += "<td>" + created + "</td>";
+                html += "<td>" + expires + "</td>";
+                html += "<td>" + clicks.toLocaleString() + "</td>";
+                html += "<td>" + installs.toLocaleString() + "</td>";
+                html += "<td>" + conv + "%</td>";
+                html += '<td><span class="status-badge ' + status.cls + '">' + status.label + "</span></td>";
+                html += "<td>";
+                if (p.isActive !== false) {
+                    html += '<button class="btn-danger" onclick="deactivatePromo(\'' + escapeHtml(p.promoCode || p.id) + '\')">Deactivate</button>';
+                } else {
+                    html += '<span style="color:var(--text-muted);font-size:0.82em">Deactivated</span>';
+                }
+                html += "</td>";
+                html += "</tr>";
+            });
+
+            tableBody.innerHTML = html;
+        }
+
+        function getStatus(p) {
+            if (p.isActive === false) {
+                return { label: "Inactive", cls: "status-inactive" };
+            }
+            if (p.expiresAt && p.expiresAt < Date.now()) {
+                return { label: "Expired", cls: "status-expired" };
+            }
+            return { label: "Active", cls: "status-active" };
+        }
+
+        function formatDate(timestamp) {
+            var d = new Date(timestamp);
+            return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Deactivation
+        function deactivatePromo(code) {
+            pendingDeactivateCode = code;
+            if (auth.currentUser) {
+                confirmDeactivate();
+            } else {
+                document.getElementById("adminModal").classList.add("visible");
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById("adminModal").classList.remove("visible");
+            document.getElementById("adminError").textContent = "";
+            document.getElementById("adminError").classList.remove("visible");
+            pendingDeactivateCode = null;
+        }
+
+        async function adminSignIn() {
+            var email = document.getElementById("adminEmail").value.trim();
+            var password = document.getElementById("adminPassword").value;
+            var errorEl = document.getElementById("adminError");
+
+            if (!email || !password) {
+                errorEl.textContent = "Please enter email and password.";
+                errorEl.classList.add("visible");
+                return;
+            }
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                closeAdminModal();
+                confirmDeactivate();
+            } catch (err) {
+                errorEl.textContent = "Sign in failed: " + err.message;
+                errorEl.classList.add("visible");
+            }
+        }
+
+        async function confirmDeactivate() {
+            if (!pendingDeactivateCode) return;
+
+            if (!confirm("Deactivate promotion \"" + pendingDeactivateCode + "\"? This cannot be undone.")) {
+                pendingDeactivateCode = null;
+                return;
+            }
+
+            try {
+                var deactivate = functions.httpsCallable("deactivatePromotion");
+                await deactivate({ promoCode: pendingDeactivateCode });
+                pendingDeactivateCode = null;
+                loadPromotions();
+            } catch (err) {
+                alert("Failed to deactivate: " + err.message);
+                pendingDeactivateCode = null;
+            }
+        }
+    </script>
+
+</body>
+</html>

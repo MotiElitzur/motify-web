@@ -105,6 +105,17 @@
     </style>
 </head>
 <body>
+    <script>
+    (function() {
+        var path = window.location.pathname;
+        if (path.indexOf('/go/') === 0 && path.length > 4) {
+            var code = path.substring(4).replace(/\/$/, '');
+            if (code) {
+                window.location.replace('/go/?code=' + encodeURIComponent(code));
+            }
+        }
+    })();
+    </script>
     <nav>
         <div class="nav-inner">
             <a href="/" class="logo"><img src="/ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
