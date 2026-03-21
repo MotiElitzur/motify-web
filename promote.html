@@ -840,13 +840,45 @@
                 </div>
             </div>
 
+            <!-- Export Options Card -->
+            <div class="card">
+                <div class="card-title">
+                    <div class="card-title-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    Export
+                </div>
+
+                <div class="radio-group">
+                    <span class="radio-group-label">Layout</span>
+                    <div class="radio-pills">
+                        <input type="radio" name="exportStyle" id="exportQrOnly" value="qr-only" checked>
+                        <label for="exportQrOnly">QR Only</label>
+                        <input type="radio" name="exportStyle" id="exportCard" value="card">
+                        <label for="exportCard">Card</label>
+                        <input type="radio" name="exportStyle" id="exportPoster" value="poster">
+                        <label for="exportPoster">Poster</label>
+                    </div>
+                </div>
+
+                <div class="form-group export-extra-fields" id="exportExtraFields" style="display: none;">
+                    <label>
+                        Subtitle
+                        <span class="optional">(optional)</span>
+                        <span class="char-count"><span id="subtitleCount">21</span>/200</span>
+                    </label>
+                    <input type="text" id="qrSubtitle" maxlength="200" value="Scan to download Motify" placeholder="e.g. Scan to download Motify">
+                    <span class="input-hint">Shown below the title on card and poster layouts</span>
+                </div>
+            </div>
+
             <!-- Action buttons -->
             <div class="action-buttons">
-                <button class="action-btn primary" onclick="downloadQr('png')">
+                <button class="action-btn primary" onclick="downloadExport('png')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     PNG
                 </button>
-                <button class="action-btn secondary" onclick="downloadQr('svg')">
+                <button class="action-btn secondary" onclick="downloadExport('svg')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     SVG
                 </button>
@@ -891,11 +923,13 @@
         var previewQr = null;
         var logoDataUrl = null;
         var defaultLogoDataUrl = null;
+        var motifyLogoImg = null;
         var debounceTimer = null;
 
         // DOM references
         var urlInput = document.getElementById('qrUrl');
         var titleInput = document.getElementById('qrTitle');
+        var subtitleInput = document.getElementById('qrSubtitle');
         var dotColorInput = document.getElementById('dotColor');
         var bgColorInput = document.getElementById('bgColor');
         var dotColorHex = document.getElementById('dotColorHex');
@@ -905,12 +939,14 @@
         var removeLogo = document.getElementById('removeLogo');
         var qrPreviewContainer = document.getElementById('qrPreview');
         var previewUrl = document.getElementById('previewUrl');
+        var exportExtraFields = document.getElementById('exportExtraFields');
 
         // Load Motify icon as default logo
         function loadDefaultLogo() {
             var img = new Image();
             img.crossOrigin = 'anonymous';
             img.onload = function() {
+                motifyLogoImg = img;
                 var canvas = document.createElement('canvas');
                 canvas.width = 240;
                 canvas.height = 240;
@@ -926,10 +962,13 @@
                 updatePreview();
             };
             img.onerror = function() {
-                // Logo failed to load — render QR without it
                 updatePreview();
             };
             img.src = 'ic_motify.svg';
+        }
+
+        function getExportStyle() {
+            return document.querySelector('input[name="exportStyle"]:checked').value;
         }
 
         function getCurrentUrl() {
@@ -1030,6 +1069,17 @@
             radio.addEventListener('change', debouncedUpdatePreview);
         });
 
+        // Export style toggle — show/hide subtitle field
+        document.querySelectorAll('input[name="exportStyle"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                exportExtraFields.style.display = getExportStyle() === 'qr-only' ? 'none' : 'block';
+            });
+        });
+
+        subtitleInput.addEventListener('input', function() {
+            document.getElementById('subtitleCount').textContent = this.value.length;
+        });
+
         // Logo upload (max 5MB)
         logoInput.addEventListener('change', function(e) {
             var file = e.target.files[0];
@@ -1093,75 +1143,187 @@
             }
         }
 
-        // Download QR as PNG (1024x1024) or SVG
-        function downloadQr(format) {
-            if (!validateUrl()) return;
+        // --- Export functions ---
 
-            var url = getCurrentUrl();
-            var options = getQrOptions(1024);
-            options.data = url;
-            if (format === 'svg') options.type = 'svg';
-
+        function getFilename() {
             var title = titleInput.value.trim();
-            var filename = title
+            return title
                 ? 'qr-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')
                 : 'qr-code';
+        }
 
-            var dl = new QRCodeStyling(options);
-            dl.download({
-                name: filename,
-                extension: format
+        // Download: QR only (raw) or composite (card/poster)
+        function downloadExport(format) {
+            if (!validateUrl()) return;
+
+            var style = getExportStyle();
+
+            if (style === 'qr-only') {
+                // Raw QR download
+                var url = getCurrentUrl();
+                var options = getQrOptions(1024);
+                options.data = url;
+                if (format === 'svg') options.type = 'svg';
+                var dl = new QRCodeStyling(options);
+                dl.download({ name: getFilename(), extension: format });
+                return;
+            }
+
+            // Card or Poster — render composite on canvas, download as PNG
+            renderComposite(style, function(compositeCanvas) {
+                var link = document.createElement('a');
+                link.download = getFilename() + '.png';
+                link.href = compositeCanvas.toDataURL('image/png');
+                link.click();
             });
         }
 
-        // Print Template
-        function openPrintTemplate() {
-            if (!validateUrl()) return;
-
+        // Render card or poster composite onto a canvas
+        function renderComposite(style, callback) {
             var url = getCurrentUrl();
-            var title = titleInput.value.trim() || 'Scan to visit';
+            var title = titleInput.value.trim() || '';
+            var subtitle = subtitleInput.value.trim() || '';
 
-            // Get the QR as a data URL for embedding
-            var options = getQrOptions(600);
+            // Layout config
+            var isCard = style === 'card';
+            var W = isCard ? 800 : 1200;
+            var pad = isCard ? 60 : 100;
+            var qrSize = isCard ? 500 : 700;
+            var logoSize = isCard ? 48 : 72;
+            var titleSize = isCard ? 32 : 48;
+            var subtitleSize = isCard ? 20 : 28;
+            var urlSize = isCard ? 14 : 18;
+            var gap = isCard ? 20 : 28;
+
+            // Calculate height dynamically
+            var y = pad;
+            y += logoSize + gap;           // logo
+            y += qrSize + gap;             // QR
+            if (title) y += titleSize + 8; // title
+            if (subtitle) y += subtitleSize + 8; // subtitle
+            y += gap + urlSize;            // url
+            y += pad;                      // bottom padding
+            var H = y;
+
+            // Generate QR into a temp container
+            var options = getQrOptions(qrSize);
             options.data = url;
             var tempQr = new QRCodeStyling(options);
-
             var tempContainer = document.createElement('div');
             tempQr.append(tempContainer);
 
             setTimeout(function() {
-                var canvas = tempContainer.querySelector('canvas');
-                var qrDataUrl = '';
-                if (canvas) {
-                    qrDataUrl = canvas.toDataURL('image/png');
+                var qrCanvas = tempContainer.querySelector('canvas');
+                var out = document.createElement('canvas');
+                out.width = W;
+                out.height = H;
+                var ctx = out.getContext('2d');
+
+                // White background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, W, H);
+
+                var cx = W / 2;
+                var drawY = pad;
+
+                // Motify logo
+                if (motifyLogoImg) {
+                    ctx.drawImage(motifyLogoImg, cx - logoSize / 2, drawY, logoSize, logoSize);
+                }
+                drawY += logoSize + gap;
+
+                // QR code
+                if (qrCanvas) {
+                    ctx.drawImage(qrCanvas, cx - qrSize / 2, drawY, qrSize, qrSize);
+                }
+                drawY += qrSize + gap;
+
+                // Title
+                if (title) {
+                    ctx.fillStyle = '#1a1a1a';
+                    ctx.font = '700 ' + titleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(title, cx, drawY + titleSize * 0.8, W - pad * 2);
+                    drawY += titleSize + 8;
                 }
 
+                // Subtitle
+                if (subtitle) {
+                    ctx.fillStyle = '#555555';
+                    ctx.font = '400 ' + subtitleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(subtitle, cx, drawY + subtitleSize * 0.8, W - pad * 2);
+                    drawY += subtitleSize + 8;
+                }
+
+                // URL
+                drawY += gap;
+                ctx.fillStyle = '#999999';
+                ctx.font = '400 ' + urlSize + 'px "SF Mono", "Fira Code", Menlo, monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(url, cx, drawY + urlSize * 0.8, W - pad * 2);
+
+                callback(out);
+            }, 600);
+        }
+
+        // Print template
+        function openPrintTemplate() {
+            if (!validateUrl()) return;
+
+            var style = getExportStyle();
+            var url = getCurrentUrl();
+            var title = titleInput.value.trim() || '';
+            var subtitle = subtitleInput.value.trim() || '';
+
+            if (style === 'qr-only') {
+                // Simple print: just the QR
+                var options = getQrOptions(600);
+                options.data = url;
+                var tempQr = new QRCodeStyling(options);
+                var tempContainer = document.createElement('div');
+                tempQr.append(tempContainer);
+
+                setTimeout(function() {
+                    var canvas = tempContainer.querySelector('canvas');
+                    var qrDataUrl = canvas ? canvas.toDataURL('image/png') : '';
+                    openPrintWindow(qrDataUrl, '', '', url, 300);
+                }, 500);
+                return;
+            }
+
+            // Card or Poster — render composite, then print it
+            renderComposite(style, function(compositeCanvas) {
+                var dataUrl = compositeCanvas.toDataURL('image/png');
                 var printWindow = window.open('', '_blank');
                 if (!printWindow) return;
-
-                printWindow.document.write('<!DOCTYPE html><html><head><title>' + escapeHtml(title) + '</title>');
-                printWindow.document.write('<style>');
-                printWindow.document.write('* { margin: 0; padding: 0; box-sizing: border-box; }');
-                printWindow.document.write('body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }');
-                printWindow.document.write('.print-card { text-align: center; padding: 48px; max-width: 500px; }');
-                printWindow.document.write('.print-logo { width: 64px; height: 64px; margin-bottom: 24px; }');
-                printWindow.document.write('.print-qr { width: 300px; height: 300px; margin: 0 auto 24px; }');
-                printWindow.document.write('.print-title { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; color: #1a1a1a; }');
-                printWindow.document.write('.print-cta { font-size: 1.1em; color: #555; margin-bottom: 12px; }');
-                printWindow.document.write('.print-url { font-size: 0.85em; color: #888; font-family: monospace; word-break: break-all; }');
-                printWindow.document.write('@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .print-card { padding: 0; } }');
-                printWindow.document.write('</style></head><body>');
-                printWindow.document.write('<div class="print-card">');
-                var logoOrigin = window.location.origin !== 'null' ? window.location.origin : '.';
-                printWindow.document.write('<img class="print-logo" src="' + logoOrigin + '/ic_motify.svg" alt="Motify">');
-                if (qrDataUrl) {
-                    printWindow.document.write('<img class="print-qr" src="' + qrDataUrl + '" alt="QR Code">');
-                }
-                printWindow.document.write('<div class="print-title">' + escapeHtml(title) + '</div>');
-                printWindow.document.write('<div class="print-url">' + escapeHtml(url) + '</div>');
-                printWindow.document.write('</div></body></html>');
+                var imgW = getExportStyle() === 'card' ? 400 : 600;
+                printWindow.document.write('<!DOCTYPE html><html><head><title>' + escapeHtml(title || 'QR Code') + '</title>');
+                printWindow.document.write('<style>* { margin: 0; padding: 0; box-sizing: border-box; } body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; } img { max-width: ' + imgW + 'px; width: 100%; height: auto; } @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }</style>');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<img src="' + dataUrl + '" alt="QR Code">');
+                printWindow.document.write('</body></html>');
                 printWindow.document.close();
-            }, 500);
+            });
+        }
+
+        function openPrintWindow(qrDataUrl, title, subtitle, url, qrWidth) {
+            var printWindow = window.open('', '_blank');
+            if (!printWindow) return;
+            var logoOrigin = window.location.origin !== 'null' ? window.location.origin : '.';
+
+            printWindow.document.write('<!DOCTYPE html><html><head><title>QR Code</title>');
+            printWindow.document.write('<style>');
+            printWindow.document.write('* { margin: 0; padding: 0; box-sizing: border-box; }');
+            printWindow.document.write('body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }');
+            printWindow.document.write('.print-card { text-align: center; padding: 48px; }');
+            printWindow.document.write('.print-qr { width: ' + qrWidth + 'px; height: ' + qrWidth + 'px; margin: 0 auto; }');
+            printWindow.document.write('@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .print-card { padding: 0; } }');
+            printWindow.document.write('</style></head><body>');
+            printWindow.document.write('<div class="print-card">');
+            if (qrDataUrl) printWindow.document.write('<img class="print-qr" src="' + qrDataUrl + '" alt="QR Code">');
+            printWindow.document.write('</div></body></html>');
+            printWindow.document.close();
         }
 
         // Copy link
