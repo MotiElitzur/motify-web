@@ -810,15 +810,15 @@
                     <div class="color-field">
                         <label>Dot Color</label>
                         <div class="color-input-wrapper">
-                            <input type="color" id="dotColor" value="#FF4D6D">
-                            <span class="color-hex" id="dotColorHex">#FF4D6D</span>
+                            <input type="color" id="dotColor" value="#000000">
+                            <span class="color-hex" id="dotColorHex">#000000</span>
                         </div>
                     </div>
                     <div class="color-field">
                         <label>Background</label>
                         <div class="color-input-wrapper">
-                            <input type="color" id="bgColor" value="#0F1115">
-                            <span class="color-hex" id="bgColorHex">#0F1115</span>
+                            <input type="color" id="bgColor" value="#ffffff">
+                            <span class="color-hex" id="bgColorHex">#FFFFFF</span>
                         </div>
                     </div>
                 </div>
@@ -969,12 +969,8 @@
                 canvas.width = 240;
                 canvas.height = 240;
                 var ctx = canvas.getContext('2d');
-                // White circle background for visibility on dark QR
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.arc(120, 120, 120, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.drawImage(img, 20, 20, 200, 200);
+                // Transparent background — just the icon
+                ctx.drawImage(img, 0, 0, 240, 240);
                 defaultLogoDataUrl = canvas.toDataURL('image/png');
                 logoDataUrl = defaultLogoDataUrl;
                 updatePreview();
@@ -1104,6 +1100,8 @@
             var tempContainer = document.createElement('div');
             tempQr.append(tempContainer);
 
+            var isPoster = style === 'poster';
+
             setTimeout(function() {
                 var qrCanvas = tempContainer.querySelector('canvas');
 
@@ -1111,8 +1109,8 @@
                 compositePreviewCanvas.height = H;
                 var ctx = compositePreviewCanvas.getContext('2d');
 
-                // White background
-                ctx.fillStyle = '#ffffff';
+                // Background
+                ctx.fillStyle = isPoster ? '#0F1115' : '#ffffff';
                 ctx.fillRect(0, 0, W, H);
 
                 var cx = W / 2;
@@ -1132,7 +1130,7 @@
 
                 // Title
                 if (title) {
-                    ctx.fillStyle = '#1a1a1a';
+                    ctx.fillStyle = isPoster ? '#FF4D6D' : '#1a1a1a';
                     ctx.font = '700 ' + titleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText(title, cx, drawY + titleSize * 0.8, W - pad * 2);
@@ -1141,7 +1139,7 @@
 
                 // Subtitle
                 if (subtitle) {
-                    ctx.fillStyle = '#555555';
+                    ctx.fillStyle = isPoster ? '#b0b0b0' : '#555555';
                     ctx.font = '400 ' + subtitleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText(subtitle, cx, drawY + subtitleSize * 0.8, W - pad * 2);
@@ -1150,7 +1148,7 @@
 
                 // URL
                 drawY += gap;
-                ctx.fillStyle = '#999999';
+                ctx.fillStyle = isPoster ? '#00F0FF' : '#999999';
                 ctx.font = '400 ' + urlSize + 'px "SF Mono", "Fira Code", Menlo, monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText(url, cx, drawY + urlSize * 0.8, W - pad * 2);
@@ -1332,6 +1330,8 @@
             var tempContainer = document.createElement('div');
             tempQr.append(tempContainer);
 
+            var isPoster = style === 'poster';
+
             setTimeout(function() {
                 var qrCanvas = tempContainer.querySelector('canvas');
                 var out = document.createElement('canvas');
@@ -1339,8 +1339,8 @@
                 out.height = H;
                 var ctx = out.getContext('2d');
 
-                // White background
-                ctx.fillStyle = '#ffffff';
+                // Background
+                ctx.fillStyle = isPoster ? '#0F1115' : '#ffffff';
                 ctx.fillRect(0, 0, W, H);
 
                 var cx = W / 2;
@@ -1360,7 +1360,7 @@
 
                 // Title
                 if (title) {
-                    ctx.fillStyle = '#1a1a1a';
+                    ctx.fillStyle = isPoster ? '#FF4D6D' : '#1a1a1a';
                     ctx.font = '700 ' + titleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText(title, cx, drawY + titleSize * 0.8, W - pad * 2);
@@ -1369,7 +1369,7 @@
 
                 // Subtitle
                 if (subtitle) {
-                    ctx.fillStyle = '#555555';
+                    ctx.fillStyle = isPoster ? '#b0b0b0' : '#555555';
                     ctx.font = '400 ' + subtitleSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
                     ctx.textAlign = 'center';
                     ctx.fillText(subtitle, cx, drawY + subtitleSize * 0.8, W - pad * 2);
@@ -1378,7 +1378,7 @@
 
                 // URL
                 drawY += gap;
-                ctx.fillStyle = '#999999';
+                ctx.fillStyle = isPoster ? '#00F0FF' : '#999999';
                 ctx.font = '400 ' + urlSize + 'px "SF Mono", "Fira Code", Menlo, monospace';
                 ctx.textAlign = 'center';
                 ctx.fillText(url, cx, drawY + urlSize * 0.8, W - pad * 2);
@@ -1419,7 +1419,8 @@
                 if (!printWindow) return;
                 var imgW = getExportStyle() === 'card' ? 400 : 600;
                 printWindow.document.write('<!DOCTYPE html><html><head><title>' + escapeHtml(title || 'QR Code') + '</title>');
-                printWindow.document.write('<style>* { margin: 0; padding: 0; box-sizing: border-box; } body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; } img { max-width: ' + imgW + 'px; width: 100%; height: auto; } @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }</style>');
+                var printBg = getExportStyle() === 'poster' ? '#0F1115' : '#fff';
+                printWindow.document.write('<style>* { margin: 0; padding: 0; box-sizing: border-box; } body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: ' + printBg + '; } img { max-width: ' + imgW + 'px; width: 100%; height: auto; } @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }</style>');
                 printWindow.document.write('</head><body>');
                 printWindow.document.write('<img src="' + dataUrl + '" alt="QR Code">');
                 printWindow.document.write('</body></html>');
