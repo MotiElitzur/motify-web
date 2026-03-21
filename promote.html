@@ -842,15 +842,19 @@
 
             <!-- Action buttons -->
             <div class="action-buttons">
-                <button class="action-btn primary" id="downloadPngBtn" onclick="downloadPng()">
+                <button class="action-btn primary" onclick="downloadQr('png')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download PNG
+                    PNG
                 </button>
-                <button class="action-btn secondary" id="printTemplateBtn" onclick="openPrintTemplate()">
+                <button class="action-btn secondary" onclick="downloadQr('svg')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    SVG
+                </button>
+                <button class="action-btn secondary" onclick="openPrintTemplate()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                     Print
                 </button>
-                <button class="action-btn secondary" id="copyLinkBtn" onclick="copyLink()">
+                <button class="action-btn secondary" onclick="copyLink()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     Copy URL
                 </button>
@@ -880,14 +884,13 @@
     </footer>
 
     <!-- QR Code Styling Library -->
-    <script src="https://unpkg.com/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+    <script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
 
     <script>
         // State
         var previewQr = null;
         var logoDataUrl = null;
         var defaultLogoDataUrl = null;
-        var usingCustomLogo = false;
         var debounceTimer = null;
 
         // DOM references
@@ -920,6 +923,10 @@
                 ctx.drawImage(img, 20, 20, 200, 200);
                 defaultLogoDataUrl = canvas.toDataURL('image/png');
                 logoDataUrl = defaultLogoDataUrl;
+                updatePreview();
+            };
+            img.onerror = function() {
+                // Logo failed to load — render QR without it
                 updatePreview();
             };
             img.src = 'ic_motify.svg';
@@ -1023,15 +1030,20 @@
             radio.addEventListener('change', debouncedUpdatePreview);
         });
 
-        // Logo upload
+        // Logo upload (max 5MB)
         logoInput.addEventListener('change', function(e) {
             var file = e.target.files[0];
             if (!file) return;
 
+            if (file.size > 5 * 1024 * 1024) {
+                showError('urlGroup', 'urlError', 'Logo must be under 5MB');
+                logoInput.value = '';
+                return;
+            }
+
             var reader = new FileReader();
             reader.onload = function(event) {
                 logoDataUrl = event.target.result;
-                usingCustomLogo = true;
                 logoPreview.innerHTML = '<img src="' + logoDataUrl + '" alt="Logo">';
                 removeLogo.classList.add('visible');
                 debouncedUpdatePreview();
@@ -1041,7 +1053,6 @@
 
         removeLogo.addEventListener('click', function() {
             logoDataUrl = defaultLogoDataUrl;
-            usingCustomLogo = false;
             logoInput.value = '';
             logoPreview.innerHTML = '<img src="ic_motify.svg" alt="Motify Logo">';
             removeLogo.classList.remove('visible');
@@ -1082,23 +1093,24 @@
             }
         }
 
-        // Download PNG (1024x1024)
-        function downloadPng() {
+        // Download QR as PNG (1024x1024) or SVG
+        function downloadQr(format) {
             if (!validateUrl()) return;
 
             var url = getCurrentUrl();
             var options = getQrOptions(1024);
             options.data = url;
+            if (format === 'svg') options.type = 'svg';
 
             var title = titleInput.value.trim();
             var filename = title
                 ? 'qr-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')
                 : 'qr-code';
 
-            var downloadQr = new QRCodeStyling(options);
-            downloadQr.download({
+            var dl = new QRCodeStyling(options);
+            dl.download({
                 name: filename,
-                extension: 'png'
+                extension: format
             });
         }
 
@@ -1140,7 +1152,8 @@
                 printWindow.document.write('@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .print-card { padding: 0; } }');
                 printWindow.document.write('</style></head><body>');
                 printWindow.document.write('<div class="print-card">');
-                printWindow.document.write('<img class="print-logo" src="' + window.location.origin + '/ic_motify.svg" alt="Motify">');
+                var logoOrigin = window.location.origin !== 'null' ? window.location.origin : '.';
+                printWindow.document.write('<img class="print-logo" src="' + logoOrigin + '/ic_motify.svg" alt="Motify">');
                 if (qrDataUrl) {
                     printWindow.document.write('<img class="print-qr" src="' + qrDataUrl + '" alt="QR Code">');
                 }
