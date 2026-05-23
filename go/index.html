@@ -217,7 +217,7 @@
             <canvas id="qrCanvas"></canvas>
         </div>
         <div class="badge-row">
-            <a id="desktopApple" href="https://apps.apple.com/app/motify/id000000000">
+            <a id="desktopApple" href="https://apps.apple.com/app/motify/id6760111208">
                 <img class="store-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
             </a>
             <a id="desktopGoogle" href="https://play.google.com/store/apps/details?id=moti.motify">
@@ -276,18 +276,18 @@
             var isMobile = isIOS || isAndroid;
 
             // Store URLs
-            var appStoreUrl = 'https://apps.apple.com/app/motify/id000000000';
+            var appStoreUrl = 'https://apps.apple.com/app/motify/id6760111208';
             var playStoreUrl = 'https://play.google.com/store/apps/details?id=moti.motify&referrer=promo%3D' + encodeURIComponent(code);
 
             // Fire and forget: track click
             try {
-                functions.httpsCallable('trackClick')({ code: code, platform: isIOS ? 'ios' : isAndroid ? 'android' : 'desktop' });
+                functions.httpsCallable('trackClick')({ promoCode: code, platform: isIOS ? 'ios' : isAndroid ? 'android' : 'desktop' });
             } catch (e) {
                 // Ignore tracking errors
             }
 
             // Fetch promo data and handle redirect
-            functions.httpsCallable('getPromotion')({ code: code })
+            functions.httpsCallable('getPromotion')({ promoCode: code })
                 .then(function(result) {
                     var promo = result.data;
 

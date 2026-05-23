@@ -3,6 +3,10 @@
   "target": {
     "namespace": "android_app",
     "package_name": "moti.motify",
-    "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_PLACEHOLDER"]
+    "sha256_cert_fingerprints": [
+      "69:CF:F9:3D:31:2D:DD:A9:1D:CA:89:68:53:C3:EC:5A:AA:ED:9B:CF:36:E0:03:BE:89:D4:DA:B7:3A:CF:80:33",
+      "DE:CB:3C:8E:8E:5F:31:14:38:13:76:89:77:F9:56:F4:E2:E3:12:7B:16:FB:72:AF:8A:E9:6F:1B:A4:89:FC:FD",
+      "56:FB:1A:EE:8E:9E:F5:83:A1:89:3E:6E:D3:46:A0:70:2F:A8:EA:4A:3C:A9:38:2C:12:8B:40:51:5F:0B:14:BA"
+    ]
   }
 }]

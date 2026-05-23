@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["TEAM_ID.moti.motify"],
+        "appIDs": ["NYP8DXRMW6.moti.motify"],
         "paths": ["/go/*"]
       }
     ]
