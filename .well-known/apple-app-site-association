@@ -4,7 +4,7 @@
     "details": [
       {
         "appIDs": ["NYP8DXRMW6.moti.motify"],
-        "paths": ["/go/*"]
+        "paths": ["/i/*", "/go/*"]
       }
     ]
   }
