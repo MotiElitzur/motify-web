@@ -280,41 +280,30 @@
             var appStoreUrl = 'https://apps.apple.com/app/motify/id6760111208';
             var playStoreUrl = 'https://play.google.com/store/apps/details?id=moti.motify&referrer=promo%3D' + encodeURIComponent(code);
 
-            // Fire and forget: track click
+            // Fire and forget: track click (best-effort — not awaited, so a fast mobile redirect may
+            // cut it short; referral CREDIT rides on install attribution, not this click counter).
             try {
                 functions.httpsCallable('trackClick')({ promoCode: code, platform: isIOS ? 'ios' : isAndroid ? 'android' : 'desktop' });
             } catch (e) {
                 // Ignore tracking errors
             }
 
-            // Fetch promo data and handle redirect
+            // Mobile users only need the store — the promo card is desktop-only. Go straight there
+            // instead of blocking on getPromotion (a Cloud Function whose cold start added seconds,
+            // and whose result mobile never uses). This is the main "the link is slow" fix.
+            if (isMobile) {
+                window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
+                return;
+            }
+
+            // Desktop: fetch the promo and render the invite card.
             functions.httpsCallable('getPromotion')({ promoCode: code })
                 .then(function(result) {
-                    var promo = result.data;
-
-                    if (isMobile) {
-                        // Redirect to appropriate store
-                        window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
-                    } else {
-                        // Desktop: show promo card
-                        showPromoCard(promo, code);
-                    }
+                    showPromoCard(result.data, code);
                 })
-                .catch(function(error) {
-                    if (isMobile) {
-                        // Even on error, redirect mobile users to the store
-                        window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
-                    } else {
-                        showError();
-                    }
+                .catch(function() {
+                    showError();
                 });
-
-            // Fallback: if still loading after 5s on mobile, redirect anyway
-            if (isMobile) {
-                setTimeout(function() {
-                    window.location.replace(isIOS ? appStoreUrl : playStoreUrl);
-                }, 5000);
-            }
 
             function showPromoCard(promo, code) {
                 document.getElementById('loading').style.display = 'none';
