@@ -107,11 +107,19 @@
 <body>
     <script>
     (function() {
+        // GitHub Pages has no file at `/i/CODE` or `/go/CODE`, so those deep links land on this 404
+        // page. Rewrite `/<prefix>/CODE` → `/<prefix>/?code=CODE`, which the landing page reads.
+        // `/i/` = referral / invite links; `/go/` = legacy promo links.
         var path = window.location.pathname;
-        if (path.indexOf('/go/') === 0 && path.length > 4) {
-            var code = path.substring(4).replace(/\/$/, '');
-            if (code) {
-                window.location.replace('/go/?code=' + encodeURIComponent(code));
+        var prefixes = ['/i/', '/go/'];
+        for (var i = 0; i < prefixes.length; i++) {
+            var prefix = prefixes[i];
+            if (path.indexOf(prefix) === 0 && path.length > prefix.length) {
+                var code = path.substring(prefix.length).replace(/\/$/, '');
+                if (code) {
+                    window.location.replace(prefix + '?code=' + encodeURIComponent(code));
+                    return;
+                }
             }
         }
     })();

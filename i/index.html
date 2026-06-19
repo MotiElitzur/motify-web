@@ -251,15 +251,15 @@
             firebase.initializeApp(firebaseConfig);
             var functions = firebase.functions();
 
-            // Extract promo code from path or query param
+            // Extract promo code. Canonical form (after the 404.html redirect) is /i/?code=CODE; a
+            // literal /i/CODE path also works where a server preserves it. Strip the /i/ prefix — the
+            // bare /i/ landing carries no code in the path (segs=['i'] would wrongly read 'i') — then
+            // fall back to the ?code= query param. Mirrors go/index.html.
             var code = null;
             var path = window.location.pathname;
-            // Last non-empty path segment (works for /i/CODE and /go/CODE)
-            var segs = path.split('/').filter(Boolean);
-            if (segs.length > 0) {
-                code = decodeURIComponent(segs[segs.length - 1].replace(/\/$/, ''));
+            if (path.indexOf('/i/') === 0 && path.length > 3) {
+                code = decodeURIComponent(path.substring(3).replace(/\/$/, ''));
             }
-            // Fallback: ?code=CODE
             if (!code) {
                 var params = new URLSearchParams(window.location.search);
                 code = params.get('code');
