@@ -106,6 +106,7 @@ for (const page of PAGES) {
       idSuffix: `-${lang}`,
       h1: m.h1 || m.title || '',
       updated: m.updated || '',
+      intro: pageStrings.intro || '',
       homeUrl: '/',
       otherLang: other,
       otherLangLabel: common.lang_switch,

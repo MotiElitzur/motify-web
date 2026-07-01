@@ -361,6 +361,9 @@ html[data-lang="he"] [data-lang-block="he"] { display: block; }
 .prose strong { color: var(--text); }
 .prose a { text-decoration: underline; }
 
+.callout { margin: 20px 0; padding: 16px 20px; background: color-mix(in srgb, var(--brand) 10%, var(--surface)); border-inline-start: 3px solid var(--brand); border-radius: var(--r-md); }
+.callout p { color: var(--text); margin: 0; }
+
 /* FAQ */
 .faq-list { max-width: 760px; margin-inline: auto; display: grid; gap: 12px; }
 .faq { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }

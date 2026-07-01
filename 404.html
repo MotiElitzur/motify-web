@@ -8,8 +8,8 @@
     <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
     <style>
         :root {
-            --primary: #FF4D6D;
-            --primary-light: #FF4D6D;
+            --primary: #80AFE3;
+            --primary-light: #80AFE3;
             --text: #f5f5f5;
             --text-muted: #b0b0b0;
             --bg: #0F1115;
@@ -50,10 +50,10 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1px;
         }
 
-        .logo img { height: 32px; width: 32px; border-radius: 8px; }
+        .logo img { height: 0.85em; width: auto; margin-top: 0.06em; }
         .logo span { color: var(--primary-light); }
 
         .container {
@@ -69,7 +69,7 @@
         .error-code {
             font-size: 6em;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), #FF6B8A);
+            background: linear-gradient(135deg, var(--primary), #19D3E6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -126,7 +126,7 @@
     </script>
     <nav>
         <div class="nav-inner">
-            <a href="/" class="logo"><img src="/ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
+            <a href="/" class="logo" aria-label="Motify"><img src="/assets/img/logo-glyph.svg" alt="">otify</a>
         </div>
     </nav>
     <div class="container">

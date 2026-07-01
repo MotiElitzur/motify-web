@@ -10,15 +10,15 @@
 
     <style>
         :root {
-            --primary: #FF4D6D;
-            --primary-light: #FF4D6D;
-            --secondary: #00F0FF;
+            --primary: #80AFE3;
+            --primary-light: #80AFE3;
+            --secondary: #19D3E6;
             --text: #f5f5f5;
             --text-muted: #b0b0b0;
             --bg: #0F1115;
             --card-bg: #1E2129;
             --border: #2a2f3a;
-            --accent-bg: rgba(255, 77, 109, 0.12);
+            --accent-bg: rgba(128, 175, 227, 0.12);
             --success: #34D399;
             --warning: #FBBF24;
             --danger: #F87171;
@@ -63,10 +63,10 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1px;
         }
 
-        .logo img { height: 32px; width: 32px; border-radius: 8px; }
+        .logo img { height: 0.85em; width: auto; margin-top: 0.06em; }
         .logo span { color: var(--primary-light); }
 
         .nav-links {
@@ -176,7 +176,7 @@
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #FF6B8A);
+            background: linear-gradient(135deg, var(--primary), #19D3E6);
             color: white;
             width: 100%;
         }
@@ -217,7 +217,7 @@
         }
 
         .dashboard-header h1 span {
-            background: linear-gradient(135deg, var(--primary), #FF6B8A);
+            background: linear-gradient(135deg, var(--primary), #19D3E6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -517,7 +517,7 @@
 
     <nav>
         <div class="nav-inner">
-            <a href="index.html" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
+            <a href="index.html" class="logo" aria-label="Motify"><img src="/assets/img/logo-glyph.svg" alt="">otify</a>
             <button class="hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
                 <svg viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </button>
