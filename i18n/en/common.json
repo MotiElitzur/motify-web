@@ -1,0 +1,22 @@
+{
+  "brand": "Motify",
+  "skip": "Skip to content",
+  "nav_label": "Primary",
+  "home": "Home",
+  "menu": "Menu",
+  "nav_modes": "Modes",
+  "nav_how": "How it works",
+  "nav_support": "Support",
+  "nav_privacy": "Privacy",
+  "lang_switch": "עברית",
+  "lang_aria": "Switch to Hebrew",
+  "theme": "Toggle light or dark theme",
+  "badge_apple": "Download on the App Store",
+  "badge_google": "Get it on Google Play",
+  "footer_tagline": "Meet the people around you.",
+  "footer_nav_label": "Footer",
+  "footer_terms": "Terms",
+  "footer_guidelines": "Guidelines",
+  "footer_contact": "Contact",
+  "footer_copyright": "© 2026 Motify. All rights reserved."
+}

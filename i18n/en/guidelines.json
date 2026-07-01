@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "title": "Motify — Community Guidelines",
+    "description": "Motify Community Guidelines. The behavioral and content standards we expect from everyone using Motify, and how we respond when they're broken.",
+    "h1": "Community Guidelines",
+    "updated": "Last Updated: May 4, 2026"
+  },
+  "sections": [
+    {
+      "heading": "1. Be respectful",
+      "body": "<p>Motify works because strangers in the same place are willing to talk to each other. Keep that working:</p><ul><li>Be polite when you reach out. A short message is fine; a rude one isn't.</li><li>Take 'no' or silence as an answer. Don't badger people who haven't replied.</li><li>Disagree without insulting. Different views are fine; personal attacks aren't.</li></ul>"
+    },
+    {
+      "heading": "2. What you can't post",
+      "body": "<p>The following are not allowed anywhere on Motify — in your profile, your Posts, your Replies, or your messages:</p><ul><li><strong>Harassment, bullying, or threats</strong> directed at any person, including users you've blocked or who have blocked you.</li><li><strong>Hate speech</strong> targeting people based on race, ethnicity, national origin, religion, gender, gender identity, sexual orientation, disability, or any other protected characteristic.</li><li><strong>Sexually explicit content, nudity, or solicitation.</strong> Motify is not a platform for sexual content, escort services, or transactional intimacy of any kind.</li><li><strong>Content involving minors</strong> in any inappropriate context. Child sexual abuse material (CSAM) and child exploitation are zero-tolerance and reported to law enforcement and to NCMEC.</li><li><strong>Violence, gore, or content that promotes self-harm.</strong> If you are in crisis, please reach out to a local emergency line.</li><li><strong>Illegal activity,</strong> including the sale of weapons, controlled substances, or stolen goods.</li><li><strong>Spam, scams, or commercial promotion</strong> without our consent — including bulk advertising, recruiting for businesses, fundraising, MLM pitches, and crypto/investment offers.</li><li><strong>Impersonation</strong> of another person, brand, or public figure, including using someone else's photos as your own.</li><li><strong>Personal information about other people</strong> shared without their consent — phone numbers, home addresses, ID documents, workplace details.</li></ul>"
+    },
+    {
+      "heading": "3. Posts: how they work and what's expected",
+      "body": "<p>A Post on Motify is a short, time-bounded message visible to people physically near you. Posts are intended for in-the-moment requests, offers, and tips — not for ongoing broadcasting or self-promotion.</p><ul><li>Keep Posts short and on-topic for the place you're in.</li><li>If your Post is a request and someone has helped, mark it as <strong>Resolved</strong> so the Post is removed from the feed for everyone else. Resolved Posts are deleted.</li><li>Posts expire automatically after a set lifetime that depends on the type of Post. Don't repost the same content over and over to game the feed.</li><li>Replies should be relevant to the Post. Don't hijack a Reply thread to promote yourself or attack the author.</li></ul>"
+    },
+    {
+      "heading": "4. Reporting and blocking",
+      "body": "<p>You don't have to put up with content or behavior that violates these Guidelines. Two tools are available to you everywhere they're relevant:</p><ul><li><strong>Report</strong> a profile, a Post, a reply, or a chat message using the report control on that surface. Tell us briefly what's wrong. Reports go to our moderation team and we aim to review them within 24 hours.</li><li><strong>Block</strong> any user from their profile or from the overflow menu in chat. Blocking immediately hides that user from your feed and prevents new Posts, Replies, or messages from them reaching you. Blocks also flag the user to our moderation team.</li></ul><p>If you report something or block someone, the other person is not told it was you.</p>"
+    },
+    {
+      "heading": "5. How we enforce",
+      "body": "<p>When something is reported, we look at it. Depending on what we find, we may take any of the following actions:</p><ul><li><strong>No action</strong> — the content doesn't violate these Guidelines. This is a normal outcome and not an endorsement.</li><li><strong>Warning</strong> — for minor or first-time violations. We tell the user what was wrong and what to fix.</li><li><strong>Content removal</strong> — we delete the offending Post, Reply, message, photo, or profile field.</li><li><strong>Temporary suspension</strong> — for repeated violations or more serious single incidents. The account is locked for a period of time.</li><li><strong>Permanent ban</strong> — for severe violations, repeated abuse after a suspension, or any zero-tolerance category (CSAM, credible threats, etc.). The account is terminated and the user is prevented from creating a new one.</li></ul><p>We may take action without warning when the violation is serious or when waiting would put another user at risk. We may also remove content based on our own review even if no one has reported it.</p>"
+    },
+    {
+      "heading": "6. If you disagree with a decision",
+      "body": "<p>If we removed your content or restricted your account and you believe we got it wrong, you can reply to the notification we sent you, or write to us at <a href='mailto:support@motify.uk'>support@motify.uk</a>. Tell us what happened and why you think the decision should be reversed. We'll take another look.</p>"
+    },
+    {
+      "heading": "7. Off-app behavior",
+      "body": "<p>Motify is built for people who can physically run into each other. That means real-world conduct matters here in a way it doesn't on most apps. If we receive credible reports that a user has harassed, threatened, or harmed another user offline after meeting through Motify, that can be grounds for removal from the platform.</p>"
+    },
+    {
+      "heading": "8. Changes",
+      "body": "<p>We may update these Guidelines as the community grows. When we make material changes, we'll update the date at the top of this page and, where appropriate, notify you in the App.</p>"
+    },
+    {
+      "heading": "9. Contact",
+      "body": "<p>Questions about these Guidelines, or about a moderation decision: <a href='mailto:support@motify.uk'>support@motify.uk</a>.</p>"
+    }
+  ]
+}

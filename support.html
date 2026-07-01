@@ -1,285 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motify — Support</title>
-    <meta name="description" content="Get help with Motify. Find answers to common questions about Bluetooth, permissions, privacy, posts, and more.">
-    <meta name="theme-color" content="#0F1115">
+    <meta name="description" content="Get help with Motify — answers about Bluetooth, permissions, privacy, Posts, and deleting your account.">
+    <meta name="theme-color" content="#0F1115" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://motify.uk/support.html">
-    <meta property="og:title" content="Motify — Support">
-    <meta property="og:description" content="Get help with Motify. Find answers to common questions about Bluetooth, permissions, privacy, posts, and more.">
     <meta property="og:site_name" content="Motify">
-
-    <!-- Twitter -->
+    <meta property="og:title" content="Motify — Support">
+    <meta property="og:description" content="Get help with Motify — answers about Bluetooth, permissions, privacy, Posts, and deleting your account.">
+    <meta property="og:url" content="https://motify.uk/support.html">
+    <meta property="og:locale" content="en">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Motify — Support">
-    <meta name="twitter:description" content="Get help with Motify. Find answers to common questions.">
+    <meta name="twitter:description" content="Get help with Motify — answers about Bluetooth, permissions, privacy, Posts, and deleting your account.">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="ic_motify.svg">
     <link rel="canonical" href="https://motify.uk/support.html">
+    <link rel="alternate" hreflang="en" href="https://motify.uk/support.html?lang=en">
+    <link rel="alternate" hreflang="he" href="https://motify.uk/support.html?lang=he">
+    <link rel="alternate" hreflang="x-default" href="https://motify.uk/support.html">
+    <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
+    <link rel="stylesheet" href="/assets/css/motify.css">
+    <script type="application/json" id="i18n-meta">{"en":{"title":"Motify — Support","dir":"ltr"},"he":{"title":"Motify — תמיכה","dir":"rtl"}}</script>
+    <script>
+      // Runs before first paint: pick theme + language so the correct language block
+      // shows immediately (no flash). Priority: ?lang= > saved choice > browser > English.
+      (function () {
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('motify-theme');
+          if (t) d.setAttribute('data-theme', t);
+        } catch (e) {}
+        try {
+          var d = document.documentElement;
+          var q = new URLSearchParams(location.search).get('lang');
+          var saved = null; try { saved = localStorage.getItem('motify-lang'); } catch (e) {}
+          var nav = (navigator.language || 'en').toLowerCase().indexOf('he') === 0 ? 'he' : 'en';
+          var lang = (q === 'he' || q === 'en') ? q : (saved === 'he' || saved === 'en') ? saved : nav;
+          d.setAttribute('data-lang', lang);
+          d.setAttribute('lang', lang);
+          d.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+          if (q === 'he' || q === 'en') {
+            try { localStorage.setItem('motify-lang', q); } catch (e) {}
+            // Remember the choice, then strip ?lang= so it never lingers in the address bar.
+            try { var u = new URL(location.href); u.searchParams.delete('lang'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
+          }
+          var el = document.getElementById('i18n-meta');
+          if (el) { var meta = JSON.parse(el.textContent); if (meta[lang] && meta[lang].title) document.title = meta[lang].title; }
+        } catch (e) {}
+      })();
+    </script>
 
-    <style>
-        :root {
-            --primary: #FF4D6D;
-            --primary-light: #FF4D6D;
-            --text: #f5f5f5;
-            --text-muted: #b0b0b0;
-            --bg: #0F1115;
-            --card-bg: #1E2129;
-            --border: #2a2f3a;
-            --accent-bg: rgba(255, 77, 109, 0.12);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            background-color: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 17, 21, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 16px 0;
-        }
-
-        nav .nav-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img { height: 32px; width: 32px; border-radius: 8px; }
-        .logo span { color: var(--primary-light); }
-
-        .back-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover { color: var(--text); }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 100px 24px 60px;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.05em;
-            margin-bottom: 40px;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 12px;
-        }
-
-        strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        a {
-            color: var(--primary-light);
-            text-decoration: none;
-        }
-
-        a:hover { text-decoration: underline; }
-
-        .faq-list {
-            max-width: 700px;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--border);
-            padding: 24px 0;
-        }
-
-        .faq-item:last-child { border-bottom: none; }
-
-        .faq-item h3 {
-            font-size: 1.05em;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .faq-item p, .faq-item ol {
-            color: var(--text-muted);
-            font-size: 0.95em;
-        }
-
-        .faq-item ol {
-            padding-left: 20px;
-            margin-top: 8px;
-        }
-
-        .faq-item li {
-            margin-bottom: 4px;
-            color: var(--text-muted);
-            font-size: 0.95em;
-        }
-
-        .contact-box {
-            background: var(--accent-bg);
-            border: 1px solid rgba(255, 77, 109, 0.3);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            max-width: 500px;
-            margin: 40px 0 0;
-        }
-
-        .contact-box h3 {
-            font-size: 1.15em;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .contact-box p {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 4px;
-        }
-
-        .contact-box a {
-            color: var(--primary-light);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .contact-box a:hover { text-decoration: underline; }
-
-        footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 24px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        footer p { font-size: 0.85em; }
-
-        @media (max-width: 768px) {
-            .container { padding: 90px 20px 40px; }
-            h1 { font-size: 1.8em; }
-        }
-    </style>
 </head>
 <body>
-
-    <nav>
-        <div class="nav-inner">
-            <a href="./" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
-            <a href="./" class="back-link">&larr; Back to Motify</a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h1>Support</h1>
-        <p class="subtitle">Find answers to common questions or get in touch.</p>
-
-        <div class="faq-list">
-            <div class="faq-item">
-                <h3>How does Motify work?</h3>
-                <p>Motify uses Bluetooth Low Energy (BLE) to detect other Motify users in the same physical space as you. When you're nearby, you'll both appear on each other's radar. From there you can read their Posts, send a quick hello, or start a conversation.</p>
-            </div>
-            <div class="faq-item">
-                <h3>How does Motify protect my privacy?</h3>
-                <p>Three things to know:</p>
-                <ul>
-                    <li><strong>No GPS, ever.</strong> Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically near you.</li>
-                    <li><strong>Bluetooth only, in short range.</strong> The Bluetooth identifier your phone broadcasts is encrypted, rotates regularly, and only carries the information needed to detect another Motify user in the same place. It cannot be used to track you across locations.</li>
-                    <li><strong>Mutual visibility.</strong> You only see another user when they would also see you. Becoming visible to others is a single act, not a permission you give once and forget about.</li>
+<div class="lang-block" data-lang-block="en" lang="en" dir="ltr">
+    <a class="skip-link" href="#main-en">Skip to content</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-en" aria-label="Menu">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-en">
+                    <li><a href="/#modes-en">Modes</a></li>
+                    <li><a href="/#how-en">How it works</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=he" data-lang-to="he" hreflang="he" lang="he" aria-label="Switch to Hebrew">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>עברית</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="Toggle light or dark theme" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
                 </ul>
-                <p>For the full policy, see our <a href="privacy.html">Privacy Policy</a>.</p>
             </div>
-            <div class="faq-item">
-                <h3>Does Motify track my location?</h3>
-                <p>No. Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically nearby. We never know or store where you are.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Why does Motify need Bluetooth permission?</h3>
-                <p>Bluetooth is the core technology that powers Motify. It's how we detect nearby users. Without Bluetooth permission, the app cannot function.</p>
-            </div>
-            <div class="faq-item" id="data-deletion">
-                <h3>How do I delete my account?</h3>
-                <p>You can delete your account directly in the app:</p>
-                <ol>
-                    <li>Go to <strong>Settings</strong></li>
-                    <li>Tap <strong>Delete Account</strong></li>
-                    <li>Confirm the deletion</li>
-                </ol>
-                <p>All your personal data will be permanently removed from our servers.</p>
-            </div>
-            <div class="faq-item">
-                <h3>How do I report someone or something?</h3>
-                <p>You can report a user from their profile, a Post or reply from the Post itself, or a chat message from the conversation. Tap the report control and tell us briefly what's wrong. Reports are reviewed by our moderation team, usually within 24 hours. See our <a href="guidelines.html">Community Guidelines</a> for what's allowed on Motify and how we respond when the rules are broken.</p>
-            </div>
-            <div class="faq-item">
-                <h3>What are Posts and how long do they last?</h3>
-                <p>A Post is a short message you share with people physically near you — for example asking a question, offering help, or sharing a tip. Posts have a limited lifetime that depends on the type, and you can mark a Post as Resolved once you're done with it. Resolved or expired Posts are deleted.</p>
-            </div>
-            <div class="faq-item">
-                <h3>The app isn't finding anyone nearby</h3>
-                <p>Make sure Bluetooth is turned on and that Motify has Bluetooth permission in your device settings. The app needs to be running (even in the background) to detect nearby users.</p>
-            </div>
-            <div class="faq-item">
-                <h3>I'm not receiving notifications</h3>
-                <p>Check that notifications are enabled for Motify in your device settings. On Android, also make sure battery optimization isn't restricting the app.</p>
-            </div>
-        </div>
+        </nav>
+    </header>
 
-        <div class="contact-box">
-            <h3>Still need help?</h3>
+    <main id="main-en" class="page">
+        <div class="page__head">
+            <h1>Support</h1>
+            <p class="page__sub">Find answers to common questions, or get in touch.</p>
+        </div>
+        <div class="faq-list">
+            <details class="faq"><summary class="faq__q">How does Motify work?</summary><div class="faq__a"><p>Motify uses Bluetooth Low Energy (BLE) to detect other Motify users in the same physical space as you. When you're nearby, you'll both appear on each other's radar. From there you can read their Posts, send a quick hello, or start a conversation.</p></div></details>
+<details class="faq"><summary class="faq__q">How does Motify protect my privacy?</summary><div class="faq__a"><p>Three things to know:</p><ul><li><strong>No GPS, ever.</strong> Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically near you.</li><li><strong>Bluetooth only, in short range.</strong> The Bluetooth identifier your phone broadcasts is encrypted, rotates regularly, and only carries what is needed to detect another Motify user in the same place. It cannot be used to track you across locations.</li><li><strong>Mutual visibility.</strong> You only see another user when they would also see you.</li></ul><p>For the full policy, see our <a href='privacy.html'>Privacy Policy</a>.</p></div></details>
+<details class="faq"><summary class="faq__q">Does Motify track my location?</summary><div class="faq__a"><p>No. Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically nearby. We never know or store where you are.</p></div></details>
+<details class="faq"><summary class="faq__q">Why does Motify need Bluetooth permission?</summary><div class="faq__a"><p>Bluetooth is the core technology that powers Motify — it's how we detect nearby users. Without Bluetooth permission, the app cannot function.</p></div></details>
+<details class="faq"><summary class="faq__q">How do I delete my account?</summary><div class="faq__a"><p>You can delete your account directly in the app:</p><ol><li>Go to <strong>Settings</strong></li><li>Tap <strong>Delete Account</strong></li><li>Confirm the deletion</li></ol><p>All your personal data will be permanently removed from our servers.</p></div></details>
+<details class="faq"><summary class="faq__q">How do I report someone or something?</summary><div class="faq__a"><p>You can report a user from their profile, a Post or reply from the Post itself, or a chat message from the conversation. Tap the report control and tell us briefly what's wrong. Reports are reviewed by our moderation team, usually within 24 hours. See our <a href='guidelines.html'>Community Guidelines</a> for what's allowed on Motify.</p></div></details>
+<details class="faq"><summary class="faq__q">What are Posts and how long do they last?</summary><div class="faq__a"><p>A Post is a short message you share with people physically near you — for example asking a question, offering help, or sharing a tip. Posts have a limited lifetime that depends on the type, and you can mark a Post as Resolved once you're done with it. Resolved or expired Posts are deleted.</p></div></details>
+<details class="faq"><summary class="faq__q">The app isn't finding anyone nearby</summary><div class="faq__a"><p>Make sure Bluetooth is turned on and that Motify has Bluetooth permission in your device settings. The app needs to be running (even in the background) to detect nearby users.</p></div></details>
+<details class="faq"><summary class="faq__q">I'm not receiving notifications</summary><div class="faq__a"><p>Check that notifications are enabled for Motify in your device settings. On Android, also make sure battery optimization isn't restricting the app.</p></div></details>
+        </div>
+        <aside class="contact-card">
+            <h2>Still need help?</h2>
             <p>Reach out to us directly.</p>
-            <p><a href="mailto:support@motify.uk">support@motify.uk</a></p>
-            <p>We aim to respond within 48 hours.</p>
+            <p class="contact-card__email"><a href="mailto:support@motify.uk">support@motify.uk</a></p>
+            <p class="contact-card__time">We aim to respond within 48 hours.</p>
+        </aside>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>Meet the people around you.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="Footer">
+                <a href="/privacy.html">Privacy</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/guidelines.html">Guidelines</a>
+                <a href="/support.html">Support</a>
+                <a href="mailto:support@motify.uk">Contact</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. All rights reserved.</p>
         </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Motify. All rights reserved.</p>
     </footer>
 
+
+</div>
+<div class="lang-block" data-lang-block="he" lang="he" dir="rtl">
+    <a class="skip-link" href="#main-he">דילוג לתוכן</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="ראשי">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-he" aria-label="תפריט">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-he">
+                    <li><a href="/#modes-he">מצבים</a></li>
+                    <li><a href="/#how-he">איך זה עובד</a></li>
+                    <li><a href="support.html">תמיכה</a></li>
+                    <li><a href="privacy.html">פרטיות</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=en" data-lang-to="en" hreflang="en" lang="en" aria-label="מעבר לאנגלית">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>English</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="מעבר בין מצב בהיר לכהה" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-he" class="page">
+        <div class="page__head">
+            <h1>תמיכה</h1>
+            <p class="page__sub">מצאו תשובות לשאלות נפוצות, או צרו איתנו קשר.</p>
+        </div>
+        <div class="faq-list">
+            <details class="faq"><summary class="faq__q">איך Motify עובד?</summary><div class="faq__a"><p>Motify משתמש ב-Bluetooth Low Energy‏ (BLE) כדי לזהות משתמשי Motify אחרים שנמצאים באותו מרחב פיזי כמוכם. כשאתם בקרבת מקום, שניכם מופיעים זה על הראדאר של זה. משם תוכלו לקרוא את הפוסטים שלהם, לשלוח שלום מהיר או להתחיל שיחה.</p></div></details>
+<details class="faq"><summary class="faq__q">איך Motify שומר על הפרטיות שלי?</summary><div class="faq__a"><p>שלושה דברים שחשוב לדעת:</p><ul><li><strong>אף פעם לא GPS.</strong> Motify אינו משתמש ב-GPS ואינו עוקב אחר המיקום שלכם. אנחנו משתמשים ב-Bluetooth בלבד כדי לזהות מתי משתמשים אחרים נמצאים פיזית לידכם.</li><li><strong>Bluetooth בלבד, בטווח קצר.</strong> מזהה ה-Bluetooth שהטלפון שלכם משדר מוצפן, מתחלף באופן קבוע ונושא רק את מה שנדרש כדי לזהות משתמש Motify אחר באותו מקום. לא ניתן להשתמש בו כדי לעקוב אחריכם בין מקומות.</li><li><strong>נראות הדדית.</strong> אתם רואים משתמש אחר רק כאשר גם הוא היה רואה אתכם.</li></ul><p>למדיניות המלאה, ראו את <a href='privacy.html'>מדיניות הפרטיות</a> שלנו.</p></div></details>
+<details class="faq"><summary class="faq__q">האם Motify עוקב אחר המיקום שלי?</summary><div class="faq__a"><p>לא. Motify אינו משתמש ב-GPS ואינו עוקב אחר המיקום שלכם. אנחנו משתמשים ב-Bluetooth בלבד כדי לזהות מתי משתמשים אחרים נמצאים פיזית בקרבת מקום. אנחנו לעולם לא יודעים ולא שומרים היכן אתם נמצאים.</p></div></details>
+<details class="faq"><summary class="faq__q">למה Motify צריך הרשאת Bluetooth?</summary><div class="faq__a"><p>Bluetooth היא הטכנולוגיה המרכזית שמפעילה את Motify — כך אנחנו מזהים משתמשים בקרבת מקום. ללא הרשאת Bluetooth, האפליקציה אינה יכולה לפעול.</p></div></details>
+<details class="faq"><summary class="faq__q">איך אני מוחק את החשבון שלי?</summary><div class="faq__a"><p>אפשר למחוק את החשבון ישירות מתוך האפליקציה:</p><ol><li>עברו אל <strong>הגדרות</strong></li><li>הקישו על <strong>מחיקת חשבון</strong></li><li>אשרו את המחיקה</li></ol><p>כל המידע האישי שלכם יוסר לצמיתות מהשרתים שלנו.</p></div></details>
+<details class="faq"><summary class="faq__q">איך אני מדווח על מישהו או על משהו?</summary><div class="faq__a"><p>אפשר לדווח על משתמש מהפרופיל שלו, על פוסט או תגובה מתוך הפוסט עצמו, או על הודעה בצ׳אט מתוך השיחה. הקישו על כפתור הדיווח וספרו לנו בקצרה מה הבעיה. הדיווחים נבדקים על ידי צוות הפיקוח שלנו, בדרך כלל בתוך 24 שעות. ראו את <a href='guidelines.html'>כללי הקהילה</a> שלנו לגבי מה שמותר ב-Motify.</p></div></details>
+<details class="faq"><summary class="faq__q">מה זה פוסטים וכמה זמן הם נשמרים?</summary><div class="faq__a"><p>פוסט הוא הודעה קצרה שאתם משתפים עם אנשים שנמצאים פיזית בקרבתכם — למשל שאלה, הצעת עזרה או טיפ. לפוסטים יש משך חיים מוגבל שתלוי בסוג, ואפשר לסמן פוסט כ״נפתר״ כשסיימתם איתו. פוסטים שנפתרו או שפג תוקפם נמחקים.</p></div></details>
+<details class="faq"><summary class="faq__q">האפליקציה לא מוצאת אף אחד בקרבת מקום</summary><div class="faq__a"><p>ודאו ש-Bluetooth דלוק וש-Motify קיבל הרשאת Bluetooth בהגדרות המכשיר. האפליקציה צריכה לפעול (גם ברקע) כדי לזהות משתמשים בקרבת מקום.</p></div></details>
+<details class="faq"><summary class="faq__q">אני לא מקבל התראות</summary><div class="faq__a"><p>בדקו שההתראות מופעלות עבור Motify בהגדרות המכשיר. במכשירי Android, ודאו גם שאופטימיזציית הסוללה אינה מגבילה את האפליקציה.</p></div></details>
+        </div>
+        <aside class="contact-card">
+            <h2>עדיין צריכים עזרה?</h2>
+            <p>פנו אלינו ישירות.</p>
+            <p class="contact-card__email"><a href="mailto:support@motify.uk">support@motify.uk</a></p>
+            <p class="contact-card__time">אנו שואפים להשיב בתוך 48 שעות.</p>
+        </aside>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>הכירו את האנשים שסביבכם.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="כותרת תחתונה">
+                <a href="/privacy.html">פרטיות</a>
+                <a href="/terms.html">תנאי שימוש</a>
+                <a href="/guidelines.html">כללי הקהילה</a>
+                <a href="/support.html">תמיכה</a>
+                <a href="mailto:support@motify.uk">צור קשר</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. כל הזכויות שמורות.</p>
+        </div>
+    </footer>
+
+
+</div>
+    <script src="/assets/js/motify.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "title": "Motify — Privacy Policy",
+    "description": "Learn how Motify protects your privacy. We use Bluetooth proximity, not GPS tracking. Your data stays yours.",
+    "h1": "Privacy Policy",
+    "updated": "Last Updated: May 4, 2026"
+  },
+  "sections": [
+    {
+      "heading": "1. Information We Collect",
+      "body": "<p>Welcome to Motify! Your privacy is critically important to us. This Privacy Policy explains how Motify (\"we,\" \"us,\" or \"our\") collects, uses, shares, and protects your information when you use our mobile application, Motify (the \"App\").</p><p>By using our App, you agree to the collection and use of information in accordance with this policy.</p><p><strong>A Clear Note on Proximity Data</strong></p><p>Motify connects you with people in the same physical space by using your device's Bluetooth signal. We want to be clear:</p><ul><li><strong>We do not use or request GPS location data.</strong> Our functionality is based on short-range Bluetooth proximity only.</li><li>To be compliant with app store policies, we declare the collection of \"Approximate Location.\" This is because using Bluetooth to detect nearby devices is categorized as a form of approximate location by platform operators. Our use is strictly for discovering other users in your immediate vicinity, not for tracking your physical location history.</li></ul><h3>a) Information You Provide to Us</h3><ul><li><strong>Account Information:</strong> To create and secure your account, we collect your phone number for verification.</li><li><strong>Profile Content:</strong> You may voluntarily add information to build your profile, including your name, biography, photos, and any other information you choose to share.</li><li><strong>Posts and Replies:</strong> You may publish short Posts visible to people physically near you, and Replies to other users' Posts. The text and metadata you submit (including the type of Post and its lifetime) are stored with the Post.</li><li><strong>Reports:</strong> If you report another user, a Post, a reply, or a chat message, we collect the report content (the reason you provide and a reference to what you reported).</li></ul><h3>b) Information We Collect Automatically</h3><ul><li><strong>Proximity &amp; Connection Data:</strong> We use Bluetooth signals to detect nearby users. When a connection is made, we store an encrypted record linking the user identifiers, time, and connection status.</li><li><strong>Usage Information:</strong> We log activity on our services, including usage dates and times, features used, and how you interact with other users.</li><li><strong>Device Information:</strong> We collect device model, OS version, unique device identifiers, and Bluetooth settings.</li><li><strong>Diagnostic &amp; Log Data:</strong> We automatically collect log files and crash reports to help diagnose and fix issues.</li><li><strong>Analytics Data:</strong> We use analytics tools to understand how users interact with the App, measure feature adoption, and improve the user experience. This includes aggregated usage patterns, session durations, and feature engagement metrics.</li></ul>"
+    },
+    {
+      "heading": "2. How We Use Your Information",
+      "body": "<ul><li>Create and manage your account and profile.</li><li>Enable the core proximity-based discovery and connection features.</li><li>Display your profile, Posts, and Replies to other nearby users.</li><li>Operate the moderation and reporting flow described in our <a href='terms.html'>Terms of Service</a> and <a href='guidelines.html'>Community Guidelines</a>.</li><li>Ensure the security of our platform and prevent fraudulent activity.</li><li>Perform diagnostics, fix bugs, and improve the App's functionality.</li></ul>"
+    },
+    {
+      "heading": "3. How We Share Your Information",
+      "body": "<ul><li><strong>With Other Users:</strong> Your public profile is visible to other users when you are nearby. Posts and Replies you publish are visible to other Motify users in the same physical space, for as long as the Post is active.</li><li><strong>With Our Service Providers:</strong> We use third-party vendors to help operate, secure, and analyze our App. These include Google Firebase (authentication, database, cloud functions, crash reporting, analytics), and Datadog (application performance monitoring, error tracking, and log analysis). These providers process data on our behalf and are bound by confidentiality obligations and their respective privacy policies.</li><li><strong>For Corporate Transactions:</strong> We may transfer your information in connection with a merger, sale, acquisition, or restructuring.</li><li><strong>When Required by Law:</strong> We may disclose your information to comply with legal process, assist in crime prevention, or protect the safety of any person.</li></ul>"
+    },
+    {
+      "heading": "4. Data Retention and Deletion",
+      "body": "<p>We keep your personal information only as long as needed for legitimate business purposes. When you delete your account, we begin removing your data from our servers immediately. Residual data may remain in secure backups for a limited time before being permanently erased.</p><p><strong>Posts and Replies.</strong> Each Post has a limited lifetime that depends on its type — short, time-bounded requests typically expire within hours. When a Post expires or you mark it as resolved, the Post and its Replies are deleted. You may also delete a Post you authored at any time before that.</p><p><strong>Reports.</strong> Reports are retained while we review them and afterwards as part of our moderation records, so we can detect repeat offenders and respond to follow-up complaints. Reported content that is removed for violating our Terms or <a href='guidelines.html'>Community Guidelines</a> may be retained in moderation records even after deletion from the public surface.</p>"
+    },
+    {
+      "heading": "5. Your Rights and Choices",
+      "body": "<ul><li><strong>Access / Portability:</strong> You can request a copy of the information we hold about you.</li><li><strong>Correction:</strong> Update your information through your profile settings.</li><li><strong>Deletion:</strong> Delete your account at any time directly through the App.</li><li><strong>Permissions:</strong> Manage app permissions (Bluetooth, Notifications) in your device settings.</li></ul>"
+    },
+    {
+      "heading": "6. Security",
+      "body": "<p>We use technical and administrative security measures, including encrypting data in transit and at rest. The identifier broadcasted via Bluetooth is encrypted to protect your identity.</p>"
+    },
+    {
+      "heading": "7. International Data Transfers",
+      "body": "<p>Your information may be transferred to and processed in countries where our service providers maintain facilities. These countries may have different data protection laws than your own.</p>"
+    },
+    {
+      "heading": "8. Children's Privacy",
+      "body": "<p>Our services are restricted to users who are 18 years of age or older. We do not permit users under the age of 18 on our platform.</p>"
+    },
+    {
+      "heading": "9. Child Safety Standards",
+      "body": "<p>Motify has a zero-tolerance policy towards Child Sexual Abuse Material (CSAM) and any form of child exploitation. We enforce a strict age gate during registration, prohibit CSAE content in our terms of service, provide in-app reporting tools, and will report any discovered instances to relevant authorities including NCMEC.</p>"
+    },
+    {
+      "heading": "10. Account &amp; Data Deletion",
+      "body": "<p>You can delete your account directly in the app:</p><ol><li>Open the Motify app.</li><li>Navigate to the <strong>Profile</strong> screen.</li><li>Tap <strong>Delete Account</strong>.</li><li>Confirm that you wish to permanently delete your account.</li></ol>"
+    },
+    {
+      "heading": "11. Changes to This Privacy Policy",
+      "body": "<p>We may update this Privacy Policy from time to time. When we do, we will change the \"Last Updated\" date at the top. We encourage you to review this policy periodically.</p>"
+    },
+    {
+      "heading": "12. Contact Us",
+      "body": "<p>If you have any questions about this Privacy Policy, please contact us at: <a href='mailto:support@motify.uk'>support@motify.uk</a></p>"
+    }
+  ]
+}

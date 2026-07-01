@@ -1,0 +1,107 @@
+{{partial:nav}}
+    <main id="main{{var:idSuffix}}">
+        <section class="hero">
+            <div class="hero__glow" aria-hidden="true"></div>
+            <div class="hero__inner">
+                <div class="hero__copy">
+                    <p class="eyebrow">{{t:home.eyebrow}}</p>
+                    <h1 class="hero__title">{{t:home.hero_lead}} <span class="grad">{{t:home.hero_accent}}</span></h1>
+                    <p class="hero__sub">{{t:home.hero_sub}}</p>
+                    <div class="badges">
+                        <a class="badge" href="https://apps.apple.com/app/motify/id6760111208">
+                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="{{t:common.badge_apple}}" height="52">
+                        </a>
+                        <a class="badge" href="https://play.google.com/store/apps/details?id=moti.motify">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="{{t:common.badge_google}}" height="52">
+                        </a>
+                    </div>
+                    <p class="hero__note">{{t:home.hero_note}}</p>
+                </div>
+                <div class="hero__art" aria-hidden="true">
+                    <svg class="radar" viewBox="0 0 320 320" role="presentation">
+                        <defs>
+                            <radialGradient id="radarFade{{var:idSuffix}}" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="var(--radar)" stop-opacity="0.18"/>
+                                <stop offset="100%" stop-color="var(--radar)" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <circle class="radar__field" cx="160" cy="160" r="150" fill="url(#radarFade{{var:idSuffix}})"/>
+                        <circle class="radar__ring" cx="160" cy="160" r="52"/>
+                        <circle class="radar__ring" cx="160" cy="160" r="98"/>
+                        <circle class="radar__ring" cx="160" cy="160" r="144"/>
+                        <g class="radar__sweep"><path d="M160 160 L160 10 A150 150 0 0 1 291 96 Z"/></g>
+                        <circle class="radar__core" cx="160" cy="160" r="8"/>
+                        <circle class="radar__dot radar__dot--social" cx="212" cy="118" r="9"/>
+                        <circle class="radar__dot radar__dot--networking" cx="96" cy="196" r="9"/>
+                        <circle class="radar__dot radar__dot--dating" cx="196" cy="228" r="9"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="modes{{var:idSuffix}}" class="section">
+            <div class="section__head">
+                <h2 class="section__title">{{t:home.modes_title}}</h2>
+                <p class="section__sub">{{t:home.modes_sub}}</p>
+            </div>
+            <div class="modes">
+                <article class="mode mode--social">
+                    <span class="mode__badge">{{t:home.mode_social_tag}}</span>
+                    <h3 class="mode__title">{{t:home.mode_social_title}}</h3>
+                    <p class="mode__desc">{{t:home.mode_social_desc}}</p>
+                </article>
+                <article class="mode mode--networking">
+                    <span class="mode__badge">{{t:home.mode_networking_tag}}</span>
+                    <h3 class="mode__title">{{t:home.mode_networking_title}}</h3>
+                    <p class="mode__desc">{{t:home.mode_networking_desc}}</p>
+                </article>
+                <article class="mode mode--dating">
+                    <span class="mode__badge">{{t:home.mode_dating_tag}}</span>
+                    <h3 class="mode__title">{{t:home.mode_dating_title}}</h3>
+                    <p class="mode__desc">{{t:home.mode_dating_desc}}</p>
+                </article>
+            </div>
+            <p class="modes__note">{{t:home.modes_note}}</p>
+        </section>
+
+        <section id="how{{var:idSuffix}}" class="section section--alt">
+            <div class="section__head">
+                <h2 class="section__title">{{t:home.how_title}}</h2>
+                <p class="section__sub">{{t:home.how_sub}}</p>
+            </div>
+            <ol class="steps">
+                <li class="step"><span class="step__num">1</span><h3 class="step__title">{{t:home.how_1_title}}</h3><p>{{t:home.how_1_desc}}</p></li>
+                <li class="step"><span class="step__num">2</span><h3 class="step__title">{{t:home.how_2_title}}</h3><p>{{t:home.how_2_desc}}</p></li>
+                <li class="step"><span class="step__num">3</span><h3 class="step__title">{{t:home.how_3_title}}</h3><p>{{t:home.how_3_desc}}</p></li>
+            </ol>
+        </section>
+
+        <section id="why{{var:idSuffix}}" class="section">
+            <div class="section__head">
+                <h2 class="section__title">{{t:home.why_title}}</h2>
+                <p class="section__sub">{{t:home.why_sub}}</p>
+            </div>
+            <div class="features">
+                <div class="feature"><div class="feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.7-7-11a7 7 0 0 1 14 0c0 5.3-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>{{t:home.why_1_title}}</h3><p>{{t:home.why_1_desc}}</p></div>
+                <div class="feature"><div class="feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>{{t:home.why_2_title}}</h3><p>{{t:home.why_2_desc}}</p></div>
+                <div class="feature"><div class="feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V7z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg></div><h3>{{t:home.why_3_title}}</h3><p>{{t:home.why_3_desc}}</p></div>
+                <div class="feature"><div class="feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></div><h3>{{t:home.why_4_title}}</h3><p>{{t:home.why_4_desc}}</p></div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="cta__card">
+                <h2>{{t:home.cta_title}}</h2>
+                <p>{{t:home.cta_sub}}</p>
+                <div class="badges">
+                    <a class="badge" href="https://apps.apple.com/app/motify/id6760111208">
+                        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="{{t:common.badge_apple}}" height="52">
+                    </a>
+                    <a class="badge" href="https://play.google.com/store/apps/details?id=moti.motify">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="{{t:common.badge_google}}" height="52">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+{{partial:footer}}

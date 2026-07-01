@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "title": "Motify — Meet the People Around You",
+    "description": "Motify uses Bluetooth to connect you with the people in the same place — a conference, a hostel, a café. Real proximity, not GPS."
+  },
+  "eyebrow": "Proximity-first social",
+  "hero_lead": "Meet the people",
+  "hero_accent": "around you",
+  "hero_sub": "Motify uses Bluetooth to connect you with the people in the same place — a conference, a hostel, a café, an airport. Real proximity, not GPS.",
+  "hero_note": "Free on iOS and Android.",
+
+  "modes_title": "Three ways to connect",
+  "modes_sub": "One profile. Turn on only the modes you want — each works independently.",
+  "mode_social_tag": "Social",
+  "mode_social_title": "Say hi to people nearby",
+  "mode_social_desc": "See who's around you, share short posts, and start a chat in the moment.",
+  "mode_networking_tag": "Networking",
+  "mode_networking_title": "Swap work cards",
+  "mode_networking_desc": "Meet nearby professionals and exchange work cards for real opportunities.",
+  "mode_dating_tag": "Dating",
+  "mode_dating_title": "Match with people you click with",
+  "mode_dating_desc": "Build a dating profile and match with people nearby — only when you both opt in.",
+  "modes_note": "Turn any mode on or off anytime — your profile stays the same.",
+
+  "how_title": "How it works",
+  "how_sub": "Three steps to start talking to the people in the same room.",
+  "how_1_title": "Keep Motify running",
+  "how_1_desc": "Go about your day. Motify works quietly in the background over Bluetooth Low Energy.",
+  "how_2_title": "See who's nearby",
+  "how_2_desc": "When another Motify user shares the same space, you both appear on each other's radar.",
+  "how_3_title": "Connect and chat",
+  "how_3_desc": "Read posts from the people around you or send a quick hello — while you're still in the same place.",
+
+  "why_title": "Why Motify",
+  "why_sub": "Built for real connections, not endless scrolling.",
+  "why_1_title": "Real proximity, not GPS",
+  "why_1_desc": "We use Bluetooth, never location tracking. You see people who are actually near you, and your location is never shared or stored.",
+  "why_2_title": "Privacy by design",
+  "why_2_desc": "Encrypted, rotating Bluetooth identifiers. No location history. No data sold to advertisers.",
+  "why_3_title": "You control visibility",
+  "why_3_desc": "You only appear to people you'd also see. Becoming visible is a deliberate choice, not a set-and-forget switch.",
+  "why_4_title": "Chat with purpose",
+  "why_4_desc": "Connected with someone nearby? Start a conversation in the moment — you're already in the same place.",
+
+  "cta_title": "Ready to meet the people around you?",
+  "cta_sub": "Stop scrolling through profiles thousands of miles away. Start connecting with the people in the same place as you."
+}

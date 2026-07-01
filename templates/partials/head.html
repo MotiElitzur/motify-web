@@ -1,0 +1,50 @@
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{var:title}}</title>
+    <meta name="description" content="{{var:description}}">
+    <meta name="theme-color" content="#0F1115" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Motify">
+    <meta property="og:title" content="{{var:title}}">
+    <meta property="og:description" content="{{var:description}}">
+    <meta property="og:url" content="{{var:ogUrl}}">
+    <meta property="og:locale" content="{{var:lang}}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{var:title}}">
+    <meta name="twitter:description" content="{{var:description}}">
+
+    <link rel="canonical" href="{{var:canonical}}">
+    {{var:hreflang}}
+    <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
+    <link rel="stylesheet" href="/assets/css/motify.css">
+    {{var:i18nMeta}}
+    <script>
+      // Runs before first paint: pick theme + language so the correct language block
+      // shows immediately (no flash). Priority: ?lang= > saved choice > browser > English.
+      (function () {
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('motify-theme');
+          if (t) d.setAttribute('data-theme', t);
+        } catch (e) {}
+        try {
+          var d = document.documentElement;
+          var q = new URLSearchParams(location.search).get('lang');
+          var saved = null; try { saved = localStorage.getItem('motify-lang'); } catch (e) {}
+          var nav = (navigator.language || 'en').toLowerCase().indexOf('he') === 0 ? 'he' : 'en';
+          var lang = (q === 'he' || q === 'en') ? q : (saved === 'he' || saved === 'en') ? saved : nav;
+          d.setAttribute('data-lang', lang);
+          d.setAttribute('lang', lang);
+          d.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+          if (q === 'he' || q === 'en') {
+            try { localStorage.setItem('motify-lang', q); } catch (e) {}
+            // Remember the choice, then strip ?lang= so it never lingers in the address bar.
+            try { var u = new URL(location.href); u.searchParams.delete('lang'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
+          }
+          var el = document.getElementById('i18n-meta');
+          if (el) { var meta = JSON.parse(el.textContent); if (meta[lang] && meta[lang].title) document.title = meta[lang].title; }
+        } catch (e) {}
+      })();
+    </script>

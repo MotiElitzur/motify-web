@@ -1,263 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motify — Community Guidelines</title>
     <meta name="description" content="Motify Community Guidelines. The behavioral and content standards we expect from everyone using Motify, and how we respond when they're broken.">
-    <meta name="theme-color" content="#0F1115">
+    <meta name="theme-color" content="#0F1115" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://motify.uk/guidelines.html">
+    <meta property="og:site_name" content="Motify">
     <meta property="og:title" content="Motify — Community Guidelines">
     <meta property="og:description" content="Motify Community Guidelines. The behavioral and content standards we expect from everyone using Motify, and how we respond when they're broken.">
-    <meta property="og:site_name" content="Motify">
-
-    <!-- Twitter -->
+    <meta property="og:url" content="https://motify.uk/guidelines.html">
+    <meta property="og:locale" content="en">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Motify — Community Guidelines">
-    <meta name="twitter:description" content="The behavioral and content standards we expect from everyone using Motify.">
+    <meta name="twitter:description" content="Motify Community Guidelines. The behavioral and content standards we expect from everyone using Motify, and how we respond when they're broken.">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="ic_motify.svg">
     <link rel="canonical" href="https://motify.uk/guidelines.html">
+    <link rel="alternate" hreflang="en" href="https://motify.uk/guidelines.html?lang=en">
+    <link rel="alternate" hreflang="he" href="https://motify.uk/guidelines.html?lang=he">
+    <link rel="alternate" hreflang="x-default" href="https://motify.uk/guidelines.html">
+    <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
+    <link rel="stylesheet" href="/assets/css/motify.css">
+    <script type="application/json" id="i18n-meta">{"en":{"title":"Motify — Community Guidelines","dir":"ltr"},"he":{"title":"Motify — כללי הקהילה","dir":"rtl"}}</script>
+    <script>
+      // Runs before first paint: pick theme + language so the correct language block
+      // shows immediately (no flash). Priority: ?lang= > saved choice > browser > English.
+      (function () {
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('motify-theme');
+          if (t) d.setAttribute('data-theme', t);
+        } catch (e) {}
+        try {
+          var d = document.documentElement;
+          var q = new URLSearchParams(location.search).get('lang');
+          var saved = null; try { saved = localStorage.getItem('motify-lang'); } catch (e) {}
+          var nav = (navigator.language || 'en').toLowerCase().indexOf('he') === 0 ? 'he' : 'en';
+          var lang = (q === 'he' || q === 'en') ? q : (saved === 'he' || saved === 'en') ? saved : nav;
+          d.setAttribute('data-lang', lang);
+          d.setAttribute('lang', lang);
+          d.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+          if (q === 'he' || q === 'en') {
+            try { localStorage.setItem('motify-lang', q); } catch (e) {}
+            // Remember the choice, then strip ?lang= so it never lingers in the address bar.
+            try { var u = new URL(location.href); u.searchParams.delete('lang'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
+          }
+          var el = document.getElementById('i18n-meta');
+          if (el) { var meta = JSON.parse(el.textContent); if (meta[lang] && meta[lang].title) document.title = meta[lang].title; }
+        } catch (e) {}
+      })();
+    </script>
 
-    <style>
-        :root {
-            --primary: #FF4D6D;
-            --primary-light: #FF4D6D;
-            --text: #f5f5f5;
-            --text-muted: #b0b0b0;
-            --bg: #0F1115;
-            --card-bg: #1E2129;
-            --border: #2a2f3a;
-            --accent-bg: rgba(255, 77, 109, 0.12);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            background-color: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 17, 21, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 16px 0;
-        }
-
-        nav .nav-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img { height: 32px; width: 32px; border-radius: 8px; }
-        .logo span { color: var(--primary-light); }
-
-        .back-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover { color: var(--text); }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 100px 24px 60px;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .updated {
-            color: var(--text-muted);
-            font-size: 0.85em;
-            margin-bottom: 30px;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 12px;
-        }
-
-        h2 {
-            font-size: 1.15em;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        ul, ol {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        li {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 8px;
-        }
-
-        strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        a {
-            color: var(--primary-light);
-            text-decoration: none;
-        }
-
-        a:hover { text-decoration: underline; }
-
-        .highlight {
-            background: var(--accent-bg);
-            border: 1px solid rgba(255, 77, 109, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 24px 0;
-        }
-
-        .highlight p { margin-bottom: 8px; }
-        .highlight p:last-child { margin-bottom: 0; }
-
-        footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 24px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        footer p { font-size: 0.85em; }
-
-        @media (max-width: 768px) {
-            .container { padding: 90px 20px 40px; }
-            h1 { font-size: 1.8em; }
-        }
-    </style>
 </head>
 <body>
+<div class="lang-block" data-lang-block="en" lang="en" dir="ltr">
+    <a class="skip-link" href="#main-en">Skip to content</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-en" aria-label="Menu">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-en">
+                    <li><a href="/#modes-en">Modes</a></li>
+                    <li><a href="/#how-en">How it works</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=he" data-lang-to="he" hreflang="he" lang="he" aria-label="Switch to Hebrew">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>עברית</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="Toggle light or dark theme" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <nav>
-        <div class="nav-inner">
-            <a href="./" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
-            <a href="./" class="back-link">&larr; Back to Motify</a>
+    <main id="main-en" class="page">
+        <article class="prose">
+            <header class="prose__header">
+                <h1>Community Guidelines</h1>
+                <p class="prose__meta">Last Updated: May 4, 2026</p>
+            </header>
+            <section class="prose__block"><h2>1. Be respectful</h2><p>Motify works because strangers in the same place are willing to talk to each other. Keep that working:</p><ul><li>Be polite when you reach out. A short message is fine; a rude one isn't.</li><li>Take 'no' or silence as an answer. Don't badger people who haven't replied.</li><li>Disagree without insulting. Different views are fine; personal attacks aren't.</li></ul></section>
+<section class="prose__block"><h2>2. What you can't post</h2><p>The following are not allowed anywhere on Motify — in your profile, your Posts, your Replies, or your messages:</p><ul><li><strong>Harassment, bullying, or threats</strong> directed at any person, including users you've blocked or who have blocked you.</li><li><strong>Hate speech</strong> targeting people based on race, ethnicity, national origin, religion, gender, gender identity, sexual orientation, disability, or any other protected characteristic.</li><li><strong>Sexually explicit content, nudity, or solicitation.</strong> Motify is not a platform for sexual content, escort services, or transactional intimacy of any kind.</li><li><strong>Content involving minors</strong> in any inappropriate context. Child sexual abuse material (CSAM) and child exploitation are zero-tolerance and reported to law enforcement and to NCMEC.</li><li><strong>Violence, gore, or content that promotes self-harm.</strong> If you are in crisis, please reach out to a local emergency line.</li><li><strong>Illegal activity,</strong> including the sale of weapons, controlled substances, or stolen goods.</li><li><strong>Spam, scams, or commercial promotion</strong> without our consent — including bulk advertising, recruiting for businesses, fundraising, MLM pitches, and crypto/investment offers.</li><li><strong>Impersonation</strong> of another person, brand, or public figure, including using someone else's photos as your own.</li><li><strong>Personal information about other people</strong> shared without their consent — phone numbers, home addresses, ID documents, workplace details.</li></ul></section>
+<section class="prose__block"><h2>3. Posts: how they work and what's expected</h2><p>A Post on Motify is a short, time-bounded message visible to people physically near you. Posts are intended for in-the-moment requests, offers, and tips — not for ongoing broadcasting or self-promotion.</p><ul><li>Keep Posts short and on-topic for the place you're in.</li><li>If your Post is a request and someone has helped, mark it as <strong>Resolved</strong> so the Post is removed from the feed for everyone else. Resolved Posts are deleted.</li><li>Posts expire automatically after a set lifetime that depends on the type of Post. Don't repost the same content over and over to game the feed.</li><li>Replies should be relevant to the Post. Don't hijack a Reply thread to promote yourself or attack the author.</li></ul></section>
+<section class="prose__block"><h2>4. Reporting and blocking</h2><p>You don't have to put up with content or behavior that violates these Guidelines. Two tools are available to you everywhere they're relevant:</p><ul><li><strong>Report</strong> a profile, a Post, a reply, or a chat message using the report control on that surface. Tell us briefly what's wrong. Reports go to our moderation team and we aim to review them within 24 hours.</li><li><strong>Block</strong> any user from their profile or from the overflow menu in chat. Blocking immediately hides that user from your feed and prevents new Posts, Replies, or messages from them reaching you. Blocks also flag the user to our moderation team.</li></ul><p>If you report something or block someone, the other person is not told it was you.</p></section>
+<section class="prose__block"><h2>5. How we enforce</h2><p>When something is reported, we look at it. Depending on what we find, we may take any of the following actions:</p><ul><li><strong>No action</strong> — the content doesn't violate these Guidelines. This is a normal outcome and not an endorsement.</li><li><strong>Warning</strong> — for minor or first-time violations. We tell the user what was wrong and what to fix.</li><li><strong>Content removal</strong> — we delete the offending Post, Reply, message, photo, or profile field.</li><li><strong>Temporary suspension</strong> — for repeated violations or more serious single incidents. The account is locked for a period of time.</li><li><strong>Permanent ban</strong> — for severe violations, repeated abuse after a suspension, or any zero-tolerance category (CSAM, credible threats, etc.). The account is terminated and the user is prevented from creating a new one.</li></ul><p>We may take action without warning when the violation is serious or when waiting would put another user at risk. We may also remove content based on our own review even if no one has reported it.</p></section>
+<section class="prose__block"><h2>6. If you disagree with a decision</h2><p>If we removed your content or restricted your account and you believe we got it wrong, you can reply to the notification we sent you, or write to us at <a href='mailto:support@motify.uk'>support@motify.uk</a>. Tell us what happened and why you think the decision should be reversed. We'll take another look.</p></section>
+<section class="prose__block"><h2>7. Off-app behavior</h2><p>Motify is built for people who can physically run into each other. That means real-world conduct matters here in a way it doesn't on most apps. If we receive credible reports that a user has harassed, threatened, or harmed another user offline after meeting through Motify, that can be grounds for removal from the platform.</p></section>
+<section class="prose__block"><h2>8. Changes</h2><p>We may update these Guidelines as the community grows. When we make material changes, we'll update the date at the top of this page and, where appropriate, notify you in the App.</p></section>
+<section class="prose__block"><h2>9. Contact</h2><p>Questions about these Guidelines, or about a moderation decision: <a href='mailto:support@motify.uk'>support@motify.uk</a>.</p></section>
+        </article>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>Meet the people around you.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="Footer">
+                <a href="/privacy.html">Privacy</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/guidelines.html">Guidelines</a>
+                <a href="/support.html">Support</a>
+                <a href="mailto:support@motify.uk">Contact</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. All rights reserved.</p>
         </div>
-    </nav>
-
-    <div class="container">
-        <h1>Community Guidelines</h1>
-        <p class="updated">Last Updated: May 4, 2026</p>
-
-        <p>Motify is a social proximity app. It connects you with the real people in the same physical space as you — at events, hostels, conferences, cafés, and other shared places. Because conversations on Motify happen between people who can actually run into each other, what we say matters more than usual.</p>
-
-        <p>These Community Guidelines describe what we expect from everyone on Motify, and how we respond when those expectations are broken. They sit alongside our <a href="terms.html">Terms of Service</a> — the Terms are the legal framework, and these Guidelines are the day-to-day rules.</p>
-
-        <div class="highlight">
-            <p><strong>The short version:</strong> Treat the people around you like you would in person. Don't post or send anything you wouldn't be comfortable saying to someone's face. If something feels off, report it — we read every report.</p>
-        </div>
-
-        <h2>1. Be respectful</h2>
-        <p>Motify works because strangers in the same place are willing to talk to each other. Keep that working:</p>
-        <ul>
-            <li>Be polite when you reach out. A short message is fine; a rude one isn't.</li>
-            <li>Take "no" or silence as an answer. Don't badger people who haven't replied.</li>
-            <li>Disagree without insulting. Different views are fine; personal attacks aren't.</li>
-        </ul>
-
-        <h2>2. What you can't post</h2>
-        <p>The following are not allowed anywhere on Motify — in your profile, your Posts, your Replies, or your messages:</p>
-        <ul>
-            <li><strong>Harassment, bullying, or threats</strong> directed at any person, including users you've blocked or who have blocked you.</li>
-            <li><strong>Hate speech</strong> targeting people based on race, ethnicity, national origin, religion, gender, gender identity, sexual orientation, disability, or any other protected characteristic.</li>
-            <li><strong>Sexually explicit content, nudity, or solicitation.</strong> Motify is not a platform for sexual content, escort services, or transactional intimacy of any kind.</li>
-            <li><strong>Content involving minors</strong> in any inappropriate context. Child sexual abuse material (CSAM) and child exploitation are zero-tolerance and reported to law enforcement and to NCMEC.</li>
-            <li><strong>Violence, gore, or content that promotes self-harm.</strong> If you are in crisis, please reach out to a local emergency line.</li>
-            <li><strong>Illegal activity,</strong> including the sale of weapons, controlled substances, or stolen goods.</li>
-            <li><strong>Spam, scams, or commercial promotion</strong> without our consent — including bulk advertising, recruiting for businesses, fundraising, MLM pitches, and crypto/investment offers.</li>
-            <li><strong>Impersonation</strong> of another person, brand, or public figure, including using someone else's photos as your own.</li>
-            <li><strong>Personal information about other people</strong> shared without their consent — phone numbers, home addresses, ID documents, workplace details.</li>
-        </ul>
-
-        <h2>3. Posts: how they work and what's expected</h2>
-        <p>A Post on Motify is a short, time-bounded message visible to people physically near you. Posts are intended for in-the-moment requests, offers, and tips — not for ongoing broadcasting or self-promotion.</p>
-        <ul>
-            <li>Keep Posts short and on-topic for the place you're in.</li>
-            <li>If your Post is a request and someone has helped, mark it as <strong>Resolved</strong> so the Post is removed from the feed for everyone else. Resolved Posts are deleted.</li>
-            <li>Posts expire automatically after a set lifetime that depends on the type of Post. Don't repost the same content over and over to game the feed.</li>
-            <li>Replies should be relevant to the Post. Don't hijack a Reply thread to promote yourself or attack the author.</li>
-        </ul>
-
-        <h2>4. Reporting and blocking</h2>
-        <p>You don't have to put up with content or behavior that violates these Guidelines. Two tools are available to you everywhere they're relevant:</p>
-        <ul>
-            <li><strong>Report</strong> a profile, a Post, a reply, or a chat message using the report control on that surface. Tell us briefly what's wrong. Reports go to our moderation team and we aim to review them within 24 hours.</li>
-            <li><strong>Block</strong> any user from their profile or from the overflow menu in chat. Blocking immediately hides that user from your feed and prevents new Posts, Replies, or messages from them reaching you. Blocks also flag the user to our moderation team.</li>
-        </ul>
-        <p>If you report something or block someone, the other person is not told it was you.</p>
-
-        <h2>5. How we enforce</h2>
-        <p>When something is reported, we look at it. Depending on what we find, we may take any of the following actions:</p>
-        <ul>
-            <li><strong>No action</strong> — the content doesn't violate these Guidelines. This is a normal outcome and not an endorsement.</li>
-            <li><strong>Warning</strong> — for minor or first-time violations. We tell the user what was wrong and what to fix.</li>
-            <li><strong>Content removal</strong> — we delete the offending Post, Reply, message, photo, or profile field.</li>
-            <li><strong>Temporary suspension</strong> — for repeated violations or more serious single incidents. The account is locked for a period of time.</li>
-            <li><strong>Permanent ban</strong> — for severe violations, repeated abuse after a suspension, or any zero-tolerance category (CSAM, credible threats, etc.). The account is terminated and the user is prevented from creating a new one.</li>
-        </ul>
-        <p>We may take action without warning when the violation is serious or when waiting would put another user at risk. We may also remove content based on our own review even if no one has reported it.</p>
-
-        <h2>6. If you disagree with a decision</h2>
-        <p>If we removed your content or restricted your account and you believe we got it wrong, you can reply to the notification we sent you, or write to us at <a href="mailto:support@motify.uk">support@motify.uk</a>. Tell us what happened and why you think the decision should be reversed. We'll take another look.</p>
-
-        <h2>7. Off-app behavior</h2>
-        <p>Motify is built for people who can physically run into each other. That means real-world conduct matters here in a way it doesn't on most apps. If we receive credible reports that a user has harassed, threatened, or harmed another user offline after meeting through Motify, that can be grounds for removal from the platform.</p>
-
-        <h2>8. Changes</h2>
-        <p>We may update these Guidelines as the community grows. When we make material changes, we'll update the date at the top of this page and, where appropriate, notify you in the App.</p>
-
-        <h2>9. Contact</h2>
-        <p>Questions about these Guidelines, or about a moderation decision: <a href="mailto:support@motify.uk">support@motify.uk</a>.</p>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Motify. All rights reserved.</p>
     </footer>
 
+
+</div>
+<div class="lang-block" data-lang-block="he" lang="he" dir="rtl">
+    <a class="skip-link" href="#main-he">דילוג לתוכן</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="ראשי">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-he" aria-label="תפריט">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-he">
+                    <li><a href="/#modes-he">מצבים</a></li>
+                    <li><a href="/#how-he">איך זה עובד</a></li>
+                    <li><a href="support.html">תמיכה</a></li>
+                    <li><a href="privacy.html">פרטיות</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=en" data-lang-to="en" hreflang="en" lang="en" aria-label="מעבר לאנגלית">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>English</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="מעבר בין מצב בהיר לכהה" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-he" class="page">
+        <article class="prose">
+            <header class="prose__header">
+                <h1>כללי הקהילה</h1>
+                <p class="prose__meta">עודכן לאחרונה: יולי 2026</p>
+            </header>
+            <section class="prose__block"><h2>1. גלו כבוד</h2><p>Motify עובדת מפני שזרים הנמצאים באותו מקום מוכנים לדבר זה עם זה. שמרו על כך שזה יעבוד:</p><ul><li>היו מנומסים כשאתם פונים. הודעה קצרה זה בסדר; הודעה גסה — לא.</li><li>קבלו 'לא' או שתיקה כתשובה. אל תטרידו אנשים שלא הגיבו.</li><li>חלקו על דעה מבלי להעליב. דעות שונות זה בסדר; התקפות אישיות — לא.</li></ul></section>
+<section class="prose__block"><h2>2. מה אסור לפרסם</h2><p>הדברים הבאים אסורים בכל מקום ב-Motify — בפרופיל שלכם, בפוסטים שלכם, בתגובות שלכם או בהודעות שלכם:</p><ul><li><strong>הטרדה, בריונות או איומים</strong> המכוונים כלפי כל אדם, לרבות משתמשים שחסמתם או שחסמו אתכם.</li><li><strong>דברי שנאה</strong> המכוונים כלפי אנשים על בסיס גזע, מוצא אתני, מוצא לאומי, דת, מגדר, זהות מגדרית, נטייה מינית, מוגבלות או כל מאפיין מוגן אחר.</li><li><strong>תוכן מיני מפורש, עירום או שידול.</strong> Motify אינה פלטפורמה לתוכן מיני, לשירותי ליווי או לאינטימיות בתמורה מכל סוג שהוא.</li><li><strong>תוכן המערב קטינים</strong> בכל הקשר לא הולם. חומרי התעללות מינית בילדים (CSAM) וניצול ילדים הם בגדר אפס סובלנות ומדווחים לרשויות אכיפת החוק ול-NCMEC.</li><li><strong>אלימות, זוועות או תוכן המעודד פגיעה עצמית.</strong> אם אתם במשבר, אנא פנו לקו חירום מקומי.</li><li><strong>פעילות בלתי חוקית,</strong> לרבות מכירת נשק, חומרים אסורים או רכוש גנוב.</li><li><strong>ספאם, הונאות או קידום מסחרי</strong> ללא הסכמתנו — לרבות פרסום המוני, גיוס עבור עסקים, גיוס כספים, מצגות שיווק רב-שכבתי (MLM) והצעות קריפטו/השקעה.</li><li><strong>התחזות</strong> לאדם אחר, למותג או לדמות ציבורית, לרבות שימוש בתמונות של מישהו אחר כאילו היו שלכם.</li><li><strong>מידע אישי על אנשים אחרים</strong> המשותף ללא הסכמתם — מספרי טלפון, כתובות מגורים, מסמכי זיהוי, פרטי מקום עבודה.</li></ul></section>
+<section class="prose__block"><h2>3. פוסטים: איך הם עובדים ומה מצופה</h2><p>פוסט ב-Motify הוא הודעה קצרה ותחומה בזמן, הגלויה לאנשים הנמצאים פיזית בקרבתכם. פוסטים מיועדים לבקשות, להצעות ולטיפים של הרגע — לא לשידור מתמשך או לקידום עצמי.</p><ul><li>שמרו על פוסטים קצרים ורלוונטיים למקום שבו אתם נמצאים.</li><li>אם הפוסט שלכם הוא בקשה ומישהו עזר, סמנו אותו כ<strong>נפתר</strong> כדי שהפוסט יוסר מהפיד עבור כל השאר. פוסטים שנפתרו נמחקים.</li><li>פוסטים פגים אוטומטית לאחר משך חיים קבוע התלוי בסוג הפוסט. אל תפרסמו שוב ושוב את אותו התוכן כדי לתמרן את הפיד.</li><li>תגובות צריכות להיות רלוונטיות לפוסט. אל תחטפו שרשור תגובות כדי לקדם את עצמכם או לתקוף את המחבר.</li></ul></section>
+<section class="prose__block"><h2>4. דיווח וחסימה</h2><p>אינכם צריכים לסבול תוכן או התנהגות המפרים כללים אלו. שני כלים זמינים לכם בכל מקום שבו הם רלוונטיים:</p><ul><li><strong>דווחו</strong> על פרופיל, פוסט, תגובה או הודעת צ'אט באמצעות פקד הדיווח באותו מסך. ספרו לנו בקצרה מה לא בסדר. הדיווחים מגיעים לצוות הפיקוח שלנו ואנו שואפים לבחון אותם בתוך 24 שעות.</li><li><strong>חסמו</strong> כל משתמש מהפרופיל שלו או מתפריט האפשרויות בצ'אט. חסימה מסתירה מיד את המשתמש מהפיד שלכם ומונעת מפוסטים, מתגובות או מהודעות חדשות שלו להגיע אליכם. חסימות גם מסמנות את המשתמש לצוות הפיקוח שלנו.</li></ul><p>אם דיווחתם על משהו או חסמתם מישהו, האדם השני אינו מקבל לדעת שאתם עשיתם זאת.</p></section>
+<section class="prose__block"><h2>5. כיצד אנו אוכפים</h2><p>כאשר מתקבל דיווח על משהו, אנו בוחנים אותו. בהתאם לממצאים, אנו עשויים לנקוט בכל אחת מהפעולות הבאות:</p><ul><li><strong>ללא פעולה</strong> — התוכן אינו מפר כללים אלו. זו תוצאה שגרתית ואינה בגדר אישור.</li><li><strong>אזהרה</strong> — עבור הפרות קלות או ראשונות. אנו מודיעים למשתמש מה לא היה בסדר ומה לתקן.</li><li><strong>הסרת תוכן</strong> — אנו מוחקים את הפוסט, התגובה, ההודעה, התמונה או שדה הפרופיל הפוגעני.</li><li><strong>השעיה זמנית</strong> — עבור הפרות חוזרות או אירועים בודדים חמורים יותר. החשבון ננעל לפרק זמן.</li><li><strong>חסימה לצמיתות</strong> — עבור הפרות חמורות, התעללות חוזרת לאחר השעיה, או כל קטגוריה של אפס סובלנות (CSAM, איומים אמינים וכדומה). החשבון נסגר והמשתמש נמנע מיצירת חשבון חדש.</li></ul><p>אנו עשויים לנקוט פעולה ללא אזהרה כאשר ההפרה חמורה או כאשר המתנה עלולה לסכן משתמש אחר. אנו עשויים גם להסיר תוכן על סמך בחינה משלנו גם אם איש לא דיווח עליו.</p></section>
+<section class="prose__block"><h2>6. אם אינכם מסכימים עם החלטה</h2><p>אם הסרנו את התוכן שלכם או הגבלנו את חשבונכם ואתם סבורים שטעינו, תוכלו להשיב להתראה ששלחנו לכם, או לכתוב לנו לכתובת <a href='mailto:support@motify.uk'>support@motify.uk</a>. ספרו לנו מה קרה ומדוע לדעתכם יש לבטל את ההחלטה. נבחן את העניין שוב.</p></section>
+<section class="prose__block"><h2>7. התנהגות מחוץ לאפליקציה</h2><p>Motify נבנתה עבור אנשים שיכולים להיתקל זה בזה פיזית. משמעות הדבר היא שהתנהגות בעולם האמיתי משמעותית כאן באופן שאינו קיים ברוב האפליקציות. אם נקבל דיווחים אמינים שמשתמש הטריד, איים או פגע במשתמש אחר מחוץ לאפליקציה לאחר שנפגשו דרך Motify, הדבר עשוי להוות עילה להסרה מהפלטפורמה.</p></section>
+<section class="prose__block"><h2>8. שינויים</h2><p>אנו עשויים לעדכן כללים אלו ככל שהקהילה גדלה. כאשר נבצע שינויים מהותיים, נעדכן את התאריך בראש עמוד זה, ובמקרים המתאימים, נודיע לכם באפליקציה.</p></section>
+<section class="prose__block"><h2>9. יצירת קשר</h2><p>שאלות בנוגע לכללים אלו, או בנוגע להחלטת פיקוח: <a href='mailto:support@motify.uk'>support@motify.uk</a>.</p></section>
+        </article>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>הכירו את האנשים שסביבכם.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="כותרת תחתונה">
+                <a href="/privacy.html">פרטיות</a>
+                <a href="/terms.html">תנאי שימוש</a>
+                <a href="/guidelines.html">כללי הקהילה</a>
+                <a href="/support.html">תמיכה</a>
+                <a href="mailto:support@motify.uk">צור קשר</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. כל הזכויות שמורות.</p>
+        </div>
+    </footer>
+
+
+</div>
+    <script src="/assets/js/motify.js" defer></script>
 </body>
 </html>

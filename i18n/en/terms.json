@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "title": "Motify — Terms of Service",
+    "description": "Terms of Service for Motify, the proximity-based social app for connecting with people in the same physical space.",
+    "h1": "Terms of Service",
+    "updated": "Last Updated: May 4, 2026"
+  },
+  "sections": [
+    {
+      "heading": "1. Eligibility",
+      "body": "<p>You must be at least 18 years old to use Motify. By using the App, you represent and warrant that you meet this age requirement. We reserve the right to request proof of age and to terminate accounts that violate this requirement.</p>"
+    },
+    {
+      "heading": "2. Your Account",
+      "body": "<ul><li>You are responsible for maintaining the security of your account credentials.</li><li>You agree to provide accurate, current, and complete information in your profile.</li><li>You may not create more than one account per person.</li><li>You may not transfer or sell your account to anyone else.</li></ul>"
+    },
+    {
+      "heading": "3. Acceptable Use",
+      "body": "<p><strong>Motify has zero tolerance for objectionable content or abusive behavior.</strong> Any user who violates these rules is subject to immediate account termination. We actively monitor reports and take action within 24 hours.</p><p>In addition to these Terms, all users must follow our <a href='guidelines.html'>Community Guidelines</a>, which describe the behavioral and content standards expected on Motify.</p><p>You agree not to:</p><ul><li>Use the App for any unlawful purpose or in violation of any applicable laws.</li><li>Harass, bully, stalk, intimidate, threaten, or defame any person.</li><li>Post content that is hateful, violent, sexually explicit, or promotes discrimination.</li><li>Post any content involving minors or child exploitation (CSAM). Violations will be reported to law enforcement and NCMEC.</li><li>Send unsolicited, abusive, or spam messages to other users.</li><li>Impersonate any person or entity, or misrepresent your identity, age, or affiliations.</li><li>Use the App for commercial purposes, advertising, or solicitation without our consent.</li><li>Attempt to reverse-engineer, decompile, or tamper with the App or its Bluetooth protocols.</li><li>Use automated systems, bots, or scrapers to access the App.</li><li>Interfere with or disrupt the App's infrastructure or other users' experience.</li></ul>"
+    },
+    {
+      "heading": "4. User-Generated Content",
+      "body": "<p>Motify lets you create several kinds of content, all of which are referred to in these Terms as \"User Content\":</p><ul><li><strong>Profile content:</strong> your name, photos, biography, and any optional fields you choose to fill in.</li><li><strong>Posts:</strong> short messages you share with people physically near you (for example, asking a question, offering help, or sharing a tip). Posts have a limited lifetime and are deleted automatically when their lifetime ends or when you tap Resolve.</li><li><strong>Replies:</strong> responses you write to another user's Post. Replies are visible in the Post thread to anyone who can see the parent Post.</li><li><strong>Messages:</strong> direct chat messages exchanged with another user.</li></ul><p>You retain ownership of your User Content. By submitting User Content, you grant us a non-exclusive, worldwide, royalty-free license to host, store, display, and distribute it solely for the purpose of operating, securing, and improving the App.</p><p>You are solely responsible for the User Content you create. You represent that you have all necessary rights to share it and that it does not violate these Terms, the Community Guidelines, or any applicable law.</p><p><strong>Removal authority.</strong> We may remove or hide any User Content, suspend a Post, or terminate an account at any time and without prior notice if we believe the content violates these Terms, the Community Guidelines, or applicable law, or if removal is necessary to protect users or the platform. We may take this action based on user reports, automated detection, or our own review.</p><p><strong>Moderation.</strong> We employ content moderation measures, including user reporting, automated screening, and human review of reported content. We aim to review reports within 24 hours.</p>"
+    },
+    {
+      "heading": "5. Reporting and Blocking",
+      "body": "<ul><li>You can <strong>report</strong> a user, a Post, a reply, or a chat message at any time. Reporting controls are available from the relevant profile, Post, or conversation. All reports are reviewed by our team within 24 hours.</li><li>You can <strong>block</strong> any user at any time. Blocking immediately removes the user from your feed and prevents all further interaction, including new Posts, replies, and messages from that user reaching you. Blocking also notifies our team so we can review the blocked user's behavior.</li><li>When User Content is reported, we review it and take appropriate action, which may include removing the content, issuing a warning, temporarily suspending the responsible account, or permanently terminating the responsible account. Repeated or severe violations result in permanent termination.</li><li>We encourage you to report any suspicious or inappropriate behavior. Your safety is our priority.</li></ul>"
+    },
+    {
+      "heading": "6. Interactions with Other Users",
+      "body": "<ul><li>Motify is not responsible for the conduct of any user, whether online or offline.</li><li>You are solely responsible for your interactions with other users. Exercise caution and good judgment.</li></ul>"
+    },
+    {
+      "heading": "7. Privacy",
+      "body": "<p>Your use of the App is also governed by our <a href='privacy.html'>Privacy Policy</a>, which describes how we collect, use, and protect your information. By using Motify, you consent to the practices described in the Privacy Policy.</p>"
+    },
+    {
+      "heading": "8. Bluetooth and Proximity",
+      "body": "<p>Motify relies on Bluetooth Low Energy (BLE) to detect nearby users. By using the App, you consent to your device broadcasting and receiving anonymous Bluetooth identifiers. These identifiers are encrypted and cannot be used to track your physical location.</p>"
+    },
+    {
+      "heading": "9. Termination",
+      "body": "<ul><li><strong>By you:</strong> You may delete your account at any time through the App settings. This will permanently remove your data from our servers.</li><li><strong>By us:</strong> We may suspend or terminate your account at any time, without notice, if we believe you have violated these Terms, the Community Guidelines, or engaged in behavior that is harmful to other users or the platform. We review all user reports within 24 hours and will remove offending content and terminate the accounts of users who post objectionable content or engage in abusive behavior.</li></ul>"
+    },
+    {
+      "heading": "10. Disclaimers",
+      "body": "<p>The App is provided \"as is\" and \"as available\" without warranties of any kind, whether express or implied. We do not guarantee that the App will be uninterrupted, error-free, or secure. We do not guarantee any specific results from using the App, including finding people, having conversations, or forming connections.</p>"
+    },
+    {
+      "heading": "11. Limitation of Liability",
+      "body": "<p>To the maximum extent permitted by law, Motify shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App, including but not limited to damages related to interactions with other users, loss of data, or service interruptions.</p>"
+    },
+    {
+      "heading": "12. Changes to These Terms",
+      "body": "<p>We may update these Terms from time to time. When we make material changes, we will notify you through the App or by updating the \"Last Updated\" date. Continued use of the App after changes constitutes acceptance of the revised Terms.</p>"
+    },
+    {
+      "heading": "13. Governing Law",
+      "body": "<p>These Terms are governed by the laws of the State of Israel, without regard to conflict of law provisions.</p>"
+    },
+    {
+      "heading": "14. Contact Us",
+      "body": "<p>If you have any questions about these Terms, please contact us at: <a href='mailto:support@motify.uk'>support@motify.uk</a></p>"
+    }
+  ]
+}

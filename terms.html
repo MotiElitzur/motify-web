@@ -1,261 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motify — Terms of Service</title>
     <meta name="description" content="Terms of Service for Motify, the proximity-based social app for connecting with people in the same physical space.">
-    <meta name="theme-color" content="#0F1115">
+    <meta name="theme-color" content="#0F1115" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F7F9FC" media="(prefers-color-scheme: light)">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://motify.uk/terms.html">
+    <meta property="og:site_name" content="Motify">
     <meta property="og:title" content="Motify — Terms of Service">
     <meta property="og:description" content="Terms of Service for Motify, the proximity-based social app for connecting with people in the same physical space.">
-    <meta property="og:site_name" content="Motify">
+    <meta property="og:url" content="https://motify.uk/terms.html">
+    <meta property="og:locale" content="en">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Motify — Terms of Service">
+    <meta name="twitter:description" content="Terms of Service for Motify, the proximity-based social app for connecting with people in the same physical space.">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="ic_motify.svg">
     <link rel="canonical" href="https://motify.uk/terms.html">
+    <link rel="alternate" hreflang="en" href="https://motify.uk/terms.html?lang=en">
+    <link rel="alternate" hreflang="he" href="https://motify.uk/terms.html?lang=he">
+    <link rel="alternate" hreflang="x-default" href="https://motify.uk/terms.html">
+    <link rel="icon" type="image/svg+xml" href="/ic_motify.svg">
+    <link rel="stylesheet" href="/assets/css/motify.css">
+    <script type="application/json" id="i18n-meta">{"en":{"title":"Motify — Terms of Service","dir":"ltr"},"he":{"title":"Motify — תנאי שימוש","dir":"rtl"}}</script>
+    <script>
+      // Runs before first paint: pick theme + language so the correct language block
+      // shows immediately (no flash). Priority: ?lang= > saved choice > browser > English.
+      (function () {
+        try {
+          var d = document.documentElement;
+          var t = localStorage.getItem('motify-theme');
+          if (t) d.setAttribute('data-theme', t);
+        } catch (e) {}
+        try {
+          var d = document.documentElement;
+          var q = new URLSearchParams(location.search).get('lang');
+          var saved = null; try { saved = localStorage.getItem('motify-lang'); } catch (e) {}
+          var nav = (navigator.language || 'en').toLowerCase().indexOf('he') === 0 ? 'he' : 'en';
+          var lang = (q === 'he' || q === 'en') ? q : (saved === 'he' || saved === 'en') ? saved : nav;
+          d.setAttribute('data-lang', lang);
+          d.setAttribute('lang', lang);
+          d.setAttribute('dir', lang === 'he' ? 'rtl' : 'ltr');
+          if (q === 'he' || q === 'en') {
+            try { localStorage.setItem('motify-lang', q); } catch (e) {}
+            // Remember the choice, then strip ?lang= so it never lingers in the address bar.
+            try { var u = new URL(location.href); u.searchParams.delete('lang'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
+          }
+          var el = document.getElementById('i18n-meta');
+          if (el) { var meta = JSON.parse(el.textContent); if (meta[lang] && meta[lang].title) document.title = meta[lang].title; }
+        } catch (e) {}
+      })();
+    </script>
 
-    <style>
-        :root {
-            --primary: #FF4D6D;
-            --primary-light: #FF4D6D;
-            --text: #f5f5f5;
-            --text-muted: #b0b0b0;
-            --bg: #0F1115;
-            --card-bg: #1E2129;
-            --border: #2a2f3a;
-            --accent-bg: rgba(255, 77, 109, 0.12);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            background-color: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 17, 21, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 16px 0;
-        }
-
-        nav .nav-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img { height: 32px; width: 32px; border-radius: 8px; }
-        .logo span { color: var(--primary-light); }
-
-        .back-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .back-link:hover { color: var(--text); }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 100px 24px 60px;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .updated {
-            color: var(--text-muted);
-            font-size: 0.85em;
-            margin-bottom: 30px;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 12px;
-        }
-
-        h2 {
-            font-size: 1.15em;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        ul, ol {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        li {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            margin-bottom: 8px;
-        }
-
-        strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        a {
-            color: var(--primary-light);
-            text-decoration: none;
-        }
-
-        a:hover { text-decoration: underline; }
-
-        footer {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 24px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        footer p { font-size: 0.85em; }
-
-        @media (max-width: 768px) {
-            .container { padding: 90px 20px 40px; }
-            h1 { font-size: 1.8em; }
-        }
-    </style>
 </head>
 <body>
+<div class="lang-block" data-lang-block="en" lang="en" dir="ltr">
+    <a class="skip-link" href="#main-en">Skip to content</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-en" aria-label="Menu">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-en">
+                    <li><a href="/#modes-en">Modes</a></li>
+                    <li><a href="/#how-en">How it works</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=he" data-lang-to="he" hreflang="he" lang="he" aria-label="Switch to Hebrew">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>עברית</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="Toggle light or dark theme" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <nav>
-        <div class="nav-inner">
-            <a href="./" class="logo"><img src="ic_motify.svg" alt="Motify">Moti<span>fy</span></a>
-            <a href="./" class="back-link">&larr; Back to Motify</a>
+    <main id="main-en" class="page">
+        <article class="prose">
+            <header class="prose__header">
+                <h1>Terms of Service</h1>
+                <p class="prose__meta">Last Updated: May 4, 2026</p>
+            </header>
+            <section class="prose__block"><h2>1. Eligibility</h2><p>You must be at least 18 years old to use Motify. By using the App, you represent and warrant that you meet this age requirement. We reserve the right to request proof of age and to terminate accounts that violate this requirement.</p></section>
+<section class="prose__block"><h2>2. Your Account</h2><ul><li>You are responsible for maintaining the security of your account credentials.</li><li>You agree to provide accurate, current, and complete information in your profile.</li><li>You may not create more than one account per person.</li><li>You may not transfer or sell your account to anyone else.</li></ul></section>
+<section class="prose__block"><h2>3. Acceptable Use</h2><p><strong>Motify has zero tolerance for objectionable content or abusive behavior.</strong> Any user who violates these rules is subject to immediate account termination. We actively monitor reports and take action within 24 hours.</p><p>In addition to these Terms, all users must follow our <a href='guidelines.html'>Community Guidelines</a>, which describe the behavioral and content standards expected on Motify.</p><p>You agree not to:</p><ul><li>Use the App for any unlawful purpose or in violation of any applicable laws.</li><li>Harass, bully, stalk, intimidate, threaten, or defame any person.</li><li>Post content that is hateful, violent, sexually explicit, or promotes discrimination.</li><li>Post any content involving minors or child exploitation (CSAM). Violations will be reported to law enforcement and NCMEC.</li><li>Send unsolicited, abusive, or spam messages to other users.</li><li>Impersonate any person or entity, or misrepresent your identity, age, or affiliations.</li><li>Use the App for commercial purposes, advertising, or solicitation without our consent.</li><li>Attempt to reverse-engineer, decompile, or tamper with the App or its Bluetooth protocols.</li><li>Use automated systems, bots, or scrapers to access the App.</li><li>Interfere with or disrupt the App's infrastructure or other users' experience.</li></ul></section>
+<section class="prose__block"><h2>4. User-Generated Content</h2><p>Motify lets you create several kinds of content, all of which are referred to in these Terms as "User Content":</p><ul><li><strong>Profile content:</strong> your name, photos, biography, and any optional fields you choose to fill in.</li><li><strong>Posts:</strong> short messages you share with people physically near you (for example, asking a question, offering help, or sharing a tip). Posts have a limited lifetime and are deleted automatically when their lifetime ends or when you tap Resolve.</li><li><strong>Replies:</strong> responses you write to another user's Post. Replies are visible in the Post thread to anyone who can see the parent Post.</li><li><strong>Messages:</strong> direct chat messages exchanged with another user.</li></ul><p>You retain ownership of your User Content. By submitting User Content, you grant us a non-exclusive, worldwide, royalty-free license to host, store, display, and distribute it solely for the purpose of operating, securing, and improving the App.</p><p>You are solely responsible for the User Content you create. You represent that you have all necessary rights to share it and that it does not violate these Terms, the Community Guidelines, or any applicable law.</p><p><strong>Removal authority.</strong> We may remove or hide any User Content, suspend a Post, or terminate an account at any time and without prior notice if we believe the content violates these Terms, the Community Guidelines, or applicable law, or if removal is necessary to protect users or the platform. We may take this action based on user reports, automated detection, or our own review.</p><p><strong>Moderation.</strong> We employ content moderation measures, including user reporting, automated screening, and human review of reported content. We aim to review reports within 24 hours.</p></section>
+<section class="prose__block"><h2>5. Reporting and Blocking</h2><ul><li>You can <strong>report</strong> a user, a Post, a reply, or a chat message at any time. Reporting controls are available from the relevant profile, Post, or conversation. All reports are reviewed by our team within 24 hours.</li><li>You can <strong>block</strong> any user at any time. Blocking immediately removes the user from your feed and prevents all further interaction, including new Posts, replies, and messages from that user reaching you. Blocking also notifies our team so we can review the blocked user's behavior.</li><li>When User Content is reported, we review it and take appropriate action, which may include removing the content, issuing a warning, temporarily suspending the responsible account, or permanently terminating the responsible account. Repeated or severe violations result in permanent termination.</li><li>We encourage you to report any suspicious or inappropriate behavior. Your safety is our priority.</li></ul></section>
+<section class="prose__block"><h2>6. Interactions with Other Users</h2><ul><li>Motify is not responsible for the conduct of any user, whether online or offline.</li><li>You are solely responsible for your interactions with other users. Exercise caution and good judgment.</li></ul></section>
+<section class="prose__block"><h2>7. Privacy</h2><p>Your use of the App is also governed by our <a href='privacy.html'>Privacy Policy</a>, which describes how we collect, use, and protect your information. By using Motify, you consent to the practices described in the Privacy Policy.</p></section>
+<section class="prose__block"><h2>8. Bluetooth and Proximity</h2><p>Motify relies on Bluetooth Low Energy (BLE) to detect nearby users. By using the App, you consent to your device broadcasting and receiving anonymous Bluetooth identifiers. These identifiers are encrypted and cannot be used to track your physical location.</p></section>
+<section class="prose__block"><h2>9. Termination</h2><ul><li><strong>By you:</strong> You may delete your account at any time through the App settings. This will permanently remove your data from our servers.</li><li><strong>By us:</strong> We may suspend or terminate your account at any time, without notice, if we believe you have violated these Terms, the Community Guidelines, or engaged in behavior that is harmful to other users or the platform. We review all user reports within 24 hours and will remove offending content and terminate the accounts of users who post objectionable content or engage in abusive behavior.</li></ul></section>
+<section class="prose__block"><h2>10. Disclaimers</h2><p>The App is provided "as is" and "as available" without warranties of any kind, whether express or implied. We do not guarantee that the App will be uninterrupted, error-free, or secure. We do not guarantee any specific results from using the App, including finding people, having conversations, or forming connections.</p></section>
+<section class="prose__block"><h2>11. Limitation of Liability</h2><p>To the maximum extent permitted by law, Motify shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App, including but not limited to damages related to interactions with other users, loss of data, or service interruptions.</p></section>
+<section class="prose__block"><h2>12. Changes to These Terms</h2><p>We may update these Terms from time to time. When we make material changes, we will notify you through the App or by updating the "Last Updated" date. Continued use of the App after changes constitutes acceptance of the revised Terms.</p></section>
+<section class="prose__block"><h2>13. Governing Law</h2><p>These Terms are governed by the laws of the State of Israel, without regard to conflict of law provisions.</p></section>
+<section class="prose__block"><h2>14. Contact Us</h2><p>If you have any questions about these Terms, please contact us at: <a href='mailto:support@motify.uk'>support@motify.uk</a></p></section>
+        </article>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>Meet the people around you.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="Footer">
+                <a href="/privacy.html">Privacy</a>
+                <a href="/terms.html">Terms</a>
+                <a href="/guidelines.html">Guidelines</a>
+                <a href="/support.html">Support</a>
+                <a href="mailto:support@motify.uk">Contact</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. All rights reserved.</p>
         </div>
-    </nav>
-
-    <div class="container">
-        <h1>Terms of Service</h1>
-        <p class="updated">Last Updated: May 4, 2026</p>
-
-        <p>Welcome to Motify. These Terms of Service ("Terms") govern your use of the Motify mobile application ("App") operated by Motify ("we," "us," or "our"). By creating an account or using the App, you agree to be bound by these Terms.</p>
-
-        <h2>1. Eligibility</h2>
-        <p>You must be at least 18 years old to use Motify. By using the App, you represent and warrant that you meet this age requirement. We reserve the right to request proof of age and to terminate accounts that violate this requirement.</p>
-
-        <h2>2. Your Account</h2>
-        <ul>
-            <li>You are responsible for maintaining the security of your account credentials.</li>
-            <li>You agree to provide accurate, current, and complete information in your profile.</li>
-            <li>You may not create more than one account per person.</li>
-            <li>You may not transfer or sell your account to anyone else.</li>
-        </ul>
-
-        <h2>3. Acceptable Use</h2>
-        <p><strong>Motify has zero tolerance for objectionable content or abusive behavior.</strong> Any user who violates these rules is subject to immediate account termination. We actively monitor reports and take action within 24 hours.</p>
-        <p>In addition to these Terms, all users must follow our <a href="guidelines.html">Community Guidelines</a>, which describe the behavioral and content standards expected on Motify.</p>
-        <p>You agree not to:</p>
-        <ul>
-            <li>Use the App for any unlawful purpose or in violation of any applicable laws.</li>
-            <li>Harass, bully, stalk, intimidate, threaten, or defame any person.</li>
-            <li>Post content that is hateful, violent, sexually explicit, or promotes discrimination.</li>
-            <li>Post any content involving minors or child exploitation (CSAM). Violations will be reported to law enforcement and NCMEC.</li>
-            <li>Send unsolicited, abusive, or spam messages to other users.</li>
-            <li>Impersonate any person or entity, or misrepresent your identity, age, or affiliations.</li>
-            <li>Use the App for commercial purposes, advertising, or solicitation without our consent.</li>
-            <li>Attempt to reverse-engineer, decompile, or tamper with the App or its Bluetooth protocols.</li>
-            <li>Use automated systems, bots, or scrapers to access the App.</li>
-            <li>Interfere with or disrupt the App's infrastructure or other users' experience.</li>
-        </ul>
-
-        <h2>4. User-Generated Content</h2>
-        <p>Motify lets you create several kinds of content, all of which are referred to in these Terms as "User Content":</p>
-        <ul>
-            <li><strong>Profile content:</strong> your name, photos, biography, and any optional fields you choose to fill in.</li>
-            <li><strong>Posts:</strong> short messages you share with people physically near you (for example, asking a question, offering help, or sharing a tip). Posts have a limited lifetime and are deleted automatically when their lifetime ends or when you tap Resolve.</li>
-            <li><strong>Replies:</strong> responses you write to another user's Post. Replies are visible in the Post thread to anyone who can see the parent Post.</li>
-            <li><strong>Messages:</strong> direct chat messages exchanged with another user.</li>
-        </ul>
-        <p>You retain ownership of your User Content. By submitting User Content, you grant us a non-exclusive, worldwide, royalty-free license to host, store, display, and distribute it solely for the purpose of operating, securing, and improving the App.</p>
-        <p>You are solely responsible for the User Content you create. You represent that you have all necessary rights to share it and that it does not violate these Terms, the Community Guidelines, or any applicable law.</p>
-        <p><strong>Removal authority.</strong> We may remove or hide any User Content, suspend a Post, or terminate an account at any time and without prior notice if we believe the content violates these Terms, the Community Guidelines, or applicable law, or if removal is necessary to protect users or the platform. We may take this action based on user reports, automated detection, or our own review.</p>
-        <p><strong>Moderation.</strong> We employ content moderation measures, including user reporting, automated screening, and human review of reported content. We aim to review reports within 24 hours.</p>
-
-        <h2>5. Reporting and Blocking</h2>
-        <ul>
-            <li>You can <strong>report</strong> a user, a Post, a reply, or a chat message at any time. Reporting controls are available from the relevant profile, Post, or conversation. All reports are reviewed by our team within 24 hours.</li>
-            <li>You can <strong>block</strong> any user at any time. Blocking immediately removes the user from your feed and prevents all further interaction, including new Posts, replies, and messages from that user reaching you. Blocking also notifies our team so we can review the blocked user's behavior.</li>
-            <li>When User Content is reported, we review it and take appropriate action, which may include removing the content, issuing a warning, temporarily suspending the responsible account, or permanently terminating the responsible account. Repeated or severe violations result in permanent termination.</li>
-            <li>We encourage you to report any suspicious or inappropriate behavior. Your safety is our priority.</li>
-        </ul>
-
-        <h2>6. Interactions with Other Users</h2>
-        <ul>
-            <li>Motify is not responsible for the conduct of any user, whether online or offline.</li>
-            <li>You are solely responsible for your interactions with other users. Exercise caution and good judgment.</li>
-        </ul>
-
-        <h2>7. Privacy</h2>
-        <p>Your use of the App is also governed by our <a href="privacy.html">Privacy Policy</a>, which describes how we collect, use, and protect your information. By using Motify, you consent to the practices described in the Privacy Policy.</p>
-
-        <h2>8. Bluetooth and Proximity</h2>
-        <p>Motify relies on Bluetooth Low Energy (BLE) to detect nearby users. By using the App, you consent to your device broadcasting and receiving anonymous Bluetooth identifiers. These identifiers are encrypted and cannot be used to track your physical location.</p>
-
-        <h2>9. Termination</h2>
-        <ul>
-            <li><strong>By you:</strong> You may delete your account at any time through the App settings. This will permanently remove your data from our servers.</li>
-            <li><strong>By us:</strong> We may suspend or terminate your account at any time, without notice, if we believe you have violated these Terms, the Community Guidelines, or engaged in behavior that is harmful to other users or the platform. We review all user reports within 24 hours and will remove offending content and terminate the accounts of users who post objectionable content or engage in abusive behavior.</li>
-        </ul>
-
-        <h2>10. Disclaimers</h2>
-        <p>The App is provided "as is" and "as available" without warranties of any kind, whether express or implied. We do not guarantee that the App will be uninterrupted, error-free, or secure. We do not guarantee any specific results from using the App, including finding people, having conversations, or forming connections.</p>
-
-        <h2>11. Limitation of Liability</h2>
-        <p>To the maximum extent permitted by law, Motify shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App, including but not limited to damages related to interactions with other users, loss of data, or service interruptions.</p>
-
-        <h2>12. Changes to These Terms</h2>
-        <p>We may update these Terms from time to time. When we make material changes, we will notify you through the App or by updating the "Last Updated" date. Continued use of the App after changes constitutes acceptance of the revised Terms.</p>
-
-        <h2>13. Governing Law</h2>
-        <p>These Terms are governed by the laws of the State of Israel, without regard to conflict of law provisions.</p>
-
-        <h2>14. Contact Us</h2>
-        <p>If you have any questions about these Terms, please contact us at: <a href="mailto:support@motify.uk">support@motify.uk</a></p>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Motify. All rights reserved.</p>
     </footer>
 
+
+</div>
+<div class="lang-block" data-lang-block="he" lang="he" dir="rtl">
+    <a class="skip-link" href="#main-he">דילוג לתוכן</a>
+    <header class="site-header">
+        <nav class="nav" aria-label="ראשי">
+            <div class="nav__inner">
+                <a class="brand" href="/" aria-label="Motify">
+                    <img class="brand__mark" src="/assets/img/logo-glyph.svg" alt="" width="24" height="25">
+                    <span class="brand__name">otify</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu-he" aria-label="תפריט">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__menu" id="nav-menu-he">
+                    <li><a href="/#modes-he">מצבים</a></li>
+                    <li><a href="/#how-he">איך זה עובד</a></li>
+                    <li><a href="support.html">תמיכה</a></li>
+                    <li><a href="privacy.html">פרטיות</a></li>
+                    <li class="nav__util">
+                        <a class="nav__lang" href="?lang=en" data-lang-to="en" hreflang="en" lang="en" aria-label="מעבר לאנגלית">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+                            <span>English</span>
+                        </a>
+                        <button class="nav__theme" type="button" aria-label="מעבר בין מצב בהיר לכהה" aria-pressed="false">
+                            <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                            <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-he" class="page">
+        <article class="prose">
+            <header class="prose__header">
+                <h1>תנאי שימוש</h1>
+                <p class="prose__meta">עודכן לאחרונה: יולי 2026</p>
+            </header>
+            <section class="prose__block"><h2>1. זכאות</h2><p>עליך להיות בן 18 לפחות כדי להשתמש ב-Motify. בשימושך באפליקציה, אתה מצהיר ומתחייב כי אתה עומד בדרישת גיל זו. אנו שומרים לעצמנו את הזכות לבקש הוכחת גיל ולסגור חשבונות המפרים דרישה זו.</p></section>
+<section class="prose__block"><h2>2. החשבון שלך</h2><ul><li>אתה אחראי לשמירה על אבטחת פרטי הגישה לחשבונך.</li><li>אתה מסכים לספק מידע מדויק, עדכני ומלא בפרופיל שלך.</li><li>אינך רשאי ליצור יותר מחשבון אחד לאדם.</li><li>אינך רשאי להעביר או למכור את חשבונך לאף אחד אחר.</li></ul></section>
+<section class="prose__block"><h2>3. שימוש מקובל</h2><p><strong>ל-Motify אין כל סובלנות כלפי תוכן פוגעני או התנהגות פוגענית.</strong> כל משתמש המפר כללים אלה צפוי לסגירת חשבון מיידית. אנו מנטרים דיווחים באופן פעיל ונוקטים פעולה בתוך 24 שעות.</p><p>בנוסף לתנאים אלה, על כל המשתמשים לפעול בהתאם ל<a href='guidelines.html'>הנחיות הקהילה</a> שלנו, המתארות את סטנדרטי ההתנהגות והתוכן הצפויים ב-Motify.</p><p>אתה מסכים שלא:</p><ul><li>להשתמש באפליקציה לכל מטרה בלתי חוקית או תוך הפרת חוקים החלים.</li><li>להטריד, לבריון, לעקוב, להפחיד, לאיים או להוציא דיבה על כל אדם.</li><li>לפרסם תוכן שהוא שנאתי, אלים, מיני בוטה, או המקדם אפליה.</li><li>לפרסם כל תוכן הכולל קטינים או ניצול ילדים (CSAM). הפרות ידווחו לרשויות אכיפת החוק ול-NCMEC.</li><li>לשלוח למשתמשים אחרים הודעות בלתי רצויות, פוגעניות או ספאם.</li><li>להתחזות לכל אדם או גוף, או להציג באופן מטעה את זהותך, גילך או שיוכך.</li><li>להשתמש באפליקציה למטרות מסחריות, פרסום או שידול ללא הסכמתנו.</li><li>לנסות לבצע הנדסה לאחור, לפענח (decompile) או לחבל באפליקציה או בפרוטוקולי ה-Bluetooth שלה.</li><li>להשתמש במערכות אוטומטיות, בבוטים או בסורקים כדי לגשת לאפליקציה.</li><li>להפריע או לשבש את התשתית של האפליקציה או את חוויית המשתמשים האחרים.</li></ul></section>
+<section class="prose__block"><h2>4. תוכן שנוצר על ידי המשתמש</h2><p>Motify מאפשרת לך ליצור מספר סוגים של תוכן, שכולם מכונים בתנאים אלה "תוכן משתמש":</p><ul><li><strong>תוכן פרופיל:</strong> שמך, תמונותיך, הביוגרפיה שלך וכל שדה אופציונלי שתבחר למלא.</li><li><strong>פוסטים:</strong> הודעות קצרות שאתה משתף עם אנשים הנמצאים פיזית בקרבתך (למשל, שאלה, הצעת עזרה או שיתוף טיפ). לפוסטים יש משך חיים מוגבל והם נמחקים אוטומטית כאשר משך החיים שלהם מסתיים או כאשר אתה מקיש על "פתור" (Resolve).</li><li><strong>תגובות:</strong> תגובות שאתה כותב לפוסט של משתמש אחר. תגובות גלויות בשרשור הפוסט לכל מי שיכול לראות את הפוסט המקורי.</li><li><strong>הודעות:</strong> הודעות צ'אט ישירות המוחלפות עם משתמש אחר.</li></ul><p>אתה שומר על הבעלות בתוכן המשתמש שלך. בהגשת תוכן משתמש, אתה מעניק לנו רישיון לא-בלעדי, עולמי ופטור מתמלוגים לארח, לאחסן, להציג ולהפיץ אותו, וזאת אך ורק למטרת הפעלה, אבטחה ושיפור של האפליקציה.</p><p>אתה האחראי הבלעדי לתוכן המשתמש שאתה יוצר. אתה מצהיר כי יש בידך את כל הזכויות הדרושות לשתפו וכי אינו מפר תנאים אלה, את הנחיות הקהילה או כל חוק חל.</p><p><strong>סמכות הסרה.</strong> אנו רשאים להסיר או להסתיר כל תוכן משתמש, להשעות פוסט או לסגור חשבון בכל עת וללא הודעה מוקדמת, אם אנו סבורים שהתוכן מפר תנאים אלה, את הנחיות הקהילה או חוק חל, או אם ההסרה דרושה כדי להגן על המשתמשים או על הפלטפורמה. אנו רשאים לנקוט פעולה זו על סמך דיווחי משתמשים, זיהוי אוטומטי או בדיקה עצמאית שלנו.</p><p><strong>מודרציה.</strong> אנו נוקטים אמצעי מודרציה של תוכן, לרבות דיווח משתמשים, סינון אוטומטי ובדיקה אנושית של תוכן שדווח. אנו שואפים לבדוק דיווחים בתוך 24 שעות.</p></section>
+<section class="prose__block"><h2>5. דיווח וחסימה</h2><ul><li>אתה יכול <strong>לדווח</strong> על משתמש, פוסט, תגובה או הודעת צ'אט בכל עת. פקדי הדיווח זמינים מהפרופיל, הפוסט או השיחה הרלוונטיים. כל הדיווחים נבדקים על ידי הצוות שלנו בתוך 24 שעות.</li><li>אתה יכול <strong>לחסום</strong> כל משתמש בכל עת. חסימה מסירה מיד את המשתמש מהפיד שלך ומונעת כל אינטראקציה נוספת, לרבות פוסטים, תגובות והודעות חדשות מאותו משתמש שיגיעו אליך. חסימה גם מיידעת את הצוות שלנו כדי שנוכל לבדוק את התנהגות המשתמש שנחסם.</li><li>כאשר מדווחים על תוכן משתמש, אנו בודקים אותו ונוקטים פעולה מתאימה, שעשויה לכלול הסרת התוכן, מתן אזהרה, השעיה זמנית של החשבון האחראי או סגירה לצמיתות של החשבון האחראי. הפרות חוזרות או חמורות מובילות לסגירה לצמיתות.</li><li>אנו מעודדים אותך לדווח על כל התנהגות חשודה או בלתי הולמת. בטיחותך היא בראש מעייננו.</li></ul></section>
+<section class="prose__block"><h2>6. אינטראקציות עם משתמשים אחרים</h2><ul><li>Motify אינה אחראית להתנהלותו של אף משתמש, בין באופן מקוון ובין שלא באופן מקוון.</li><li>אתה האחראי הבלעדי לאינטראקציות שלך עם משתמשים אחרים. נהג בזהירות ובשיקול דעת.</li></ul></section>
+<section class="prose__block"><h2>7. פרטיות</h2><p>השימוש שלך באפליקציה כפוף גם ל<a href='privacy.html'>מדיניות הפרטיות</a> שלנו, המתארת כיצד אנו אוספים, משתמשים ומגנים על המידע שלך. בשימושך ב-Motify, אתה מסכים לנהלים המתוארים במדיניות הפרטיות.</p></section>
+<section class="prose__block"><h2>8. Bluetooth וקרבה</h2><p>Motify מסתמכת על Bluetooth Low Energy ‏(BLE) כדי לזהות משתמשים בקרבת מקום. בשימושך באפליקציה, אתה מסכים לכך שהמכשיר שלך ישדר ויקבל מזהי Bluetooth אנונימיים. מזהים אלה מוצפנים ולא ניתן להשתמש בהם כדי לעקוב אחר מיקומך הפיזי.</p></section>
+<section class="prose__block"><h2>9. סיום</h2><ul><li><strong>על ידך:</strong> אתה יכול למחוק את חשבונך בכל עת דרך הגדרות האפליקציה. פעולה זו תסיר לצמיתות את הנתונים שלך מהשרתים שלנו.</li><li><strong>על ידינו:</strong> אנו רשאים להשעות או לסגור את חשבונך בכל עת, ללא הודעה, אם אנו סבורים שהפרת תנאים אלה, את הנחיות הקהילה, או נהגת בהתנהגות המזיקה למשתמשים אחרים או לפלטפורמה. אנו בודקים את כל דיווחי המשתמשים בתוך 24 שעות ונסיר תוכן פוגע ונסגור את חשבונותיהם של משתמשים המפרסמים תוכן פוגעני או נוהגים בהתנהגות פוגענית.</li></ul></section>
+<section class="prose__block"><h2>10. הצהרות והגבלות אחריות</h2><p>האפליקציה מסופקת "כפי שהיא" (as is) ו"כפי שהיא זמינה" (as available) ללא אחריות מכל סוג, בין מפורשת ובין משתמעת. איננו מתחייבים כי האפליקציה תפעל ללא הפרעות, ללא שגיאות או באופן מאובטח. איננו מתחייבים לתוצאות ספציפיות כלשהן מהשימוש באפליקציה, לרבות מציאת אנשים, קיום שיחות או יצירת חיבורים.</p></section>
+<section class="prose__block"><h2>11. הגבלת אחריות</h2><p>במידה המרבית המותרת על פי דין, Motify לא תישא באחריות לכל נזק עקיף, מקרי, מיוחד, תוצאתי או עונשי הנובע מהשימוש שלך באפליקציה, לרבות אך לא רק נזקים הקשורים לאינטראקציות עם משתמשים אחרים, אובדן נתונים או הפרעות בשירות.</p></section>
+<section class="prose__block"><h2>12. שינויים בתנאים אלה</h2><p>אנו רשאים לעדכן תנאים אלה מעת לעת. כאשר נבצע שינויים מהותיים, נודיע לך באמצעות האפליקציה או על ידי עדכון תאריך "עודכן לאחרונה". המשך השימוש באפליקציה לאחר השינויים מהווה הסכמה לתנאים המעודכנים.</p></section>
+<section class="prose__block"><h2>13. הדין החל</h2><p>תנאים אלה כפופים לחוקי מדינת ישראל, ללא התחשבות בכללי ברירת הדין.</p></section>
+<section class="prose__block"><h2>14. צור קשר</h2><p>אם יש לך שאלות כלשהן לגבי תנאים אלה, אנא צור עמנו קשר בכתובת: <a href='mailto:support@motify.uk'>support@motify.uk</a></p></section>
+        </article>
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <img src="/assets/img/logo-mark.svg" alt="" width="30" height="30">
+                <p>הכירו את האנשים שסביבכם.</p>
+            </div>
+            <nav class="site-footer__links" aria-label="כותרת תחתונה">
+                <a href="/privacy.html">פרטיות</a>
+                <a href="/terms.html">תנאי שימוש</a>
+                <a href="/guidelines.html">כללי הקהילה</a>
+                <a href="/support.html">תמיכה</a>
+                <a href="mailto:support@motify.uk">צור קשר</a>
+            </nav>
+            <p class="site-footer__legal">© 2026 Motify. כל הזכויות שמורות.</p>
+        </div>
+    </footer>
+
+
+</div>
+    <script src="/assets/js/motify.js" defer></script>
 </body>
 </html>

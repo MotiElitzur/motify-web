@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "title": "Motify — Support",
+    "description": "Get help with Motify — answers about Bluetooth, permissions, privacy, Posts, and deleting your account.",
+    "h1": "Support"
+  },
+  "sub": "Find answers to common questions, or get in touch.",
+  "faq": [
+    {
+      "q": "How does Motify work?",
+      "a": "<p>Motify uses Bluetooth Low Energy (BLE) to detect other Motify users in the same physical space as you. When you're nearby, you'll both appear on each other's radar. From there you can read their Posts, send a quick hello, or start a conversation.</p>"
+    },
+    {
+      "q": "How does Motify protect my privacy?",
+      "a": "<p>Three things to know:</p><ul><li><strong>No GPS, ever.</strong> Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically near you.</li><li><strong>Bluetooth only, in short range.</strong> The Bluetooth identifier your phone broadcasts is encrypted, rotates regularly, and only carries what is needed to detect another Motify user in the same place. It cannot be used to track you across locations.</li><li><strong>Mutual visibility.</strong> You only see another user when they would also see you.</li></ul><p>For the full policy, see our <a href='privacy.html'>Privacy Policy</a>.</p>"
+    },
+    {
+      "q": "Does Motify track my location?",
+      "a": "<p>No. Motify does not use GPS or track your location. We only use Bluetooth to detect when other users are physically nearby. We never know or store where you are.</p>"
+    },
+    {
+      "q": "Why does Motify need Bluetooth permission?",
+      "a": "<p>Bluetooth is the core technology that powers Motify — it's how we detect nearby users. Without Bluetooth permission, the app cannot function.</p>"
+    },
+    {
+      "q": "How do I delete my account?",
+      "a": "<p>You can delete your account directly in the app:</p><ol><li>Go to <strong>Settings</strong></li><li>Tap <strong>Delete Account</strong></li><li>Confirm the deletion</li></ol><p>All your personal data will be permanently removed from our servers.</p>"
+    },
+    {
+      "q": "How do I report someone or something?",
+      "a": "<p>You can report a user from their profile, a Post or reply from the Post itself, or a chat message from the conversation. Tap the report control and tell us briefly what's wrong. Reports are reviewed by our moderation team, usually within 24 hours. See our <a href='guidelines.html'>Community Guidelines</a> for what's allowed on Motify.</p>"
+    },
+    {
+      "q": "What are Posts and how long do they last?",
+      "a": "<p>A Post is a short message you share with people physically near you — for example asking a question, offering help, or sharing a tip. Posts have a limited lifetime that depends on the type, and you can mark a Post as Resolved once you're done with it. Resolved or expired Posts are deleted.</p>"
+    },
+    {
+      "q": "The app isn't finding anyone nearby",
+      "a": "<p>Make sure Bluetooth is turned on and that Motify has Bluetooth permission in your device settings. The app needs to be running (even in the background) to detect nearby users.</p>"
+    },
+    {
+      "q": "I'm not receiving notifications",
+      "a": "<p>Check that notifications are enabled for Motify in your device settings. On Android, also make sure battery optimization isn't restricting the app.</p>"
+    }
+  ],
+  "contact_title": "Still need help?",
+  "contact_body": "Reach out to us directly.",
+  "contact_time": "We aim to respond within 48 hours."
+}
