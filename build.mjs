@@ -84,6 +84,25 @@ function render(tpl, ctx) {
   return out;
 }
 
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
+
+// Structured data (JSON-LD) for search engines + AI answer engines.
+const stripTags = (html) => (html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const jsonScript = (obj) => `<script type="application/ld+json">${JSON.stringify(obj)}</script>`;
+function buildJsonLd(page, meta, pageStrings) {
+  const graph = [
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'Motify', url: `${ORIGIN}/`, logo: `${ORIGIN}/assets/img/icon-512.png`, sameAs: ['https://play.google.com/store/apps/details?id=moti.motify'] },
+    { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Motify', url: `${ORIGIN}/` },
+  ];
+  if (page.i18n === 'home') {
+    graph.push({ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Motify', operatingSystem: 'iOS, Android', applicationCategory: 'SocialNetworkingApplication', description: meta.description || '', url: `${ORIGIN}/`, offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } });
+  }
+  if (page.i18n === 'support' && Array.isArray(pageStrings.faq)) {
+    graph.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: pageStrings.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: stripTags(f.a) } })) });
+  }
+  return graph.map(jsonScript).join('\n    ');
+}
+
 // Fresh output: drop any legacy per-language directory from the previous scheme.
 rmSync(join(ROOT, 'he'), { recursive: true, force: true });
 
@@ -121,7 +140,8 @@ for (const page of PAGES) {
 
   // Shared <head>: English is the baked default for crawlers / no-JS.
   const enCommon = readJson('i18n/en/common.json');
-  const enMeta = readJson(`i18n/en/${page.i18n}.json`)._meta || {};
+  const enPage = readJson(`i18n/en/${page.i18n}.json`);
+  const enMeta = enPage._meta || {};
   const canonical = `${ORIGIN}${page.url}`;
   const hreflang = [
     `<link rel="alternate" hreflang="en" href="${canonical}?lang=en">`,
@@ -135,6 +155,7 @@ for (const page of PAGES) {
     canonical,
     ogUrl: canonical,
     hreflang,
+    jsonld: buildJsonLd(page, enMeta, enPage),
     i18nMeta: `<script type="application/json" id="i18n-meta">${JSON.stringify(metaByLang)}</script>`,
   };
   const head = render(partials.head, { strings: { common: enCommon }, page, vars: headVars });
@@ -148,4 +169,21 @@ for (const page of PAGES) {
   written++;
   console.log(`  ✓ ${page.out}  (en + he)`);
 }
-console.log(`\nBuilt ${written} pages — flat URLs, language chosen at runtime via ?lang=.`);
+// sitemap.xml — flat URLs with hreflang alternates for the ?lang= variants.
+const sitemap =
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
+  PAGES.map((p) => {
+    const loc = `${ORIGIN}${p.url}`;
+    return (
+      `  <url>\n    <loc>${loc}</loc>\n` +
+      `    <xhtml:link rel="alternate" hreflang="en" href="${loc}?lang=en"/>\n` +
+      `    <xhtml:link rel="alternate" hreflang="he" href="${loc}?lang=he"/>\n` +
+      `    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>\n` +
+      `    <lastmod>${BUILD_DATE}</lastmod>\n  </url>`
+    );
+  }).join('\n') +
+  `\n</urlset>\n`;
+writeFileSync(join(ROOT, 'sitemap.xml'), sitemap);
+
+console.log(`\nBuilt ${written} pages + sitemap.xml — flat URLs, language via ?lang=.`);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://motify.uk/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://motify.uk/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://motify.uk/?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://motify.uk/"/>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://motify.uk/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://motify.uk/privacy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://motify.uk/privacy.html?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://motify.uk/privacy.html"/>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://motify.uk/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://motify.uk/terms.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://motify.uk/terms.html?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://motify.uk/terms.html"/>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://motify.uk/guidelines.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://motify.uk/guidelines.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://motify.uk/guidelines.html?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://motify.uk/guidelines.html"/>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://motify.uk/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://motify.uk/support.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://motify.uk/support.html?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://motify.uk/support.html"/>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+</urlset>

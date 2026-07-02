@@ -1,0 +1,16 @@
+# Motify
+
+> Motify is a proximity-first social app that uses Bluetooth (not GPS) to connect you with the people in the same physical space — at events, hostels, conferences, cafés, airports. Free on iOS and Android. One profile, three independent modes: Social, Networking, and Dating.
+
+## Pages
+- [Home](https://motify.uk/): what Motify is, how it works, and the three modes
+- [Privacy Policy](https://motify.uk/privacy.html): how Motify handles data — Bluetooth proximity, never GPS or location tracking
+- [Terms of Service](https://motify.uk/terms.html): the legal terms of use
+- [Community Guidelines](https://motify.uk/guidelines.html): the behaviour and content standards on Motify
+- [Support](https://motify.uk/support.html): FAQ on Bluetooth, permissions, privacy, posts, and deleting your account
+
+## Key facts
+- Detects nearby users with Bluetooth Low Energy (BLE); it never uses GPS or tracks or stores your location.
+- Bluetooth identifiers are encrypted and rotate regularly; no location history is kept and no data is sold to advertisers.
+- Visibility is mutual — you only appear to people you would also see.
+- Support and accessibility contact: support@motify.uk

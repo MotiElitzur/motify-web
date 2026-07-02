@@ -10,7 +10,7 @@ Every page has a single flat URL — no `/he/` or `/en/` prefix:
 
 ```
 /                 /privacy.html   /terms.html
-/guidelines.html  /support.html   /accessibility.html
+/guidelines.html  /support.html
 ```
 
 Language is selected at runtime, in this priority order:
@@ -44,10 +44,14 @@ build.mjs                    the generator (Node, zero dependencies)
 and writes one static file per page. You author in one keyed catalog per language
 (like Android `values/` + `values-he/`).
 
+## Docs
+
+Full documentation is in [docs/](docs/DOCUMENTATION.md) — architecture, i18n, design, SEO, and deployment.
+
 ## Build
 
 ```bash
-node build.mjs        # regenerates every page
+node build.mjs        # regenerates every page + sitemap.xml
 ```
 
 Commit the generated HTML together with your source change. GitHub Pages serves the

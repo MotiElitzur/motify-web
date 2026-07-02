@@ -1,0 +1,14 @@
+{
+  "name": "Motify",
+  "short_name": "Motify",
+  "description": "Meet the people around you.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F1115",
+  "theme_color": "#0F1115",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/ic_motify.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}
